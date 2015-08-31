@@ -100,9 +100,9 @@
             $GLOBALS['DB']->exec("DELETE FROM reviews WHERE user_id = {$this->getId()};");
         }
 
-        function addBeer($beer, $review, $date)
+        function addBeer($beer)
         {
-            $GLOBALS['DB']->exec("INSERT INTO reviews (user_name, preferred_style, region) VALUES ({$this->getId()}, '{$review}', '{$date}');");
+            $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer->getId()}, {$this->getUserId()});");
         }
 
         function getBeers()
