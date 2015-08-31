@@ -274,6 +274,51 @@
             $this->assertEquals($test_store2, $result);
         }
 
+        function testAddBeer()
+        {
+            //Arrange
+            $store_name = "Chill N Fill";
+            $id = 1;
+            $category = "bar";
+            $region = "North Portland";
+            $address = "5215 N Lombard Portland, OR 97203";
+            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store->save();
+
+
+            $beer_name = "Bike Beer";
+            $style = "Kolsch";
+            $abv = 5.6;
+            $ibu = 50;
+            $container = "Growler";
+            $brewery = "Hopworks";
+            $id = 1;
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer->save();
+
+            $beer_name2 = "Jamaica Sunrise";
+            $style2 = "ESB";
+            $abv2 = 5.4;
+            $ibu2 = 40;
+            $container2 = "Bottle";
+            $brewery2 = "Mad River";
+            $id2 = 1;
+            $test_beer2 = new Beer($beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2, $id2);
+            $test_beer2->save();
+
+            //Act
+            $test_store->addBeer($test_beer);
+            $test_store->addBeer($test_beer2);
+
+            //Assert
+            $this->assertEquals([$test_beer, $test_beer2], $result);
+        }
+
+        function testDelete(){
+            
+        }
+
+
 
 
 
