@@ -143,15 +143,12 @@
             $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
             $test_beer->save();
 
-            $beer_name2 = "Your mom2";
-            $style2 = "IPA2";
-            $abv2 = 12;
-            $ibu2 = 7;
-            $container2 = "bottle2";
-            $brewery2 = "daddy2";
+            $user_name = "Wings";
+            $preffered_style = "IPA";
+            $region = "NW";
             $id2 = 2;
-            $test_beer2 = new Beer($beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2, $id2);
-            $test_beer2->save();
+            $test_user = new User($user_name, $preffered_style, $region,  $id2);
+            $test_user->save();
 
             //Act
             $test_beer->addUser($test_user);
@@ -181,7 +178,7 @@
             $test_user->save();
 
 
-            $user_name = "Wings";
+            $user_name2 = "Wings";
             $preffered_style2 = "IPA2";
             $region2 = "NW2";
             $id3 = 3;
