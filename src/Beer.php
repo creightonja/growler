@@ -117,17 +117,44 @@
       }
 
       static function find($search_id)
-        {
-            $found_beer = null;
-            $beers = Beer::getAll();
-            foreach($beers as $beer) {
-                $beer_id = $beer->getId();
-                if ($beer_id == $search_id) {
-                    $found_beer = $beer;
-                }
-            }
-            return $found_beer;
-        }
+      {
+          $found_beer = null;
+          $beers = Beer::getAll();
+          foreach($beers as $beer) {
+              $beer_id = $beer->getId();
+              if ($beer_id == $search_id) {
+                  $found_beer = $beer;
+              }
+          }
+          return $found_beer;
+      }
 
-  }
+      function addUser($user)
+      {
+          $GLOBALS['DB']->exec("INSERT INTO reviews ( beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
+      }
+
+       function getUsers()
+      {
+          $beer_id = $this->getId();
+          $returned_users = $GLOBALS['DB']->query("SELECT users.* FROM beers JOIN reviews ON (beers.id = reviews.beer_id) JOIN users  ON(reviews.user_id = users.id) WHERE beers.id = {$beer_id}");
+
+          $users = array();
+          foreach($returned_users as $user) {
+              $user_name = $user['user_name'];
+              $preferred_style = $user ['preferred_style'];
+              $region = $user ['region'];
+              $id = $user['id'];
+              $new_user = new User($user_name, $preferred_style, $region, $id);
+              array_push($users, $new_user);
+          }
+          return $users;
+      }
+
+      function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM beers WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM reviews WHERE beer_id = {$this->getId()};");
+        }
+    }
 ?>
