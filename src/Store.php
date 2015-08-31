@@ -118,13 +118,13 @@
             $beers_array = array();
 
             foreach($beers as $beer) {
-                $beer_name = $beer['name'];
+                $beer_name = $beer['beer_name'];
                 $id = $beer['id'];
                 $style = $beer['style'];
                 $abv = $beer['abv'];
                 $ibu = $beer['ibu'];
                 $container = $beer['container'];
-                $brewery = $beer['brewery']
+                $brewery = $beer['brewery'];
                 $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
                 array_push($beers_array, $new_beer);
             }
