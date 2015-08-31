@@ -78,25 +78,31 @@
             $GLOBALS['DB']->exec("DELETE FROM stores;");
         }
 
-        // function update($new_name)
-        // {
-        //     $GLOBALS['DB']->exec("UPDATE stores SET name = '{$new_name}' WHERE id = {$this->getId()};");
-        //     $this->setName($new_name);
-        // }
-        //
-        // static function find($search_id)
-        // {
-        //     $found_store = null;
-        //     $stores = Store::getAll();
-        //     foreach($stores as $store) {
-        //         $store_id = $store->getId();
-        //         if ($store_id == $search_id) {
-        //             $found_store = $store;
-        //         }
-        //     }
-        //     return $found_store;
-        // }
-        //
+        function update($new_store_name, $new_category, $new_region, $new_address)
+        {
+            $GLOBALS['DB']->exec("UPDATE stores SET store_name = '{$new_store_name}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE stores SET category = '{$new_category}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE stores SET region = '{$new_region}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE stores SET address = '{$new_address}' WHERE id = {$this->getId()};");
+            $this->setStoreName($new_store_name);
+            $this->setCategory($new_category);
+            $this->setRegion($new_region);
+            $this->setAddress($new_address);
+        }
+
+        static function find($search_id)
+        {
+            $found_store = null;
+            $stores = Store::getAll();
+            foreach($stores as $store) {
+                $store_id = $store->getId();
+                if ($store_id == $search_id) {
+                    $found_store = $store;
+                }
+            }
+            return $found_store;
+        }
+
         // function addBrand($brand)
         // {
         //     $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$this->getId()}, {$brand->getId()});");

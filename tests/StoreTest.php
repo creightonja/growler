@@ -222,6 +222,59 @@
             $this->assertEquals([], $result);
         }
 
+        function testUpdate()
+        {
+            //Arrange
+            $store_name = "Chill N Fill";
+            $id = 1;
+            $category = "bar";
+            $region = "North Portland";
+            $address = "5215 N Lombard Portland, OR 97203";
+            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store->save();
+
+            $new_store_name = "Fill N Chill";
+            $new_category = "bottleshop";
+            $new_region = "SW Portland";
+            $new_address = "5215 N Chautauqua Blvd Portland, OR 97203";
+
+            //Act
+            $test_store->update($new_store_name, $new_category, $new_region, $new_address);
+
+            //Assert
+            $this->assertEquals("Fill N Chill", $test_store->getStoreName());
+            $this->assertEquals("bottleshop", $test_store->getCategory());
+            $this->assertEquals("SW Portland", $test_store->getRegion());
+            $this->assertEquals("5215 N Chautauqua Blvd Portland, OR 97203", $test_store->getAddress());
+        }
+
+        function testFind()
+        {
+            //Arrange
+            $store_name = "Chill N Fill";
+            $id = 1;
+            $category = "bar";
+            $region = "North Portland";
+            $address = "5215 N Lombard Portland, OR 97203";
+            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store->save();
+
+            $store_name2 = "Growler Guys";
+            $id2 = 1;
+            $category2 = "bottle shop";
+            $region2 = "NE Portland";
+            $address2 = "5553 N Lombard Portland, OR 97444";
+            $test_store2 = new Store($id2, $store_name2, $category2, $region2, $address2);
+            $test_store2->save();
+
+            //Act
+            $result = Store::find($test_store2->getId());
+
+            //Assert
+            $this->assertEquals($test_store2, $result);
+        }
+
+
 
 
 
