@@ -3,7 +3,7 @@
 
         private $user_name;
         private $preferred_style;
-        private $region
+        private $region;
         private $id;
 
         function __construct($user_name, $preferred_style, $region, $id=null) {
@@ -42,7 +42,7 @@
         }
 
         function save() {
-            $GLOBALS['DB']->exec("INSERT INTO users (user_name, preferred_style, region) VALUES ('{$this->getUserName()}', '{$this->getPreferredStyle()}', '{$this->getRegion()}')");
+            $GLOBALS['DB']->exec("INSERT INTO users (id, user_name, preferred_style, region) VALUES ({$this->getId()}, '{$this->getUserName()}', '{$this->getPreferredStyle()}', '{$this->getRegion()}')");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
@@ -53,9 +53,9 @@
                 $user_name = $user['user_name'];
                 $preferred_style = $user['preferred_style'];
                 $region = $user['region'];
-                $id = $brand['id'];
+                $id = $user['id'];
                 $new_user = new User($user_name, $preferred_style, $region, $id);
-                array_push($user, $new_user);
+                array_push($users, $new_user);
             }
             return $users;
         }
@@ -67,7 +67,7 @@
         function updateUserName($user_name)
         {
             $GLOBALS['DB']->exec("UPDATE users SET name = '{$user_name}' WHERE id = {$this->getId()};");
-            $this->setName($user_name);
+            $this->setUserName($user_name);
         }
 
         function updatePreferredStyle($preferred_style)
@@ -79,7 +79,7 @@
         function updateRegion($region)
         {
             $GLOBALS['DB']->exec("UPDATE users SET region = '{$region}' WHERE id = {$this->getId()};");
-            $this->setPreferredStyle($region);
+            $this->setRegion($region);
         }
 
         static function find($search_id)
@@ -87,7 +87,7 @@
             $found_user = null;
             $users = User::getAll();
             foreach($users as $user) {
-                $brand_id = $user->getId();
+                $user_id = $user->getId();
                 if ($user_id == $search_id) {
                     $found_user = $user;
                 }
@@ -102,24 +102,29 @@
 
         function addBeer($beer, $review, $date)
         {
-            $GLOBALS['DB']->exec("INSERT INTO reviews (brand_id, store_id) VALUES ({$this->getId()}, {$store->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO reviews (user_name, preferred_style, region) VALUES ({$this->getId()}, '{$review}', '{$date}');");
         }
 
-        function getStores()
+        function getBeers()
         {
-            $query = $GLOBALS['DB']->query("SELECT stores.* FROM
-                brands JOIN brands_stores ON (brands.id = brands_stores.brand_id)
-                        JOIN stores ON (brands_stores.store_id = stores.id)
-                        WHERE brands.id =     {$this->getId()};");
-            $stores = $query->fetchAll(PDO::FETCH_ASSOC);
-            $stores_array = array();
-            foreach($stores as $store) {
-                $name = $store['name'];
-                $id = $store['id'];
-                $new_store = new Store($name, $id);
-                array_push($stores_array, $new_store);
+            $query = $GLOBALS['DB']->query("SELECT beers.* FROM
+                users JOIN reviews ON (users.id = reviews.user_id)
+                        JOIN beers ON (reviews.store_id = store.id)
+                        WHERE users.id =     {$this->getId()};");
+            $beers = $query->fetchAll(PDO::FETCH_ASSOC);
+            $beers_array = array();
+            foreach($beers as $beer) {
+                $id = $beer['id'];
+                $beer_name = $beer['beer_name'];
+                $style = $beer['style'];
+                $abv = $beer['abv'];
+                $ibu = $beer['ibu'];
+                $container = $beer['container'];
+                $brewery = $beer['brewery'];
+                $new_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery, $new_beer);
+                array_push($beers_array, $new_beer);
             }
-            return $stores_array;
+            return $beers_array;
         }
     }
  ?>
