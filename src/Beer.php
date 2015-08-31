@@ -86,6 +86,7 @@
           return $this->id;
       }
 
+
       function save()
       {
           $GLOBALS['DB']->exec("INSERT INTO beers (beer_name, style, abv, ibu, container, brewery) VALUES ('{$this->getBeer_Name()}', '{$this->getStyle()}', {$this->getAbv()}, {$this->getIbu()}, '{$this->getContainer()}', '{$this->getBrewery()}');");
@@ -111,8 +112,21 @@
       }
 
       static function deleteAll()
+      {
+          $GLOBALS['DB']->exec("DELETE FROM beers;");
+      }
+
+      static function find($search_id)
         {
-            $GLOBALS['DB']->exec("DELETE FROM beers;");
+            $found_beer = null;
+            $beers = Beer::getAll();
+            foreach($beers as $beer) {
+                $beer_id = $beer->getId();
+                if ($beer_id == $search_id) {
+                    $found_beer = $beer;
+                }
+            }
+            return $found_beer;
         }
 
   }

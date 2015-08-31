@@ -97,6 +97,39 @@
             $this->assertEquals([], $result);
 
         }
+
+        function test_find()
+        {
+            //Arrange
+             $beer_name = "Your mom";
+            $style = "IPA";
+            $abv = 4;
+            $ibu = 6;
+            $container = "bottle";
+            $brewery = "daddy";
+            $id = 1;
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer->save();
+
+            $beer_name2 = "Your mom2";
+            $style2 = "IPA2";
+            $abv2 = 12;
+            $ibu2 = 7;
+            $container2 = "bottle2";
+            $brewery2 = "daddy2";
+            $id2 = 2;
+            $test_beer2 = new Beer($beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2, $id2);
+            $test_beer2->save();
+
+            //Act
+            $id = $test_beer->getId();
+            $result = Beer::find($id);
+
+            //Assert
+            $this->assertEquals($test_beer, $result);
+        }
+
+
     }
 
 ?>
