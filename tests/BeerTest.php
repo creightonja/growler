@@ -18,7 +18,7 @@
          protected function tearDown()
         {
             Beer::deleteAll();
-            #User::deleteAll();
+            User::deleteAll();
         }
 
         function test_save()
@@ -178,7 +178,7 @@
             $test_user->save();
 
 
-            $user_name2 = "Wings";
+            $user_name2 = "Wings2";
             $preffered_style2 = "IPA2";
             $region2 = "NW2";
             $id3 = 3;

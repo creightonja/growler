@@ -4,7 +4,7 @@
     * @backupStaticAttributes disabled
     */
     require_once "src/User.php";
-    //require_once "src/Beer.php";
+    require_once "src/Beer.php";
     $server = 'mysql:host=localhost;dbname=growler_test';
     $username = 'root';
     $password = 'root';
@@ -16,7 +16,7 @@
         protected function tearDown()
         {
             User::deleteAll();
-            //Beer::deleteAll();
+            Beer::deleteAll();
         }
 
         function testGetUserName()
@@ -264,16 +264,17 @@
             $ibu = 40;
             $container = "Bottle";
             $brewery = "New Belgium";
-            $test_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery);
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
             $test_beer->save();
+
 
             //Act
             $test_user->addBeer($test_beer);
-
+            //var_dump($test_beer->getUsers());
             //Assert
             $this->assertEquals($test_beer->getUsers(),[$test_user]);
         }
-        //
+
         // function testGetBeers()
         // {
         //     //Arrange
@@ -291,7 +292,7 @@
         //     $ibu = 40;
         //     $container = "Bottle";
         //     $brewery = "New Belgium";
-        //     $test_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery);
+        //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
         //     $test_beer->save();
         //
         //     $id2 = 2;
@@ -301,17 +302,19 @@
         //     $ibu2 = 75;
         //     $container2 = "Growler";
         //     $brewery2 = "Dogfish Head";
-        //     $test_beer2 = new Beer($id2, $beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2);
+        //     $test_beer2 = new Beer($beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2, $id2);
         //     $test_beer2->save();
         //
         //     //Act
         //     $test_user->addBeer($test_beer);
         //     $test_user->addBeer($test_beer2);
-        //     $result = $test_user->getBeers();
-        //     //Assert
-        //     $this->assertEquals([$test_beer, $test_beer2], $result);
-        // }
         //
+        //     $result = $test_user->getBeers();
+        //
+        //     //Assert
+        //     $this->assertEquals($test_user->getBeers(), [$test_beer, $test_beer2]);
+        // }
+
         // function testDelete()
         // {
         //     //Arrange

@@ -138,17 +138,17 @@
       {
           $beer_id = $this->getId();
           $returned_users = $GLOBALS['DB']->query("SELECT users.* FROM beers JOIN reviews ON (beers.id = reviews.beer_id) JOIN users  ON(reviews.user_id = users.id) WHERE beers.id = {$beer_id}");
-
-          $users = array();
-          foreach($returned_users as $user) {
+          $users = $returned_users->fetchAll(PDO::FETCH_ASSOC);
+          $users_array = array();
+          foreach($users as $user) {
               $user_name = $user['user_name'];
               $preferred_style = $user ['preferred_style'];
               $region = $user ['region'];
               $id = $user['id'];
               $new_user = new User($user_name, $preferred_style, $region, $id);
-              array_push($users, $new_user);
+              array_push($users_array, $new_user);
           }
-          return $users;
+          return $users_array;
       }
 
       function delete()

@@ -42,7 +42,7 @@
         }
 
         function save() {
-            $GLOBALS['DB']->exec("INSERT INTO users (id, user_name, preferred_style, region) VALUES ({$this->getId()}, '{$this->getUserName()}', '{$this->getPreferredStyle()}', '{$this->getRegion()}')");
+            $GLOBALS['DB']->exec("INSERT INTO users (user_name, preferred_style, region) VALUES ('{$this->getUserName()}', '{$this->getPreferredStyle()}', '{$this->getRegion()}')");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
@@ -102,16 +102,18 @@
 
         function addBeer($beer)
         {
-            $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer->getId()}, {$this->getUserId()});");
+            $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer->getId()}, {$this->getId()};)");
         }
 
         function getBeers()
         {
-            $query = $GLOBALS['DB']->query("SELECT beers.* FROM
+            //var_dump($this->getId());
+            $beers = $GLOBALS['DB']->query("SELECT beers.* FROM
                 users JOIN reviews ON (users.id = reviews.user_id)
-                        JOIN beers ON (reviews.store_id = store.id)
+                        JOIN beers ON (reviews.beer_id = beer.id)
                         WHERE users.id =     {$this->getId()};");
-            $beers = $query->fetchAll(PDO::FETCH_ASSOC);
+            //$beers = $query->fetchAll(PDO::FETCH_ASSOC);
+            var_dump($this->getId());
             $beers_array = array();
             foreach($beers as $beer) {
                 $id = $beer['id'];
@@ -121,7 +123,8 @@
                 $ibu = $beer['ibu'];
                 $container = $beer['container'];
                 $brewery = $beer['brewery'];
-                $new_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery, $new_beer);
+                $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $new_beer, $id);
+                //var_dump($new_beer);
                 array_push($beers_array, $new_beer);
             }
             return $beers_array;
