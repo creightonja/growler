@@ -4,7 +4,7 @@
     * @backupStaticAttributes disabled
     */
     require_once "src/User.php";
-    //require_once "src/Store.php";
+    require_once "src/Beer.php";
     $server = 'mysql:host=localhost;dbname=growler_test';
     $username = 'root';
     $password = 'root';
@@ -16,7 +16,7 @@
         protected function tearDown()
         {
             User::deleteAll();
-            //Store::deleteAll();
+            Beer::deleteAll();
         }
 
         function testGetUserName()
@@ -223,76 +223,121 @@
             $this->assertEquals("Southeast", $test_user->getRegion());
         }
 
-        // function testFind()
-        // {
-        //     //Arrange
-        //     $name = "Nike";
-        //     $id = 1;
-        //     $test_brand = new Brand($name, $id);
-        //     $test_brand->save();
-        //     $name2 = "Reebok";
-        //     $id2 = 2;
-        //     $test_brand2 = new Brand($name2, $id2);
-        //     $test_brand2->save();
-        //     //Act
-        //     $result = Brand::find($test_brand2->getId());
-        //     //Assert
-        //     $this->assertEquals($test_brand2, $result);
-        // }
-        // function testAddStore()
-        // {
-        //     //Arrange
-        //     $name = "Nike";
-        //     $id = 1;
-        //     $test_brand = new Brand($name, $id);
-        //     $test_brand->save();
-        //     $name = "Foot Locker";
-        //     $id = 1;
-        //     $test_store = new Store($name, $id);
-        //     $test_store->save();
-        //     //Act
-        //     $test_brand->addStore($test_store);
-        //     //Assert
-        //     $this->assertEquals($test_brand->getStores(),[$test_store]);
-        // }
-        // function testGetStores()
-        // {
-        //     //Arrange
-        //     $name = "Nike";
-        //     $id = 1;
-        //     $test_brand = new Brand($name, $id);
-        //     $test_brand->save();
-        //     $name = "Foot Locker";
-        //     $id = 1;
-        //     $test_store = new Store($name, $id);
-        //     $test_store->save();
-        //     $name2 = "Payless";
-        //     $id2 = 2;
-        //     $test_store2 = new Store($name2, $id2);
-        //     $test_store2->save();
-        //     //Act
-        //     $test_brand->addStore($test_store);
-        //     $test_brand->addStore($test_store2);
-        //     $result = $test_brand->getStores();
-        //     //Assert
-        //     $this->assertEquals([$test_store, $test_store2], $result);
-        // }
-        // function testDelete()
-        // {
-        //     //Arrange
-        //     $name = "Nike";
-        //     $id = 1;
-        //     $test_brand = new Brand($name, $id);
-        //     $test_brand->save();
-        //     $name = "Foot Locker";
-        //     $id = 1;
-        //     $test_store = new Store($name, $id);
-        //     $test_store->save();
-        //     //Act
-        //     $test_brand->addStore($test_store);
-        //     $test_brand->delete();
-        //     //Assert
-        //     $this->assertEquals([], $test_store->getBrands());
-        // }
+        function testFind()
+        {
+            //Arrange
+            $user_name = "Barack Obama";
+            $preferred_style = "IPA";
+            $region =  "Northwest";
+            $id = 1;
+            $test_user = new User($user_name, $preferred_style, $region, $id);
+            $test_user->save();
+
+            $user_name2 = "Miley Cyrus";
+            $preferred_style2 = "Stout";
+            $region2 =  "Southeast";
+            $id2 = 2;
+            $test_user2 = new User($user_name2, $preferred_style2, $region2, $id2);
+            $test_user2->save();
+
+            //Act
+            $result = User::find($test_user2->getId());
+
+            //Assert
+            $this->assertEquals($test_user2, $result);
+        }
+
+        function testAddBeer()
+        {
+            //Arrange
+            $user_name = "Barack Obama";
+            $preferred_style = "IPA";
+            $region =  "Northwest";
+            $id = 1;
+            $test_user = new User($user_name, $preferred_style, $region, $id);
+            $test_user->save();
+
+            $id = 1;
+            $beer_name = "Fat Tire";
+            $style = "Belgian";
+            $abv = 6.12;
+            $ibu = 40;
+            $container = "Bottle";
+            $brewery = "New Belgium";
+            $test_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery);
+            $test_beer->save();
+
+            //Act
+            $test_user->addBeer($test_beer);
+
+            //Assert
+            $this->assertEquals($test_beer->getUsers(),[$test_user]);
+        }
+
+        function testGetBeers()
+        {
+            //Arrange
+            $user_name = "Barack Obama";
+            $preferred_style = "IPA";
+            $region =  "Northwest";
+            $id = 1;
+            $test_user = new User($user_name, $preferred_style, $region, $id);
+            $test_user->save();
+
+            $id = 1;
+            $beer_name = "Fat Tire";
+            $style = "Belgian";
+            $abv = 6.12;
+            $ibu = 40;
+            $container = "Bottle";
+            $brewery = "New Belgium";
+            $test_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery);
+            $test_beer->save();
+
+            $id2 = 2;
+            $beer_name2 = "60 Minute IPA";
+            $style2 = "IPA";
+            $abv2 = 7.01;
+            $ibu2 = 75;
+            $container2 = "Growler";
+            $brewery2 = "Dogfish Head";
+            $test_beer2 = new Beer($id2, $beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2);
+            $test_beer2->save();
+
+            //Act
+            $test_user->addBeer($test_beer);
+            $test_user->addBeer($test_beer2);
+            $result = $test_user->getBeers();
+            //Assert
+            $this->assertEquals([$test_beer, $test_beer2], $result);
+        }
+
+        function testDelete()
+        {
+            //Arrange
+            $user_name = "Barack Obama";
+            $preferred_style = "IPA";
+            $region =  "Northwest";
+            $id = 1;
+            $test_user = new User($user_name, $preferred_style, $region, $id);
+            $test_user->save();
+
+            $id = 1;
+            $beer_name = "Fat Tire";
+            $style = "Belgian";
+            $abv = 6.12;
+            $ibu = 40;
+            $container = "Bottle";
+            $brewery = "New Belgium";
+            $test_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery);
+            $test_beer->save();
+
+            //Act
+            $test_user->addBeer($test_beer);
+            $test_user->delete();
+
+            //Assert
+            $this->assertEquals([], $test_beer->getUsers());
+        }
     }
 ?>
