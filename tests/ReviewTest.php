@@ -5,8 +5,7 @@
     * @backupStaticAttributes disabled
     */
 
-    require_once "src/Brand.php";
-    require_once "src/Store.php";
+    require_once "src/Review.php";
 
     $server = 'mysql:host=localhost;dbname=growler';
     $username = 'root';
