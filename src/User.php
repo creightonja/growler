@@ -67,7 +67,7 @@
         function updateUserName($user_name)
         {
             $GLOBALS['DB']->exec("UPDATE users SET name = '{$user_name}' WHERE id = {$this->getId()};");
-            $this->setName($user_name);
+            $this->setUserName($user_name);
         }
 
         function updatePreferredStyle($preferred_style)
@@ -79,7 +79,7 @@
         function updateRegion($region)
         {
             $GLOBALS['DB']->exec("UPDATE users SET region = '{$region}' WHERE id = {$this->getId()};");
-            $this->setPreferredStyle($region);
+            $this->setRegion($region);
         }
 
         static function find($search_id)

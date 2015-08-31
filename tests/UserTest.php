@@ -175,19 +175,54 @@
             $this->assertEquals([], $result);
         }
 
-        // function testUpdate()
-        // {
-        //     //Arrange
-        //     $name = "Nike";
-        //     $id = 1;
-        //     $test_brand = new Brand($name, $id);
-        //     $test_brand->save();
-        //     $new_name = "Reebok";
-        //     //Act
-        //     $test_brand->update($new_name);
-        //     //Assert
-        //     $this->assertEquals("Reebok", $test_brand->getName());
-        // }
+        function testUpdateUserName()
+        {
+            //Arrange
+            $user_name = "Barack Obama";
+            $preferred_style = "IPA";
+            $region =  "Northwest";
+            $id = 1;
+            $test_user = new User($user_name, $preferred_style, $region, $id);
+            $test_user->save();
+
+            //Act
+            $test_user->updateUserName("Miley Cyrus");
+            //Assert
+            $this->assertEquals("Miley Cyrus", $test_user->getUserName());
+        }
+
+        function testUpdatePreferredStyle()
+        {
+            //Arrange
+            $user_name = "Barack Obama";
+            $preferred_style = "IPA";
+            $region =  "Northwest";
+            $id = 1;
+            $test_user = new User($user_name, $preferred_style, $region, $id);
+            $test_user->save();
+
+            //Act
+            $test_user->updatePreferredStyle("Stout");
+            //Assert
+            $this->assertEquals("Stout", $test_user->getPreferredStyle());
+        }
+
+        function testUpdateRegion()
+        {
+            //Arrange
+            $user_name = "Barack Obama";
+            $preferred_style = "IPA";
+            $region =  "Northwest";
+            $id = 1;
+            $test_user = new User($user_name, $preferred_style, $region, $id);
+            $test_user->save();
+
+            //Act
+            $test_user->updateRegion("Southeast");
+            //Assert
+            $this->assertEquals("Southeast", $test_user->getRegion());
+        }
+
         // function testFind()
         // {
         //     //Arrange
