@@ -10,7 +10,7 @@
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
-    Class BrandTest extends PHPUnit_Framework_TestCase
+    Class UserTest extends PHPUnit_Framework_TestCase
     {
 
         protected function tearDown()
