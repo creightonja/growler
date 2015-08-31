@@ -105,26 +105,26 @@
             $GLOBALS['DB']->exec("INSERT INTO reviews (user_name, preferred_style, region) VALUES ({$this->getId()}, '{$review}', '{$date}');");
         }
 
-        function getBeers()
-        {
-            $query = $GLOBALS['DB']->query("SELECT beers.* FROM
-                users JOIN reviews ON (users.id = reviews.user_id)
-                        JOIN beers ON (reviews.store_id = store.id)
-                        WHERE users.id =     {$this->getId()};");
-            $beers = $query->fetchAll(PDO::FETCH_ASSOC);
-            $beers_array = array();
-            foreach($beers as $beer) {
-                $id = $beer['id'];
-                $beer_name = $beer['beer_name'];
-                $style = $beer['style'];
-                $abv = $beer['abv'];
-                $ibu = $beer['ibu'];
-                $container = $beer['container'];
-                $brewery = $beer['brewery'];
-                $new_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery, $new_beer);
-                array_push($beers_array, $new_beer);
-            }
-            return $beers_array;
-        }
+        // function getBeers()
+        // {
+        //     $query = $GLOBALS['DB']->query("SELECT beers.* FROM
+        //         users JOIN reviews ON (users.id = reviews.user_id)
+        //                 JOIN beers ON (reviews.store_id = store.id)
+        //                 WHERE users.id =     {$this->getId()};");
+        //     $beers = $query->fetchAll(PDO::FETCH_ASSOC);
+        //     $beers_array = array();
+        //     foreach($beers as $beer) {
+        //         $id = $beer['id'];
+        //         $beer_name = $beer['beer_name'];
+        //         $style = $beer['style'];
+        //         $abv = $beer['abv'];
+        //         $ibu = $beer['ibu'];
+        //         $container = $beer['container'];
+        //         $brewery = $beer['brewery'];
+        //         $new_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery, $new_beer);
+        //         array_push($beers_array, $new_beer);
+        //     }
+        //     return $beers_array;
+        // }
     }
  ?>

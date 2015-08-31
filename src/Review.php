@@ -1,4 +1,4 @@
-<?
+<?php
 
 class Review {
 
@@ -21,7 +21,7 @@ class Review {
         $this->review = (string) $review;
     }
 
-    function setDate(){
+    function setReviewDate(){
         $this->date = (string) $date;
     }
 
@@ -38,7 +38,7 @@ class Review {
         return $this->review;
     }
 
-    function getDate(){
+    function getReviewDate(){
         return $this->date;
     }
 
@@ -49,7 +49,7 @@ class Review {
     //Saves new user into database
     function save(){
         $statement = $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id, review, date)
-                    VALUES ({$this->getBeerId()}, {$this->getUserId()}, '{$this->getReview()}', '{$this->getDate()}');");
+                    VALUES ({$this->getBeerId()}, {$this->getUserId()}, '{$this->getReview()}', '{$this->getReviewDate()}');");
         $this->id = $GLOBALS['DB']->lastInsertId();
     }
 
@@ -57,8 +57,8 @@ class Review {
     function update($new_review, $new_date) {
         $GLOBALS['DB']->exec("UPDATE reviews SET review = '{$new_review}',
                     date = {$new_date} WHERE id = {$this->getId()};");
-        $this->setDueDate($new_due_date);
-        $this->setCheckoutPatronId($new_checkout_patron_id);
+        $this->setReview($new_review);
+        $this->setReviewDate($new_date);
     }
 
     static function getAll(){
@@ -67,13 +67,13 @@ class Review {
         foreach ($returned_reviews as $review) {
             $beer_id = $review['beer_id'];
             $user_id = $review['user_id'];
-            $review = $review['review'];
+            $text = $review['review'];
             $date = $review['date'];
             $id = $review['id'];
-            $new_review = new Review($beer_id, $user_id, $review, $date, $id);
+            $new_review = new Review($beer_id, $user_id, $text, $date, $id);
             array_push($reviews, $new_review);
         }
-    return $review;
+    return $reviews;
     }
 
 
@@ -126,3 +126,4 @@ class Review {
 
 
 } //End class
+?>
