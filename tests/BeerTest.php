@@ -127,10 +127,11 @@
 
             //Act
             $id = $test_beer->getId();
-            $result = Beer::find($id);
+            $column_id = 'id';
+            $result = Beer::find($column_id, $id);
 
             //Assert
-            $this->assertEquals($test_beer, $result);
+            $this->assertEquals([$test_beer], $result);
         }
 
 
