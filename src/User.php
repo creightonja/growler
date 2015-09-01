@@ -42,7 +42,8 @@
         }
 
         function save() {
-            $GLOBALS['DB']->exec("INSERT INTO users (id, user_name, preferred_style, region) VALUES ({$this->getId()}, '{$this->getUserName()}', '{$this->getPreferredStyle()}', '{$this->getRegion()}')");
+            $GLOBALS['DB']->exec("INSERT INTO users (user_name, preferred_style, region) VALUES ('{$this->getUserName()}',
+                            '{$this->getPreferredStyle()}', '{$this->getRegion()}')");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
@@ -95,6 +96,19 @@
             return $found_user;
         }
 
+        static function findName($search_name)
+        {
+            $found_user = null;
+            $users = User::getAll();
+            foreach($users as $user) {
+                $user_name = $user->getUserName();
+                if ($user_name == $search_name) {
+                    $found_user = $user;
+                }
+            }
+            return $found_user;
+        }
+
         function delete() {
             $GLOBALS['DB']->exec("DELETE FROM users WHERE id = {$this->getId()};");
             $GLOBALS['DB']->exec("DELETE FROM reviews WHERE user_id = {$this->getId()};");
@@ -102,6 +116,7 @@
 
         function addBeer($beer)
         {
+            $userid = $this->getId();
             $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer}, {$this->getId()});");
         }
 
@@ -121,7 +136,7 @@
                 $ibu = $beer['ibu'];
                 $container = $beer['container'];
                 $brewery = $beer['brewery'];
-                $new_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery, $new_beer);
+                $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
                 array_push($beers_array, $new_beer);
             }
             return $beers_array;
