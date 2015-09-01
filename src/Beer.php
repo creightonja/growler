@@ -10,7 +10,7 @@
         private $brewery;
         private $id;
 
-      function __construct($beer_name, $style, $abv, $ibu, $container, $brewery, $id = null)
+      function __construct($beer_name, $style, $abv, $ibu, $container, $brewery, $id=null)
       {
           $this->beer_name = $beer_name;
           $this->style = $style;
@@ -153,13 +153,8 @@
       function addUser($user)
       {
           $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
-
       }
 
-      function addStore($store)
-      {
-          $GLOBALS['DB']->exec("INSERT INTO beers_stores ( beer_id, store_id) VALUES ({$this->getId()}, {$store->getId()});");
-      }
 
       function getUsers()
       {
@@ -178,22 +173,35 @@
           return $users;
       }
 
+
+      function addStore($store_id)
+      {
+          $GLOBALS['DB']->exec("INSERT INTO beers_stores ( beer_id, store_id) VALUES ({$this->getId()}, {$store_id});");
+          var_dump($store_id, $this->getId());
+      }
+
       function getStores()
       {
-          $beer_id = $this->getId();
-          $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM beers JOIN beers_stores ON (beers.id = beers_stores.beer_id) JOIN stores  ON(beers.store_id = stores.id) WHERE beers.id = {$beer_id}");
+          // $beer_id = $this->getId();
+          // $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM beers JOIN beers_stores ON (beers.id = beers_stores.beer_id) JOIN stores  ON(beers.store_id = stores.id) WHERE beers.id = {$beer_id}");
 
-          $stores = array();
-          foreach($returned_stores as $store) {
+          $query = $GLOBALS['DB']->query("SELECT stores.* FROM beers
+            JOIN beers_stores ON (beers.id = beers_stores.beer_id)
+            JOIN stores ON (beers_stores.store_id = stores.id)
+            WHERE beers.id = {$this->getId()};");
+          $stores = $query->fetchAll(PDO::FETCH_ASSOC);
+          $stores_array = array();
+
+          foreach($stores as $store) {
+              $id = $store['id'];
               $store_name = $store['store_name'];
               $category = $store ['category'];
               $region = $store ['region'];
-              $id = $store['id'];
               $address = $store['address'];
               $new_store = new Store($id, $store_name, $category, $region, $address);
               array_push($stores, $new_store);
           }
-          return $stores;
+          return $stores_array;
       }
 
       function delete()
