@@ -10,7 +10,7 @@
         private $brewery;
         private $id;
 
-      function __construct($beer_name, $style, $abv, $ibu, $container, $brewery, $id = null)
+      function __construct($beer_name, $style, $abv, $ibu, $container, $brewery, $id=null)
       {
           $this->beer_name = $beer_name;
           $this->style = $style;
@@ -111,24 +111,15 @@
           return $beers;
       }
 
-     function update($new_name, $new_style, $new_abv, $new_ibu, $new_container, $new_brewery)
+     function update($new_name, $new_style, $new_abv, $new_ibu, $new_container,
+                    $new_brewery)
       {
-          $GLOBALS['DB']->exec("UPDATE beers SET beer_name = '{$new_beer_name}' WHERE id = {$this->getId()};");
+          $GLOBALS['DB']->exec("UPDATE beers SET beer_name = '{$new_beer_name}', style = '{$new_style}', abv = '{$new_abv}', ibu = '{$new_ibu}', container = '{$new_container}', brewery = '{$new_brewery}' WHERE id = {$this->getId()};");
           $this->setBeer_Name($new_name);
-
-          $GLOBALS['DB']->exec("UPDATE beers SET style = '{$new_style}' WHERE id = {$this->getId()};");
           $this->setStyle($new_style);
-
-          $GLOBALS['DB']->exec("UPDATE beers SET abv = '{$new_abv}' WHERE id = {$this->getId()};");
           $this->setAbv($new_abv);
-
-          $GLOBALS['DB']->exec("UPDATE beers SET ibu = '{$new_ibu}' WHERE id = {$this->getId()};");
           $this->setIbu($new_ibu);
-
-          $GLOBALS['DB']->exec("UPDATE beers SET container = '{$new_container}' WHERE id = {$this->getId()};");
           $this->setContainer($new_container);
-
-          $GLOBALS['DB']->exec("UPDATE beers SET brewery = '{$new_brewery}' WHERE id = {$this->getId()};");
           $this->setBrewery($new_brewery);
       }
 
@@ -155,10 +146,6 @@
           $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
       }
 
-      function addStore($store)
-      {
-          $GLOBALS['DB']->exec("INSERT INTO beers_stores ( beer_id, store_id) VALUES ({$this->getId()}, {$store->getId()});");
-      }
 
       function getUsers()
       {
@@ -177,22 +164,29 @@
           return $users;
       }
 
-      function getStores()
-      {
-          $beer_id = $this->getId();
-          $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM beers JOIN beers_stores ON (beers.id = beers_stores.beer_id) JOIN stores  ON(beers.store_id = stores.id) WHERE beers.id = {$beer_id}");
 
-          $stores = array();
-          foreach($returned_stores as $store) {
+      function addStore($store_id)
+      {
+          $GLOBALS['DB']->exec("INSERT INTO beers_stores (beer_id, store_id) VALUES ({$this->getId()}, {$store_id});");
+      }
+
+      function getStores() {
+          $query = $GLOBALS['DB']->query("SELECT stores.* FROM beers
+            JOIN beers_stores ON (beers.id = beers_stores.beer_id)
+            JOIN stores ON (beers_stores.store_id = stores.id)
+            WHERE beers.id = {$this->getId()};");
+          $stores = $query->fetchAll(PDO::FETCH_ASSOC);
+          $stores_array = array();
+          foreach($stores as $store) {
+              $id = $store['id'];
               $store_name = $store['store_name'];
               $category = $store ['category'];
               $region = $store ['region'];
-              $id = $store['id'];
               $address = $store['address'];
-              $new_store = new Store($id, $store_name, $category, $region, $address);
-              array_push($stores, $new_store);
+              $new_store = new Store($store_name, $category, $region, $address, $id);
+              array_push($stores_array, $new_store);
           }
-          return $stores;
+          return $stores_array;
       }
 
       function delete()

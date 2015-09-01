@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:8080
--- Generation Time: Aug 31, 2015 at 07:39 PM
+-- Generation Time: Sep 01, 2015 at 06:54 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.11
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `beers_stores` (
   `id` bigint(20) unsigned NOT NULL,
   `beer_id` int(11) DEFAULT NULL,
   `store_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `reviews` (
   `beer_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `review` text,
-  `date` date DEFAULT NULL
+  `review_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -143,7 +143,7 @@ ALTER TABLE `beers`
 -- AUTO_INCREMENT for table `beers_stores`
 --
 ALTER TABLE `beers_stores`
-  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `reviews`
 --

@@ -8,7 +8,6 @@
     require_once "src/Store.php";
     require_once "src/Beer.php";
 
-
     $server = 'mysql:host=localhost;dbname=growler_test';
     $username = 'root';
     $password = 'root';
@@ -20,7 +19,6 @@
         {
             Store::deleteAll();
             Beer::deleteAll();
-
         }
 
         function testGetId()
@@ -31,7 +29,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
 
             //Act
             $result = $test_store->getId();
@@ -48,7 +46,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
 
             //Act
             $result = $test_store->getStoreName();
@@ -65,7 +63,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
 
             //Act
             $test_store->setStoreName("Chill N Fill");
@@ -83,7 +81,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
 
             //Act
             $result = $test_store->getCategory();
@@ -100,7 +98,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
 
             //Act
             $test_store->setCategory("bottle shop");
@@ -118,7 +116,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
 
             //Act
             $result = $test_store->getRegion();
@@ -135,7 +133,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
 
             //Act
             $test_store->setRegion("NE Portland");
@@ -153,7 +151,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
 
             //Act
             $result = $test_store->getAddress();
@@ -170,7 +168,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
 
             //Act
             $test_store->setAddress("5553 N Lombard Portland, OR 97203");
@@ -188,7 +186,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
             $test_store->save();
 
             //Act
@@ -206,7 +204,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
             $test_store->save();
 
             $store_name2 = "Growler Guys";
@@ -214,7 +212,7 @@
             $category2 = "bottle shop";
             $region2 = "NE Portland";
             $address2 = "5553 N Lombard Portland, OR 97444";
-            $test_store2 = new Store($id2, $store_name2, $category2, $region2, $address2);
+            $test_store2 = new Store($store_name2, $category2, $region2, $address2, $id2);
             $test_store2->save();
 
             //Act
@@ -233,7 +231,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
             $test_store->save();
 
             $new_store_name = "Fill N Chill";
@@ -259,7 +257,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
             $test_store->save();
 
             $store_name2 = "Growler Guys";
@@ -267,7 +265,7 @@
             $category2 = "bottle shop";
             $region2 = "NE Portland";
             $address2 = "5553 N Lombard Portland, OR 97444";
-            $test_store2 = new Store($id2, $store_name2, $category2, $region2, $address2);
+            $test_store2 = new Store($store_name2, $category2, $region2, $address2, $id2);
             $test_store2->save();
 
             //Act
@@ -285,7 +283,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
             $test_store->save();
 
 
@@ -315,7 +313,7 @@
             $category = "bar";
             $region = "North Portland";
             $address = "5215 N Lombard Portland, OR 97203";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
             $test_store->save();
 
 

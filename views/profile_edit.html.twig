@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Edit Profile</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <h1>Edit Profile</h1>
+
+            <form action="/user/{{ user.getId }}" method="post">
+
+                <input name="_method" type="hidden" value="patch">
+                <input id="user_name" name="user_name" type="text" placeholder="New Username" value="{{ user.getUserName }}">
+                <br>
+                <input name="_method" type="hidden" value="patch">
+                <input id="preferred_style" name="preferred_style" type="text" placeholder="New Preferred Style" value="{{ user.getPreferredStyle }}">
+                <br>
+                <input name="_method" type="hidden" value="patch">
+                <input id="region" name="region" type="text" placeholder="New Region" value="{{ user.getRegion }}">
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+
+            <form action="/user/{{ user.getId }}" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button type="submit">Delete Profile</button>
+            </form>
+
+            <form action="/profile" method="get">
+                <input name="user_name" type="hidden" value="{{ user.getUserName }}">
+                <button type="submit">Back</button>
+            </form>
+        </div>
+    </body>
+</html>

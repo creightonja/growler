@@ -1,4 +1,4 @@
-<?php
+    <?php
 
     /**
     * @backupGlobals disabled
@@ -22,16 +22,6 @@
             //Beer::deleteAll();
             //User::deleteAll();
         }
-
-        // protected function setUp() {
-        //     $beer_id = 1;
-        //     $user_id = 1;
-        //     $review = "Great beer";
-        //     $date = "2015-10-08";
-        //     $id = 1;
-        //     $test_review = new Review($beer_id, $user_id, $review, $date, $id);
-        //     $test_review->save();
-        // }
 
         function test_getBeerId() {
             //Arrange
@@ -134,11 +124,11 @@
             $test_review->save();
 
             //Act
-            $test = $test_review;
             $result = Review::getAll();
+            var_dump("result", $result);
 
             //Assert
-            $this->assertEquals([$test], $result);
+            $this->assertEquals([$test_review], $result);
         }
 
         function test_deleteAll() {

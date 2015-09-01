@@ -1,32 +1,33 @@
 <html>
   <head>
-    <title>Welcome to Growler!</title>
+    <title>Welcome to Growlr!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   </head>
 
   <body>
 
-    <h3>Beer in Portland</h3>
-
     <div class="container">
 
-        <form action="/create_user" method="post">
-            <label>Enter your user name</label>
-            <input id="user_name" name="user_name" type="text">
+        <h2>Growlr</h2>
 
+        <h4>User Login</h4>
 
-            <label>Enter your preferred beer style</label>
-            <input id="preferred_style" name="preferred_style" type="text">
-
-
-            <label>Enter a Region in Portland</label>
-            <input id="region" name="region" type="text">
-            <button type="submit">Submit Information</label>
+        <form action="/profile" method="get">
+            <input id="user_name" name="user_name" type="text" placeholder="Username">
+            <button type="submit">Submit</button>
         </form>
 
-        <form action="/delete" method="post">
-            <button type = "submit">Delete</button>
+        <h4>Create New User</h4>
+
+        <form action="/create_user" method="post">
+            <input id="user_name" name="user_name" type="text" placeholder="Username">
+            <br>
+            <input id="preferred_style" name="preferred_style" type="text" placeholder="Preferred style of beer">
+            <br>
+            <input id="region" name="region" type="text" placeholder="Region">
+            <br>
+            <button type="submit">Submit Information</button>
         </form>
     </div>
-
   </body>
 </html>

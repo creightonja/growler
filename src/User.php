@@ -67,7 +67,7 @@
 
         function updateUserName($user_name)
         {
-            $GLOBALS['DB']->exec("UPDATE users SET name = '{$user_name}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE users SET user_name = '{$user_name}' WHERE id = {$this->getId()};");
             $this->setUserName($user_name);
         }
 

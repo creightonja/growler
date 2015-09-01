@@ -2,56 +2,56 @@
 
     class Store {
 
-        private $id;
         private $store_name;
         private $category;
         private $region;
         private $address;
+        private $id;
 
-        function __construct($id = null, $store_name, $category, $region, $address) {
+        function __construct($store_name, $category, $region, $address, $id = null) {
 
             $this->store_name = $store_name;
-            $this->id = $id;
             $this->category = $category;
             $this->region = $region;
             $this->address = $address;
+            $this->id = $id;
 
-        }
-
-        function getId() {
-            return $this->id;
         }
 
         function setStoreName($new_store_name) {
             $this->store_name = $new_store_name;
         }
 
-        function getStoreName() {
-            return $this->store_name;
-        }
-
         function setCategory($new_category) {
             $this->category = $new_category;
-        }
-
-        function getCategory() {
-            return $this->category;
         }
 
         function setRegion($new_region) {
             $this->region = $new_region;
         }
 
-        function getRegion() {
-            return $this->region;
-        }
-
         function setAddress($new_address) {
             $this->address = $new_address;
         }
 
+        function getStoreName() {
+            return $this->store_name;
+        }
+
+        function getCategory() {
+            return $this->category;
+        }
+
+        function getRegion() {
+            return $this->region;
+        }
+
         function getAddress() {
             return $this->address;
+        }
+
+        function getId() {
+            return $this->id;
         }
 
         function save() {
@@ -68,7 +68,7 @@
                 $category = $store['category'];
                 $region = $store['region'];
                 $address = $store['address'];
-                $new_store = new Store($id, $store_name, $category, $region, $address);
+                $new_store = new Store($store_name, $category, $region, $address, $id);
                 array_push($stores, $new_store);
             }
             return $stores;
@@ -135,8 +135,5 @@
             $GLOBALS['DB']->exec("DELETE FROM stores WHERE id = {$this->getId()};");
             $GLOBALS['DB']->exec("DELETE FROM beers_stores WHERE beer_id = {$this->getId()};");
         }
-
-
-
     }
 ?>
