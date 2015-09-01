@@ -1,5 +1,6 @@
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <title>Stores' Information</title>
   </head>
 
@@ -12,6 +13,20 @@
 
     <label>Enter your Address for the business.</label>
     <input id="address" name="address" type="text">
+
+    <label for 'region'>Select a Region.</label>
+      <select id = "region" name = "region" type = "text">
+          {% for element in all_beers %}
+              <option value = "{{ element.getId() }}"> {{ element.getRegion() }} </option>
+          {% endfor %}
+
+    <label for 'category'>Select a business type.</label>
+        <select id = "category" name = "category" type = "text">
+            {% for element in all_beers %}
+                <option value = "{{ element.getId() }}"> {{ element.getCategory() }} </option>
+            {% endfor %}
+
+
 
     <button type="submit">Submit Information</button>
 

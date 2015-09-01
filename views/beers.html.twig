@@ -1,0 +1,47 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <title>Beer Description</title>
+    </head>
+    <body>
+        <div class="container">
+
+        <form action="/beers" method="post">
+
+          <input id = 'store_id' name = 'store_id' type = 'hidden' value = '{{ store.getId() }}'>
+
+
+          <label>Enter your Beer's name</label>
+          <input id="beer_name" name="beer_name" type="text">
+
+          <label for 'style'>Select a beer style.</label>
+            <select id = "style" name = "style" type = "text">
+                {% for element in all_beers %}
+                    <option value = "{{ element.getId() }}"> {{ element.getStyle() }} </option>
+                {% endfor %}
+
+
+          <label>Enter your Brewery's name</label>
+          <input id="brewery" name="brewery" type="text">
+
+
+          <label>Enter your ABV (Alcohol by Volume).</label>
+          <input id="abv" name="abv" type="number">
+
+          <label>Enter your IBU (Internation Bitterness Units).</label>
+          <input id="ibu" name="ibu" type="number">
+
+          <label for 'container'>Select a container type to add it to the beer.</label>
+            <select id = "container" name = "container" type = "text">
+                {% for element in all_beers %}
+                    <option value = "{{ element.getId() }}"> {{ element.getContainer() }} </option>
+                {% endfor %}
+
+
+            </select>
+
+          <button type="submit">Submit Information</button>
+        </form>
+    </body>
+</html>
