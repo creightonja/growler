@@ -153,14 +153,12 @@
       function addUser($user)
       {
           $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
-<<<<<<< HEAD
+
       }
 
       function addStore($store)
       {
           $GLOBALS['DB']->exec("INSERT INTO beers_stores ( beer_id, store_id) VALUES ({$this->getId()}, {$store->getId()});");
-=======
->>>>>>> upstream/master
       }
 
       function getUsers()
