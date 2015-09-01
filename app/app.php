@@ -28,7 +28,7 @@
 
     //route from user login on index page.  find the user by name and
     //show that user's profile page.
-    $app->get("/login", function() use ($app) {
+    $app->get("/profile", function() use ($app) {
         $user = User::findName($_GET['user_name']);
         return $app['twig']->render('profile.html.twig', array('user' => $user));
     });

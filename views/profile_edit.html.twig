@@ -29,7 +29,10 @@
                 <button type="submit">Delete Profile</button>
             </form>
 
-            <p><a href='/'>Home</a></p>
+            <form action="/profile" method="get">
+                <input name="user_name" type="hidden" value="{{ user.getUserName }}">
+                <button type="submit">Back</button>
+            </form>
         </div>
     </body>
 </html>
