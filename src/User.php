@@ -102,7 +102,7 @@
 
         function addBeer($beer)
         {
-            $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer->getId()}, {$this->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer}, {$this->getId()});");
         }
 
         function getBeers()

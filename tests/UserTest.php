@@ -264,11 +264,13 @@
             $ibu = 40;
             $container = "Bottle";
             $brewery = "New Belgium";
-            $test_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery);
-            $test_beer->save();
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $beer_id = $test_beer->getId();
+            var_dump(Beer::getAll());
 
             //Act
-            $test_user->addBeer($test_beer);
+
+            $test_user->addBeer($beer_id);
 
             //Assert
             $this->assertEquals($test_beer->getUsers(),[$test_user]);

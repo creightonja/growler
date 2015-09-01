@@ -153,7 +153,10 @@
       function addUser($user)
       {
           $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
       }
 
       function addStore($store)
