@@ -277,6 +277,8 @@
             $this->assertEquals($test_store2, $result);
         }
 
+<<<<<<< HEAD
+=======
         function testAddBeer()
         {
             //Arrange
@@ -381,6 +383,7 @@
         //     $this->assertEquals([], $test_beer->getStores());
         //
         // }
+>>>>>>> upstream/master
     }
 
 ?>
