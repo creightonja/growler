@@ -13,7 +13,7 @@
             <h5>Preferred Style: {{ user.getPreferredStyle }}</h5>
             <br>
 
-            <h4>My beer list:</h4>
+            <h4>My Beer List:</h4>
             {% if user.getBeers is not empty %}
             <ul>
                 {% for beer in user.getBeers %}
@@ -22,7 +22,7 @@
             {% else %}
                 No beers added yet!
             {% endif %}
-            <br><br>
+            <br><br><br>
 
             <form action="/beers" method="get">
                 <button type="submit">View Beer List</button>
