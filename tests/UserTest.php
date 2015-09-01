@@ -10,7 +10,7 @@
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
-    Class BrandTest extends PHPUnit_Framework_TestCase
+    Class UserTest extends PHPUnit_Framework_TestCase
     {
 
         protected function tearDown()
@@ -291,7 +291,7 @@
             $ibu = 40;
             $container = "Bottle";
             $brewery = "New Belgium";
-            $test_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery);
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
             $test_beer->save();
 
             $id2 = 2;
@@ -301,7 +301,7 @@
             $ibu2 = 75;
             $container2 = "Growler";
             $brewery2 = "Dogfish Head";
-            $test_beer2 = new Beer($id2, $beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2);
+            $test_beer2 = new Beer($beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2, $id2);
             $test_beer2->save();
 
             //Act

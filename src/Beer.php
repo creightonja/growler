@@ -153,18 +153,21 @@
       function addUser($user)
       {
           $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
+<<<<<<< HEAD
       }
 
       function addStore($store)
       {
           $GLOBALS['DB']->exec("INSERT INTO beers_stores ( beer_id, store_id) VALUES ({$this->getId()}, {$store->getId()});");
+=======
+>>>>>>> upstream/master
       }
 
       function getUsers()
       {
           $beer_id = $this->getId();
-          $returned_users = $GLOBALS['DB']->query("SELECT users.* FROM beers JOIN reviews ON (beers.id = reviews.beer_id) JOIN users  ON(reviews.user_id = users.id) WHERE beers.id = {$beer_id}");
-
+          $returned_users = $GLOBALS['DB']->query("SELECT users.* FROM beers JOIN reviews ON (beers.id = reviews.beer_id) JOIN users
+                        ON (reviews.user_id = users.id) WHERE beers.id = {$this->getId()}");
           $users = array();
           foreach($returned_users as $user) {
               $user_name = $user['user_name'];

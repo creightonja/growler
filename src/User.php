@@ -100,17 +100,17 @@
             $GLOBALS['DB']->exec("DELETE FROM reviews WHERE user_id = {$this->getId()};");
         }
 
-        function addBeer($beer, $review, $date)
+        function addBeer($beer)
         {
-            $GLOBALS['DB']->exec("INSERT INTO reviews (user_name, preferred_style, region) VALUES ({$this->getId()}, '{$review}', '{$date}');");
+            $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer->getId()}, {$this->getId()});");
         }
 
         function getBeers()
         {
             $query = $GLOBALS['DB']->query("SELECT beers.* FROM
                 users JOIN reviews ON (users.id = reviews.user_id)
-                        JOIN beers ON (reviews.store_id = store.id)
-                        WHERE users.id =     {$this->getId()};");
+                        JOIN beers ON (reviews.beer_id = beers.id)
+                        WHERE users.id = {$this->getId()};");
             $beers = $query->fetchAll(PDO::FETCH_ASSOC);
             $beers_array = array();
             foreach($beers as $beer) {
