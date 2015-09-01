@@ -7,7 +7,7 @@
 
     require_once "src/Review.php";
 
-    $server = 'mysql:host=localhost;dbname=growler';
+    $server = 'mysql:host=localhost;dbname=growler_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);

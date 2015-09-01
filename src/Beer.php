@@ -131,14 +131,14 @@
 
       function addUser($user)
       {
-          $GLOBALS['DB']->exec("INSERT INTO reviews ( beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
+          $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
       }
 
        function getUsers()
       {
           $beer_id = $this->getId();
-          $returned_users = $GLOBALS['DB']->query("SELECT users.* FROM beers JOIN reviews ON (beers.id = reviews.beer_id) JOIN users  ON(reviews.user_id = users.id) WHERE beers.id = {$beer_id}");
-
+          $returned_users = $GLOBALS['DB']->query("SELECT users.* FROM beers JOIN reviews ON (beers.id = reviews.beer_id) JOIN users
+                        ON (reviews.user_id = users.id) WHERE beers.id = {$this->getId()}");
           $users = array();
           foreach($returned_users as $user) {
               $user_name = $user['user_name'];
