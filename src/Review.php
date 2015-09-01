@@ -5,24 +5,24 @@
         private $beer_id;
         private $user_id;
         private $review;
-        private $date;
+        private $review_date;
         private $id;
 
-        function __construct($beer_id, $user_id, $review = null, $date = null, $id = null) {
+        function __construct($beer_id, $user_id, $review = null, $review_date = null, $id = null) {
             $this->beer_id = $beer_id;
             $this->user_id = $user_id;
             $this->review = $review;
-            $this->date = $date;
+            $this->review_date = $review_date;
             $this->id = $id;
         }
 
-        //Setters for review, and date
+        //Setters for review, and review_date
         function setReview(){
             $this->review = (string) $review;
         }
 
-        function setDate(){
-            $this->date = (string) $date;
+        function setReviewDate(){
+            $this->review_date = (string) $review_date;
         }
 
         //Getters for all variables.
@@ -38,8 +38,8 @@
             return $this->review;
         }
 
-        function getDate(){
-            return $this->date;
+        function getReviewDate(){
+            return $this->review_date;
         }
 
         function getId(){
@@ -48,17 +48,17 @@
 
         //Saves new user into database
         function save(){
-            $statement = $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id, review, date)
-                        VALUES ({$this->getBeerId()}, {$this->getUserId()}, '{$this->getReview()}', '{$this->getDate()}');");
+            $statement = $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id, review, review_date)
+                        VALUES ({$this->getBeerId()}, {$this->getUserId()}, '{$this->getReview()}', '{$this->getReviewDate()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        //Updating review and date
-        function update($new_review, $new_date) {
+        //Updating review and review_date
+        function update($new_review, $new_review_date) {
             $GLOBALS['DB']->exec("UPDATE reviews SET review = '{$new_review}',
-                        date = {$new_date} WHERE id = {$this->getId()};");
-            $this->setDueDate($new_due_date);
-            $this->setCheckoutPatronId($new_checkout_patron_id);
+                        review_date = {$new_review_date} WHERE id = {$this->getId()};");
+            $this->setreview($new_review);
+            $this->setReviewDate($new_review_date);
         }
 
         static function getAll(){
@@ -68,9 +68,9 @@
                 $beer_id = $review['beer_id'];
                 $user_id = $review['user_id'];
                 $review = $review['review'];
-                $date = $review['date'];
+                $review_date = $review['review_date'];
                 $id = $review['id'];
-                $new_review = new Review($beer_id, $user_id, $review, $date, $id);
+                $new_review = new Review($beer_id, $user_id, $review, $review_date, $id);
                 array_push($reviews, $new_review);
             }
         return $review;
@@ -80,7 +80,7 @@
         //Searching book_list database with column_id as a variable
         static function find($column_id, $search_id) {
             //$column_id is what column to search, example user_id etc
-            //if $search_id is an ID or date, it will be a string, else it will be an int
+            //if $search_id is an ID or review_date, it will be a string, else it will be an int
             if (is_string($search_id)) {
                 $search_reviews = $GLOBALS['DB']->query("SELECT * FROM reviews WHERE {$column_id} = '{$search_id}'");
             }
@@ -93,9 +93,9 @@
                 $beer_id = $review['beer_id'];
                 $user_id = $review['user_id'];
                 $review = $review['review'];
-                $date = $review['date'];
+                $review_date = $review['review_date'];
                 $id = $review['id'];
-                $new_review = new Review($beer_id, $user_id, $review, $date, $id);
+                $new_review = new Review($beer_id, $user_id, $review, $review_date, $id);
                 array_push($found_reviews, $new_review);
             }
             //returned output is in an array incase there is more than one book found.
@@ -111,9 +111,9 @@
                 $beer_id = $review['beer_id'];
                 $user_id = $review['user_id'];
                 $review = $review['review'];
-                $date = $review['date'];
+                $review_date = $review['review_date'];
                 $id = $review['id'];
-                $new_review = new Review($beer_id, $user_id, $review, $date, $id);
+                $new_review = new Review($beer_id, $user_id, $review, $review_date, $id);
                 array_push($found_reviews, $new_review);
             }
             return $found_reviews;
