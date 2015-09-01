@@ -1,6 +1,5 @@
 <?php
 
-<<<<<<< HEAD
     class Review {
 
         private $beer_id;
@@ -16,83 +15,6 @@
             $this->date = $date;
             $this->id = $id;
         }
-=======
-class Review {
-
-    private $beer_id;
-    private $user_id;
-    private $review;
-    private $date;
-    private $id;
-
-    function __construct($beer_id, $user_id, $review = null, $date = null, $id = null) {
-        $this->beer_id = $beer_id;
-        $this->user_id = $user_id;
-        $this->review = $review;
-        $this->date = $date;
-        $this->id = $id;
-    }
-
-    //Setters for review, and date
-    function setReview(){
-        $this->review = (string) $review;
-    }
-
-    function setReviewDate(){
-        $this->date = (string) $date;
-    }
-
-    //Getters for all variables.
-    function getBeerId(){
-        return $this->beer_id;
-    }
-
-    function getUserId(){
-        return $this->user_id;
-    }
-
-    function getReview(){
-        return $this->review;
-    }
-
-    function getReviewDate(){
-        return $this->date;
-    }
-
-    function getId(){
-        return $this->id;
-    }
-
-    //Saves new user into database
-    function save(){
-        $statement = $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id, review, date)
-                    VALUES ({$this->getBeerId()}, {$this->getUserId()}, '{$this->getReview()}', '{$this->getReviewDate()}');");
-        $this->id = $GLOBALS['DB']->lastInsertId();
-    }
-
-    //Updating review and date
-    function update($new_review, $new_date) {
-        $GLOBALS['DB']->exec("UPDATE reviews SET review = '{$new_review}',
-                    date = {$new_date} WHERE id = {$this->getId()};");
-        $this->setReview($new_review);
-        $this->setReviewDate($new_date);
-    }
-
-    static function getAll(){
-        $returned_reviews = $GLOBALS['DB']->query("SELECT * FROM reviews;");
-        $reviews = array();
-        foreach ($returned_reviews as $review) {
-            $beer_id = $review['beer_id'];
-            $user_id = $review['user_id'];
-            $text = $review['review'];
-            $date = $review['date'];
-            $id = $review['id'];
-            $new_review = new Review($beer_id, $user_id, $text, $date, $id);
-            array_push($reviews, $new_review);
-        }
-    return $reviews;
-    }
->>>>>>> upstream/master
 
         //Setters for review, and date
         function setReview(){
@@ -205,8 +127,5 @@ class Review {
 
     } //End class
 
-<<<<<<< HEAD
-=======
 } //End class
->>>>>>> upstream/master
 ?>

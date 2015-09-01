@@ -10,7 +10,7 @@
         private $brewery;
         private $id;
 
-      function __construct($beer_name, $style, $abv, $ibu, $container, $brewery, $id = null)
+      function __construct($beer_name, $style, $abv, $ibu, $container, $brewery, $id=null)
       {
           $this->beer_name = $beer_name;
           $this->style = $style;
@@ -155,11 +155,6 @@
           $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
       }
 
-      function addStore($store)
-      {
-<<<<<<< HEAD
-          $GLOBALS['DB']->exec("INSERT INTO beers_stores ( beer_id, store_id) VALUES ({$this->getId()}, {$store->getId()});");
-      }
 
       function getUsers()
       {
@@ -168,39 +163,45 @@
                         ON (reviews.user_id = users.id) WHERE beers.id = {$this->getId()}");
           $users = array();
           foreach($returned_users as $user) {
-=======
-          $beer_id = $this->getId();
-          $returned_users = $GLOBALS['DB']->query("SELECT users.* FROM beers JOIN reviews ON (beers.id = reviews.beer_id) JOIN users  ON(reviews.user_id = users.id) WHERE beers.id = {$beer_id}");
-          $users = $returned_users->fetchAll(PDO::FETCH_ASSOC);
-          $users_array = array();
-          foreach($users as $user) {
->>>>>>> fdf90617ea4e3a9c5969dd093aefc09d29500704
               $user_name = $user['user_name'];
               $preferred_style = $user ['preferred_style'];
               $region = $user ['region'];
               $id = $user['id'];
               $new_user = new User($user_name, $preferred_style, $region, $id);
-              array_push($users_array, $new_user);
+              array_push($users, $new_user);
           }
-          return $users_array;
+          return $users;
+      }
+
+
+      function addStore($store_id)
+      {
+          $GLOBALS['DB']->exec("INSERT INTO beers_stores ( beer_id, store_id) VALUES ({$this->getId()}, {$store_id});");
+          var_dump($store_id, $this->getId());
       }
 
       function getStores()
       {
-          $beer_id = $this->getId();
-          $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM beers JOIN beers_stores ON (beers.id = beers_stores.beer_id) JOIN stores  ON(beers.store_id = stores.id) WHERE beers.id = {$beer_id}");
+          // $beer_id = $this->getId();
+          // $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM beers JOIN beers_stores ON (beers.id = beers_stores.beer_id) JOIN stores  ON(beers.store_id = stores.id) WHERE beers.id = {$beer_id}");
 
-          $stores = array();
-          foreach($returned_stores as $store) {
+          $query = $GLOBALS['DB']->query("SELECT stores.* FROM beers
+            JOIN beers_stores ON (beers.id = beers_stores.beer_id)
+            JOIN stores ON (beers_stores.store_id = stores.id)
+            WHERE beers.id = {$this->getId()};");
+          $stores = $query->fetchAll(PDO::FETCH_ASSOC);
+          $stores_array = array();
+
+          foreach($stores as $store) {
+              $id = $store['id'];
               $store_name = $store['store_name'];
               $category = $store ['category'];
               $region = $store ['region'];
-              $id = $store['id'];
               $address = $store['address'];
               $new_store = new Store($id, $store_name, $category, $region, $address);
               array_push($stores, $new_store);
           }
-          return $stores;
+          return $stores_array;
       }
 
       function delete()
