@@ -269,6 +269,7 @@
             $beer_id = $test_beer->getId();
             // var_dump($beer_id);
 
+<<<<<<< HEAD
             //Act
 
             $test_user->addBeer($beer_id);
@@ -316,10 +317,17 @@
             $test_user->addBeer($test_beer_id2);
             $result = $test_user->getBeers();
 
+=======
+
+            //Act
+            $test_user->addBeer($test_beer);
+            //var_dump($test_beer->getUsers());
+>>>>>>> fdf90617ea4e3a9c5969dd093aefc09d29500704
             //Assert
-            $this->assertEquals([$test_beer, $test_beer2], $result);
+            $this->assertEquals($test_beer->getUsers(),[$test_user]);
         }
 
+<<<<<<< HEAD
         function testDelete()
         {
             //Arrange
@@ -349,5 +357,74 @@
             //Assert
             $this->assertEquals([], $result);
         }
+=======
+        // function testGetBeers()
+        // {
+        //     //Arrange
+        //     $user_name = "Barack Obama";
+        //     $preferred_style = "IPA";
+        //     $region =  "Northwest";
+        //     $id = 1;
+        //     $test_user = new User($user_name, $preferred_style, $region, $id);
+        //     $test_user->save();
+        //
+        //     $id = 1;
+        //     $beer_name = "Fat Tire";
+        //     $style = "Belgian";
+        //     $abv = 6.12;
+        //     $ibu = 40;
+        //     $container = "Bottle";
+        //     $brewery = "New Belgium";
+        //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+        //     $test_beer->save();
+        //
+        //     $id2 = 2;
+        //     $beer_name2 = "60 Minute IPA";
+        //     $style2 = "IPA";
+        //     $abv2 = 7.01;
+        //     $ibu2 = 75;
+        //     $container2 = "Growler";
+        //     $brewery2 = "Dogfish Head";
+        //     $test_beer2 = new Beer($beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2, $id2);
+        //     $test_beer2->save();
+        //
+        //     //Act
+        //     $test_user->addBeer($test_beer);
+        //     $test_user->addBeer($test_beer2);
+        //
+        //     $result = $test_user->getBeers();
+        //
+        //     //Assert
+        //     $this->assertEquals($test_user->getBeers(), [$test_beer, $test_beer2]);
+        // }
+
+        // function testDelete()
+        // {
+        //     //Arrange
+        //     $user_name = "Barack Obama";
+        //     $preferred_style = "IPA";
+        //     $region =  "Northwest";
+        //     $id = 1;
+        //     $test_user = new User($user_name, $preferred_style, $region, $id);
+        //     $test_user->save();
+        //
+        //     $id = 1;
+        //     $beer_name = "Fat Tire";
+        //     $style = "Belgian";
+        //     $abv = 6.12;
+        //     $ibu = 40;
+        //     $container = "Bottle";
+        //     $brewery = "New Belgium";
+        //     $test_beer = new Beer($id, $beer_name, $style, $abv, $ibu, $container, $brewery);
+        //     $test_beer->save();
+        //
+        //     //Act
+        //     $test_user->addBeer($test_beer);
+        //     $test_user->delete();
+        //
+        //     //Assert
+        //     $this->assertEquals([], $test_beer->getUsers());
+        // }
+>>>>>>> fdf90617ea4e3a9c5969dd093aefc09d29500704
     }
 ?>

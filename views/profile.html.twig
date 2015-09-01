@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Welcome to Growlr!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+        <h2>{{ user.getUserName }}</h2>
+        <h4>{{ user.getRegion }}</h4>
+        <h4>{{ user.getPreferredStyle }}</h4>
+
+        <form action="/edit_profile/{{ user.getId }}" method="get">
+            <button type="submit">Edit Profile</button>
+        </form>
+
+    </div>
+  </body>
+</html>
