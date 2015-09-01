@@ -21,7 +21,7 @@
          protected function tearDown()
         {
             Beer::deleteAll();
-            #User::deleteAll();
+            User::deleteAll();
         }
 
         function test_save()
@@ -215,12 +215,21 @@
         //     $test_store = new Store($id2, $store_name, $category, $region, $address);
         //     $test_store->save();
 
+<<<<<<< HEAD
         //     // $user_name = "Wings";
         //     // $preffered_style = "IPA";
         //     // $region = "NW";
         //     // $id2 = 2;
         //     // $test_user = new User($user_name, $preffered_style, $region,  $id2);
         //     // $test_user->save();
+=======
+            $user_name2 = "Wings2";
+            $preffered_style2 = "IPA2";
+            $region2 = "NW2";
+            $id3 = 3;
+            $test_user2 = new User($user_name2, $preffered_style2, $region2,  $id3);
+            $test_user2->save();
+>>>>>>> fdf90617ea4e3a9c5969dd093aefc09d29500704
 
         //     //Act
         //     $test_beer->addStore($test_store);
