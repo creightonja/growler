@@ -134,37 +134,37 @@
         }
 
 
-        function testUpdate()
-        {
-            //Arrange
-            $beer_name = "Your mom";
-            $style = "IPA";
-            $abv = 4;
-            $ibu = 6;
-            $container = "bottle";
-            $brewery = "daddy";
-            $id = 1;
-            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
-            $test_beer->save();
-
-            $new_beer_name = "Lame";
-            $new_style = "IPO";
-            $new_abv = 5;
-            $new_ibu = 7;
-            $new_container = "pitcher";
-            $new_brewery = "fullsail";
-
-            //Act
-            $test_beer->update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container, $new_brewery);
-
-            //Assert
-            $this->assertEquals("Lame", $test_beer->getBeer_Name());
-            $this->assertEquals("IPO", $test_beer->getStyle());
-            $this->assertEquals(5, $test_beer->getAbv());
-            $this->assertEquals(7, $test_beer->getIbu());
-            $this->assertEquals("pitcher", $test_beer->getContainer());
-            $this->assertEquals("fullsail", $test_beer->getBrewery());
-        }
+        // function testUpdate()
+        // {
+        //     //Arrange
+        //     $beer_name = "Your mom";
+        //     $style = "IPA";
+        //     $abv = 4;
+        //     $ibu = 6;
+        //     $container = "bottle";
+        //     $brewery = "daddy";
+        //     $id = 1;
+        //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+        //     $test_beer->save();
+        //
+        //     $new_beer_name = "Lame";
+        //     $new_style = "IPO";
+        //     $new_abv = 5;
+        //     $new_ibu = 7;
+        //     $new_container = "pitcher";
+        //     $new_brewery = "fullsail";
+        //
+        //     //Act
+        //     $test_beer->update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container, $new_brewery);
+        //
+        //     //Assert
+        //     $this->assertEquals("Lame", $test_beer->getBeer_Name());
+        //     $this->assertEquals("IPO", $test_beer->getStyle());
+        //     $this->assertEquals(5, $test_beer->getAbv());
+        //     $this->assertEquals(7, $test_beer->getIbu());
+        //     $this->assertEquals("pitcher", $test_beer->getContainer());
+        //     $this->assertEquals("fullsail", $test_beer->getBrewery());
+        // }
 
 
         // function testAddUser()
