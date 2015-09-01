@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Your Profile</title>
+        <title>Growlr - {{ user.getUserName }}</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     </head>
 
@@ -24,15 +24,15 @@
             {% endif %}
             <br><br><br>
 
-            <form action="/beers" method="get">
+            <form action="/{{ user.getId }}/beers" method="get">
                 <button type="submit">View Beer List</button>
             </form>
 
-            <form action="/stores" method="get">
+            <form action="/{{ user.getId }}/stores" method="get">
                 <button type="submit">View Stores</button>
             </form>
 
-            <form action="/edit_profile/{{ user.getId }}" method="get">
+            <form action="/{{ user.getId }}/edit_profile" method="get">
                 <button type="submit">Edit Profile</button>
             </form>
 

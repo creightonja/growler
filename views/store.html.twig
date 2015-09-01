@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <title>Growlr - {{ store.getStoreName }}</title>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+        <h2>{{ store.getStoreName }}</h2>
+        {{ store.getAddress }}<br>
+        {{ store.getRegion }}<br>
+        {{ store.getCategory }}<br>
+
+        <br>
+
+        <h3>Beer List</h3>
+
+        {% if beers is not empty %}
+            <ul>
+                {% for beer in beers %}
+                    <li><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeer_name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No beers have been added to this store.</p>
+        {% endif %}
+
+        <h3>Add a beer to this store</h3>
+
+        <form action="/{{ user.getId }}/store/{{ store.getId }}" method="post">
+
+            <label for="beer">Beer Name</label>
+            <select id = "beer_id" name = "beer_id" type = "text">
+                {% for beer in all_beers %}
+                    <option value = "{{ beer.getId() }}"> {{ beer.getBeer_Name() }} </option>
+                {% endfor %}
+            </select><br>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <form action="/profile" method="get">
+            <input name="user_name" type="hidden" value="{{ user.getUserName }}">
+            <button type="submit">Back</button>
+        </form>
+
+    </div>
+
+  </body>
+</html>

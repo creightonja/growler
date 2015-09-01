@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Edit Profile</title>
+        <title>Growlr - Edit {{ user.getUserName }}</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     </head>
 
@@ -10,7 +10,7 @@
 
             <h2>Edit Profile</h2>
 
-            <form action="/user/{{ user.getId }}" method="post">
+            <form action="/{{ user.getId }}/user" method="post">
 
                 <input name="_method" type="hidden" value="patch">
                 <input id="user_name" name="user_name" type="text" value="{{ user.getUserName }}">

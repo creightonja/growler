@@ -1,34 +1,62 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <title>Stores' Information</title>
+    <title>Growlr - Store List</title>
   </head>
 
   <body>
 
     <div class="container">
 
-    <label>Enter your Business'name</label>
-    <input id="store_name" name="store_name" type="text">
+        <h2>Store List</h2>
+        {% if stores is not empty %}
+            <ul>
+                {% for store in stores %}
+                    <li><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a><br>
+                        {{ store.getAddress }}<br>
+                        {{ store.getRegion }}<br>
+                        {{ store.getCategory }}<br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No stores have been added yet.</p>
+        {% endif %}
 
-    <label>Enter your Address for the business.</label>
-    <input id="address" name="address" type="text">
+        <br>
 
-    <label for 'region'>Select a Region.</label>
-      <select id = "region" name = "region" type = "text">
-          {% for element in all_beers %}
-              <option value = "{{ element.getId() }}"> {{ element.getRegion() }} </option>
-          {% endfor %}
+        <h3>Add a New Store</h3>
 
-    <label for 'category'>Select a business type.</label>
-        <select id = "category" name = "category" type = "text">
-            {% for element in all_beers %}
-                <option value = "{{ element.getId() }}"> {{ element.getCategory() }} </option>
-            {% endfor %}
+        <form action="/{{ user.getId }}/stores" method="post">
 
+            <input id="store_name" name="store_name" type="text" placeholder="Business Name"><br>
 
+            <input id="address" name="address" type="text" placeholder = "Address"><br>
 
-    <button type="submit">Submit Information</button>
+            <label for="region">Region</label>
+            <select id = "region" name = "region" type = "text">
+                <option value = "North">North</option>
+                <option value = "Northeast"> Northeast </option>
+                <option value = "Northwest"> Northeast </option>
+                <option value = "Southwest"> Southeast </option>
+                <option value = "Southwest"> Southwest </option>
+            </select><br>
+
+            <label for="region">Business Type</label>
+            <select id = "category" name = "category" type = "text">
+                <option value = "Bar">Bar</option>
+                <option value = "Bottle Shop">Bottle Shop</option>
+                <option value = "Brewery">Brewery</option>
+                <option value = "Grocery Store">Grocery Store</option>
+                <option value = "Growler Fill">Growler Fill</option>
+            </select><br>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <form action="/profile" method="get">
+            <input name="user_name" type="hidden" value="{{ user.getUserName }}">
+            <button type="submit">Back</button>
+        </form>
 
     </div>
 
