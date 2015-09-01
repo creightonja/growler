@@ -66,13 +66,13 @@
         $brewery = $_POST['brewery'];
         $beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery);
         $beer->save();
-        return $app['twig']->render('beers.html.twig', array('beers' => Beer::getAll()));
+        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll()));
     });
 
 
     //all beers
     $app->get("/beers", function() use ($app) {
-        return $app['twig']->render('beers.html.twig', array('beers' => Beer::getAll()));
+        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll()));
     });
 
     //view beer
