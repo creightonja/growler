@@ -46,6 +46,11 @@
           $this->abv = (string) $new_abv;
       }
 
+      function setBrewery($new_brewery)
+      {
+          $this->brewery = (string) $new_brewery;
+      }
+
       function getAbv()
       {
           return $this->abv;
@@ -71,11 +76,6 @@
           return $this->container;
       }
 
-      function setBrewery($new_brewery)
-      {
-          $this->brewery = (string) $new_brewery;
-      }
-
       function getBrewery()
       {
           return $this->brewery;
@@ -93,6 +93,7 @@
            $this->id = $GLOBALS['DB']->lastInsertId();
       }
 
+      //Begin static functions
       static function getAll()
       {
           $returned_beers = $GLOBALS['DB']->query("SELECT * FROM beers;");
@@ -111,36 +112,51 @@
           return $beers;
       }
 
-     function update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container,
-                    $new_brewery)
-      {
-          $GLOBALS['DB']->exec("UPDATE beers SET beer_name = '{$new_beer_name}', style = '{$new_style}', abv = '{$new_abv}', ibu = '{$new_ibu}', container = '{$new_container}', brewery = '{$new_brewery}' WHERE id = {$this->getId()};");
-          $this->setBeer_Name($new_beer_name);
-          $this->setStyle($new_style);
-          $this->setAbv($new_abv);
-          $this->setIbu($new_ibu);
-          $this->setContainer($new_container);
-          $this->setBrewery($new_brewery);
-      }
-
       static function deleteAll()
       {
           $GLOBALS['DB']->exec("DELETE FROM beers;");
       }
 
-      static function find($search_id)
-      {
-          $found_beer = null;
-          $beers = Beer::getAll();
-          foreach($beers as $beer) {
-              $beer_id = $beer->getId();
-              if ($beer_id == $search_id) {
-                  $found_beer = $beer;
-              }
+    //   static function find($search_id)
+    //   {
+    //       $found_beer = null;
+    //       $beers = Beer::getAll();
+    //       foreach($beers as $beer) {
+    //           $beer_id = $beer->getId();
+    //           if ($beer_id == $search_id) {
+    //               $found_beer = $beer;
+    //           }
+    //       }
+    //       return $found_beer;
+    //   }
+
+      //Searching book_list database with column_id as a variable example: Beer::find("abv", $search_id);
+      static function find($column_id, $search_id) {
+          //$column_id is what column to search, example user_id etc
+          //if $search_id is an ID or review_date, it will be a string, else it will be an int
+          if (is_string($search_id)) {
+              $search_beers = $GLOBALS['DB']->query("SELECT * FROM beers WHERE {$column_id} = '{$search_id}'");
           }
-          return $found_beer;
+          else {
+              $search_beers = $GLOBALS['DB']->query("SELECT * FROM beers WHERE {$column_id} = {$search_id}");
+          }
+          $returned_beers = $search_beers->fetchAll(PDO::FETCH_ASSOC);
+          $beers = array();
+          foreach($returned_beers as $beer) {
+              $beer_name = $beer['beer_name'];
+              $style = $beer['style'];
+              $abv = $beer['abv'];
+              $ibu = $beer['ibu'];
+              $container = $beer['container'];
+              $brewery = $beer['brewery'];
+              $id = $beer['id'];
+              $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+              array_push($beers, $new_beer);
+          }
+          return $beers;
       }
 
+      //Begin add and find user functions
       function addUser($user_id)
       {
           $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user_id});");
@@ -165,6 +181,8 @@
       }
 
 
+
+      //Begin store functions
       function addStore($store_id)
       {
           $GLOBALS['DB']->exec("INSERT INTO beers_stores (beer_id, store_id) VALUES ({$this->getId()}, {$store_id});");
@@ -189,11 +207,24 @@
           return $stores_array;
       }
 
+      //Update and delete functions
       function delete()
       {
           $GLOBALS['DB']->exec("DELETE FROM beers WHERE id = {$this->getId()};");
           $GLOBALS['DB']->exec("DELETE FROM reviews WHERE beer_id = {$this->getId()};");
           $GLOBALS['DB']->exec("DELETE FROM beers_stores WHERE beer_id = {$this->getId()};");
       }
+
+      function update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container,
+                     $new_brewery)
+       {
+           $GLOBALS['DB']->exec("UPDATE beers SET beer_name = '{$new_beer_name}', style = '{$new_style}', abv = '{$new_abv}', ibu = '{$new_ibu}', container = '{$new_container}', brewery = '{$new_brewery}' WHERE id = {$this->getId()};");
+           $this->setBeer_Name($new_beer_name);
+           $this->setStyle($new_style);
+           $this->setAbv($new_abv);
+           $this->setIbu($new_ibu);
+           $this->setContainer($new_container);
+           $this->setBrewery($new_brewery);
+       }
     }
 ?>

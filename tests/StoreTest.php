@@ -269,10 +269,12 @@
             $test_store2->save();
 
             //Act
-            $result = Store::find($test_store2->getId());
+            $test_id = $test_store2->getId();
+            $column_id = "id";
+            $result = Store::find($column_id, $test_id);
 
             //Assert
-            $this->assertEquals($test_store2, $result);
+            $this->assertEquals([$test_store2], $result);
         }
 
         function testAddBeer()
@@ -298,7 +300,7 @@
             $test_beer->save();
 
             //Act
-            $test_store->addBeer($test_beer);
+            $test_store->addBeer($test_beer->getId());
 
             //Assert
             $this->assertEquals($test_store->getBeers(),[$test_beer]);
@@ -338,8 +340,8 @@
             $test_beer2->save();
 
             //Act
-            $test_store->addBeer($test_beer);
-            $test_store->addBeer($test_beer2);
+            $test_store->addBeer($test_beer->getId());
+            $test_store->addBeer($test_beer2->getId());
 
             $result = $test_store->getBeers();
 
@@ -348,37 +350,36 @@
         }
 
 
-        //testDelete will not work untill Beer.php has getStores() added.
-        // function testDelete()
-        // {
-        //     //Arrange
-        //     $store_name = "Chill N Fill";
-        //     $id = 1;
-        //     $category = "bar";
-        //     $region = "North Portland";
-        //     $address = "5215 N Lombard Portland, OR 97203";
-        //     $test_store = new Store($id, $store_name, $category, $region, $address);
-        //     $test_store->save();
-        //
-        //
-        //     $beer_name = "Bike Beer";
-        //     $style = "Kolsch";
-        //     $abv = 5.6;
-        //     $ibu = 50;
-        //     $container = "Growler";
-        //     $brewery = "Hopworks";
-        //     $id = 1;
-        //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
-        //     $test_beer->save();
-        //
-        //     //Act
-        //     $test_store->addBeer($test_beer);
-        //     $test_store->delete();
-        //
-        //     //Assert
-        //     $this->assertEquals([], $test_beer->getStores());
-        //
-        // }
+        function testDelete()
+        {
+            //Arrange
+            $store_name = "Chill N Fill";
+            $id = 1;
+            $category = "bar";
+            $region = "North Portland";
+            $address = "5215 N Lombard Portland, OR 97203";
+            $test_store = new Store($store_name, $category, $region, $address);
+            $test_store->save();
+
+
+            $beer_name = "Bike Beer";
+            $style = "Kolsch";
+            $abv = 5.6;
+            $ibu = 50;
+            $container = "Growler";
+            $brewery = "Hopworks";
+            $id = 1;
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer->save();
+
+            //Act
+            $test_store->addBeer($test_beer->getId());
+            $test_store->delete();
+
+            //Assert
+            $this->assertEquals([], $test_beer->getStores());
+
+        }
     }
 
 ?>

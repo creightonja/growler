@@ -83,30 +83,28 @@
             $this->setRegion($region);
         }
 
-        static function find($search_id)
-        {
-            $found_user = null;
-            $users = User::getAll();
-            foreach($users as $user) {
-                $user_id = $user->getId();
-                if ($user_id == $search_id) {
-                    $found_user = $user;
-                }
+        //Searching user table with column_id as a variable
+        static function find($column_id, $search_id) {
+            //$column_id is what column to search, example user_id etc
+            //if $search_id is an ID or review_date, it will be a string, else it will be an int
+            if (is_string($search_id)) {
+                $search_users = $GLOBALS['DB']->query("SELECT * FROM users WHERE {$column_id} = '{$search_id}'");
             }
-            return $found_user;
-        }
-
-        static function findName($search_name)
-        {
-            $found_user = null;
-            $users = User::getAll();
-            foreach($users as $user) {
-                $user_name = $user->getUserName();
-                if ($user_name == $search_name) {
-                    $found_user = $user;
-                }
+            else {
+                $search_users = $GLOBALS['DB']->query("SELECT * FROM users WHERE {$column_id} = {$search_id}");
             }
-            return $found_user;
+            $returned_users = $search_users->fetchAll(PDO::FETCH_ASSOC);
+            var_dump($returned_users);
+            $users = array();
+            foreach($returned_users as $user) {
+                $user_name = $user['user_name'];
+                $preferred_style = $user['preferred_style'];
+                $region = $user['region'];
+                $id = $user['id'];
+                $new_user = new User($user_name, $preferred_style, $region, $id);
+                array_push($users, $new_user);
+            }
+            return $users;
         }
 
         function delete() {
