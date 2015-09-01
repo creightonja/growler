@@ -57,7 +57,7 @@
         function update($new_review, $new_review_date) {
             $GLOBALS['DB']->exec("UPDATE reviews SET review = '{$new_review}',
                         review_date = {$new_review_date} WHERE id = {$this->getId()};");
-            $this->setreview($new_review);
+            $this->setReview($new_review);
             $this->setReviewDate($new_review_date);
         }
 
@@ -65,15 +65,16 @@
             $returned_reviews = $GLOBALS['DB']->query("SELECT * FROM reviews;");
             $reviews = array();
             foreach ($returned_reviews as $review) {
+                var_dump("foreach", $review);
                 $beer_id = $review['beer_id'];
                 $user_id = $review['user_id'];
-                $review = $review['review'];
-                $review_date = $review['review_date'];
+                $text = $review['review'];
+                $date = $review['review_date'];
                 $id = $review['id'];
-                $new_review = new Review($beer_id, $user_id, $review, $review_date, $id);
+                $new_review = new Review($beer_id, $user_id, $text, $date, $id);
                 array_push($reviews, $new_review);
             }
-        return $review;
+        return $reviews;
         }
 
 
@@ -92,10 +93,10 @@
             foreach ($found_review as $review){
                 $beer_id = $review['beer_id'];
                 $user_id = $review['user_id'];
-                $review = $review['review'];
+                $text = $review['review'];
                 $review_date = $review['review_date'];
                 $id = $review['id'];
-                $new_review = new Review($beer_id, $user_id, $review, $review_date, $id);
+                $new_review = new Review($beer_id, $user_id, $text, $review_date, $id);
                 array_push($found_reviews, $new_review);
             }
             //returned output is in an array incase there is more than one book found.
@@ -110,10 +111,10 @@
             foreach ($found_review as $review){
                 $beer_id = $review['beer_id'];
                 $user_id = $review['user_id'];
-                $review = $review['review'];
+                $text = $review['review'];
                 $review_date = $review['review_date'];
                 $id = $review['id'];
-                $new_review = new Review($beer_id, $user_id, $review, $review_date, $id);
+                $new_review = new Review($beer_id, $user_id, $text, $review_date, $id);
                 array_push($found_reviews, $new_review);
             }
             return $found_reviews;
