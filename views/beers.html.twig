@@ -15,9 +15,20 @@
 
           <label for 'style'>Select a beer style.</label>
             <select id = "style" name = "style" type = "text">
-                {% for element in all_beers %}
-                    <option value = "{{ element.getId() }}"> {{ element.getStyle() }} </option>
-                {% endfor %}
+
+                    <option value = "IPA"> IPA</option>
+                    <option value = "Pale Ale"> Pale Ale</option>
+                    <option value = "Stout"> Stout</option>
+                    <option value = "Porter"> Porter</option>
+                    <option value = "Amber"> Amber</option>
+                    <option value = "Lager"> Lager</option>
+                    <option value = "Belgian"> Belgian</option>
+                    <option value = "Blonde Ale"> Blonde Ale</option>
+                    <option value = "Brown Ale"> Brown Ale</option>
+                    <option value = "Pilsner Ale"> Pilsner Ale</option>
+
+
+            </select>
                 <br>
 
           <label>Enter your Brewery's name</label>
@@ -34,11 +45,13 @@
 
           <label for 'container'>Select a container type to add it to the beer.</label>
             <select id = "container" name = "container" type = "text">
-                {% for element in all_beers %}
-                    <option value = "{{ element.getId() }}"> {{ element.getContainer() }} </option>
-                {% endfor %}
+
+                    <option value = "Growler"> Growler </option>
+                    <option value = "Bottle"> Bottle </option>
+                    <option value = "Can"> Can </option>
+
             </select>
-            <br>    
+            <br>
 
             <button type="submit">Submit Information</button>
           </form>
@@ -47,7 +60,7 @@
                 <h3>Here are all the beers!<h3>
                     <ul>
                         {% for beer in all_beers %}
-                            <li>{{ beer.getBeer_Name }}</li>
+                            <li><a href="/beer/{{beer.getId}}">{{ beer.getBeer_Name }}</a></li>
                         {% endfor %}
                     </ul>
             {% endif %}
