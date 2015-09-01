@@ -62,18 +62,10 @@
         return $app['twig']->render('profile.html.twig', array('user' => $user));
     });
 
-<<<<<<< HEAD
-
-    //from beers
-    //adding a new beer
-    //shows beers
-    $app->post("/beers", function() use ($app) {
-=======
     //from beers
     //add and save new beer
     //show all beers
     $app->post("{user_id}/beers", function($user_id) use ($app) {
->>>>>>> upstream/master
         $beer_name = $_POST['beer_name'];
         $style = $_POST['style'];
         $abv = $_POST['abv'];
@@ -82,21 +74,13 @@
         $brewery = $_POST['brewery'];
         $beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery);
         $beer->save();
-        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => User::find($user_Id)));
+        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => User::find("id", $user_Id)));
     });
 
     //from profile
     //show all beers
     $app->get("/{user_id}/beers", function($user_id) use ($app) {
-        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => User::find($user_id)));
-    });
-
-<<<<<<< HEAD
-    //from user
-    //displaying all beers
-    //shows beers
-    $app->get("/beers", function() use ($app) {
-        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll()));
+        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => User::find("id", $user_id)));
     });
 
     //from beers
@@ -123,11 +107,11 @@
         $beer = Beer::find($id);
         $beer->update($_POST['beer_name'], $_POST['style'], $_POST['abv'], $_POST['ibu'], $_POST['container'], $_POST['brewery']);
         return $app['twig']->render('beer_edit.html.twig', array('beer' => $beer));
-=======
+
     //from profile
     //show all stores
     $app->get("/{user_id}/stores", function($user_id) use ($app) {
-        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll(), 'user' => User::find($user_id)));
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll(), 'user' => User::find("id", $user_id)));
     });
 
     //from stores
@@ -154,7 +138,6 @@
         $beer = Beer::find($_POST['beer_id']);
         $store->addBeer($beer);
         return $app['twig']->render('store.html.twig', array('store' => Store::find($store_id), 'user' => User::find($user_id), 'beers' => Store::find($store_id)->getBeers(), 'all_beers' => Beer::getAll()));
->>>>>>> upstream/master
     });
 
     return $app; //End of app, do not code below here
