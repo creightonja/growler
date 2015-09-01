@@ -134,97 +134,68 @@
         }
 
 
-        // function testUpdate()
-        // {
-        //     //Arrange
-        //     $beer_name = "Your mom";
-        //     $style = "IPA";
-        //     $abv = 4;
-        //     $ibu = 6;
-        //     $container = "bottle";
-        //     $brewery = "daddy";
-        //     $id = 1;
-        //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
-        //     $test_beer->save();
-        //
-        //     $new_beer_name = "Lame";
-        //     $new_style = "IPO";
-        //     $new_abv = 5;
-        //     $new_ibu = 7;
-        //     $new_container = "pitcher";
-        //     $new_brewery = "fullsail";
-        //
-        //     //Act
-        //     $test_beer->update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container, $new_brewery);
-        //
-        //     //Assert
-        //     $this->assertEquals("Lame", $test_beer->getBeer_Name());
-        //     $this->assertEquals("IPO", $test_beer->getStyle());
-        //     $this->assertEquals(5, $test_beer->getAbv());
-        //     $this->assertEquals(7, $test_beer->getIbu());
-        //     $this->assertEquals("pitcher", $test_beer->getContainer());
-        //     $this->assertEquals("fullsail", $test_beer->getBrewery());
-        // }
+        function testUpdate()
+        {
+            //Arrange
+            $beer_name = "Your mom";
+            $style = "IPA";
+            $abv = 4;
+            $ibu = 6;
+            $container = "bottle";
+            $brewery = "daddy";
+            $id = 1;
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer->save();
+
+            $new_beer_name = "Lame";
+            $new_style = "IPO";
+            $new_abv = 5;
+            $new_ibu = 7;
+            $new_container = "pitcher";
+            $new_brewery = "fullsail";
+
+            //Act
+            $test_beer->update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container, $new_brewery);
+
+            //Assert
+            $this->assertEquals("Lame", $test_beer->getBeer_Name());
+            $this->assertEquals("IPO", $test_beer->getStyle());
+            $this->assertEquals(5, $test_beer->getAbv());
+            $this->assertEquals(7, $test_beer->getIbu());
+            $this->assertEquals("pitcher", $test_beer->getContainer());
+            $this->assertEquals("fullsail", $test_beer->getBrewery());
+        }
 
 
-        // function testAddUser()
-        // {
-        //     //Arrange
-        //     $beer_name = "Your mom";
-        //     $style = "IPA";
-        //     $abv = 4;
-        //     $ibu = 6;
-        //     $container = "bottle";
-        //     $brewery = "daddy";
-        //     $id = 1;
-        //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
-        //     $test_beer->save();
-        //
-        //     $new_beer_name = "Lame";
-        //     $new_style = "IPO";
-        //     $new_abv = 5;
-        //     $new_ibu = 7;
-        //     $new_container = "pitcher";
-        //     $new_brewery = "fullsail";
-        //
-        //     //Act
-        //     $test_beer->update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container, $new_brewery);
-        //
-        //     //Assert
-        //     $this->assertEquals("Lame", $test_beer->getBeer_Name());
-        //     $this->assertEquals("IPO", $test_beer->getStyle());
-        //     $this->assertEquals(5, $test_beer->getAbv());
-        //     $this->assertEquals(7, $test_beer->getIbu());
-        //     $this->assertEquals("pitcher", $test_beer->getContainer());
-        //     $this->assertEquals("fullsail", $test_beer->getBrewery());
-        // }
+        function testAddUser()
+        {
+            //Arrange
+            $beer_name = "Your mom";
+            $style = "IPA";
+            $abv = 4.00;
+            $ibu = 6;
+            $container = "bottle";
+            $brewery = "daddy";
+            $id = 1;
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer->save();
 
-        // function testAddUser()
-        // {
-        //     //Arrange
-        //     $beer_name = "Your mom";
-        //     $style = "IPA";
-        //     $abv = 4;
-        //     $ibu = 6;
-        //     $container = "bottle";
-        //     $brewery = "daddy";
-        //     $id = 1;
-        //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
-        //     $test_beer->save();
+            $user_name = "Bob";
+            $preferred_style = "IPA";
+            $region = "NW";
+            $test_user = new User($user_name, $preferred_style, $region);
+            $test_user->save();
+            $test_user_id = $test_user->getId();
 
-        //     $user_name = "Wings";
-        //     $preffered_style = "IPA";
-        //     $region = "NW";
-        //     $id2 = 2;
-        //     $test_user = new User($user_name, $preffered_style, $region,  $id2);
-        //     $test_user->save();
 
-        //     //Act
-        //     $test_beer->addUser($test_user);
+            //Act
+            $test_beer->addUser($test_user_id);
+            $result = $test_user->getBeers();
 
-        //     //Assert
-        //     $this->assertEquals($test_beer->getUsers(), [$test_user]);
-        // }
+            //Assert
+            $this->assertEquals([$test_beer], $result);
+        }
+
 
         function testAddStore()
         {
@@ -248,7 +219,6 @@
             $test_store = new Store($store_name, $category, $region, $address, $id);
             $test_store->save();
             $test_store_id = $test_store->getId();
-            var_dump($test_store_id);
 
             //Act
             $test_beer->addStore($test_store_id);
@@ -260,83 +230,82 @@
         }
 
 
-        // function testGetStores()
-        // {
-        //     //Arrange
-        //     $beer_name = "Your mom";
-        //     $style = "IPA";
-        //     $abv = 4;
-        //     $ibu = 6;
-        //     $container = "bottle";
-        //     $brewery = "daddy";
-        //     $id = 1;
-        //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
-        //     $test_beer->save();
+        function testGetStores()
+        {
+            //Arrange
+            $beer_name = "Your mom";
+            $style = "IPA";
+            $abv = 4;
+            $ibu = 6;
+            $container = "bottle";
+            $brewery = "daddy";
+            $id = 1;
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer->save();
 
-        //     $store_name = "M&M";
-        //     $category = "Black Market";
-        //     $region = "unknown";
-        //     $address = "SW";
-        //     $id2 = 2;
-        //     $test_store = new Store($id2, $store_name, $category, $region, $address);
-        //     $test_store->save();
-
-
-        //     $store_name2 = "M&M2";
-        //     $category2 = "Black Market2";
-        //     $region2 = "unknown2";
-        //     $address2 = "SW2";
-        //     $id3 = 3;
-        //     $test_store2 = new Store($id3, $store_name2, $category2, $region2, $address2);
-        //     $test_store2->save();
-
-        //     //Act
-        //     $test_beer->addStore($test_store);
-        //     $test_beer->addStore($test_store2);
-
-        //     $result = $test_beer->getStores();
-
-        //     //Assert
-        //     $this->assertEquals([$test_store, $test_store2], $result);
-        // }
-
-        // function testGetUsers()
-        // {
-        //     //Arrange
-        //     $beer_name = "Your mom";
-        //     $style = "IPA";
-        //     $abv = 4;
-        //     $ibu = 6;
-        //     $container = "bottle";
-        //     $brewery = "daddy";
-        //     $id = 1;
-        //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
-        //     $test_beer->save();
-
-       // $user_name = "Wings";
-        // $preffered_style = "IPA";
-        // $region = "NW";
-        // $id2 = 2;
-        // $test_user = new User($user_name, $preffered_style, $region,  $id2);
-        // $test_user->save();
+            $store_name = "M&M";
+            $category = "Black Market";
+            $region = "unknown";
+            $address = "SW";
+            $id2 = 2;
+            $test_store = new Store($store_name, $category, $region, $address);
+            $test_store->save();
 
 
-        // $user_name2 = "Wings";
-        // $preffered_style2 = "IPA2";
-        // $region2 = "NW2";
-        // $id3 = 3;
-        // $test_user2 = new User($user_name2, $preffered_style2, $region2,  $id3);
-        // $test_user2->save();
+            $store_name2 = "M&M2";
+            $category2 = "Black Market2";
+            $region2 = "unknown2";
+            $address2 = "SW2";
+            $id3 = 3;
+            $test_store2 = new Store($store_name2, $category2, $region2, $address2);
+            $test_store2->save();
+
+            //Act
+            $test_beer->addStore($test_store->getId());
+            $test_beer->addStore($test_store2->getId());
+
+            $result = $test_beer->getStores();
+
+            //Assert
+            $this->assertEquals([$test_store, $test_store2], $result);
+        }
+
+        function testGetUsers()
+        {
+            //Arrange
+            $beer_name = "Your mom";
+            $style = "IPA";
+            $abv = 4;
+            $ibu = 6;
+            $container = "bottle";
+            $brewery = "daddy";
+            $id = 1;
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery);
+            $test_beer->save();
+
+            $user_name = "Wings";
+            $preferred_style = "IPA";
+            $region = "NW";
+            $id2 = 2;
+            $test_user = new User($user_name, $preferred_style, $region);
+            $test_user->save();
+
+            $user_name2 = "Wings";
+            $preferred_style2 = "IPA2";
+            $region2 = "NW2";
+            $id3 = 3;
+            $test_user2 = new User($user_name2, $preferred_style2, $region2);
+            $test_user2->save();
 
 
 
-        //     //Act
-        //     $test_beer->addUser($test_user);
-        //     $test_beer->addUser($test_user2);
+            //Act
+            $test_beer->addUser($test_user->getId());
+            $test_beer->addUser($test_user2->getId());
 
-        //     //Assert
-        //     $this->assertEquals($test_beer->getUsers(), [$test_user, $test_user2]);
-        // }
+            //Assert
+            $this->assertEquals([$test_user, $test_user2], $test_beer->getUsers());
+        }
 
 
         function testDelete()
@@ -353,20 +322,16 @@
             $test_beer->save();
 
             $user_name = "Wings";
-            $preffered_style = "IPA";
+            $preferred_style = "IPA";
             $region = "NW";
             $id2 = 2;
-            $test_user = new User($user_name, $preffered_style, $region,  $id2);
+            $test_user = new User($user_name, $preferred_style, $region,  $id2);
             $test_user->save();
 
             //Act
-            $test_beer->addUser($test_user);
+            $test_beer->addUser($test_user->getId());
             $test_beer->delete();
 
-
-            //Act
-            $test_beer->addUser($test_user);
-            $test_beer->delete();
 
             //Assert
             $this->assertEquals([], $test_user->getBeers());
