@@ -109,7 +109,7 @@
         {
             $query = $GLOBALS['DB']->query("SELECT beers.* FROM
                 users JOIN reviews ON (users.id = reviews.user_id)
-                        JOIN beers ON (reviews.store_id = stores.id)
+                        JOIN beers ON (reviews.beer_id = beers.id)
                         WHERE users.id = {$this->getId()};");
             $beers = $query->fetchAll(PDO::FETCH_ASSOC);
             $beers_array = array();
