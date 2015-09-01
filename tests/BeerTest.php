@@ -245,10 +245,10 @@
             $category = "Black Market";
             $region = "unknown";
             $address = "SW";
-            $test_store = new Store($id, $store_name, $category, $region, $address);
-            $test_store->save;
-            $tesst_store_id = $test_store->getId();
-            var_dump($store_id);
+            $test_store = new Store($store_name, $category, $region, $address, $id);
+            $test_store->save();
+            $test_store_id = $test_store->getId();
+            var_dump($test_store_id);
 
             //Act
             $test_beer->addStore($test_store_id);

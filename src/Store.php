@@ -68,7 +68,7 @@
                 $category = $store['category'];
                 $region = $store['region'];
                 $address = $store['address'];
-                $new_store = new Store($id, $store_name, $category, $region, $address);
+                $new_store = new Store($store_name, $category, $region, $address, $id);
                 array_push($stores, $new_store);
             }
             return $stores;
