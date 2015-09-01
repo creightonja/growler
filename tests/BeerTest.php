@@ -166,10 +166,6 @@
             $this->assertEquals("fullsail", $test_beer->getBrewery());
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> upstream/master
         // function testAddUser()
         // {
         //     //Arrange
@@ -311,10 +307,6 @@
         //     $this->assertEquals($test_beer->getUsers(), [$test_user, $test_user2]);
         // }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> upstream/master
         // function testDelete()
         // {
         //     //Arrange
@@ -328,11 +320,6 @@
         //     $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
         //     $test_beer->save();
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> upstream/master
         //     $user_name = "Wings";
         //     $preffered_style = "IPA";
         //     $region = "NW";
@@ -343,20 +330,12 @@
         //     //Act
         //     $test_beer->addUser($test_user);
         //     $test_beer->delete();
-<<<<<<< HEAD
 
-=======
->>>>>>> upstream/master
         //
         //     //Act
         //     $test_beer->addUser($test_user);
         //     $test_beer->delete();
-<<<<<<< HEAD
-        //
-=======
 
-
->>>>>>> upstream/master
         //     //Assert
         //     $this->assertEquals([], $test_user->getBeers());
         // }
