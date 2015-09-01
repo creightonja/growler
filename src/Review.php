@@ -126,6 +126,4 @@
 
 
     } //End class
-
-} //End class
 ?>
