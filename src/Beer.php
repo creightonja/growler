@@ -111,11 +111,11 @@
           return $beers;
       }
 
-     function update($new_name, $new_style, $new_abv, $new_ibu, $new_container,
+     function update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container,
                     $new_brewery)
       {
           $GLOBALS['DB']->exec("UPDATE beers SET beer_name = '{$new_beer_name}', style = '{$new_style}', abv = '{$new_abv}', ibu = '{$new_ibu}', container = '{$new_container}', brewery = '{$new_brewery}' WHERE id = {$this->getId()};");
-          $this->setBeer_Name($new_name);
+          $this->setBeer_Name($new_beer_name);
           $this->setStyle($new_style);
           $this->setAbv($new_abv);
           $this->setIbu($new_ibu);
@@ -141,9 +141,9 @@
           return $found_beer;
       }
 
-      function addUser($user)
+      function addUser($user_id)
       {
-          $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user->getId()});");
+          $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user_id});");
       }
 
 

@@ -17,12 +17,12 @@
         }
 
         //Setters for review, and review_date
-        function setReview(){
-            $this->review = (string) $review;
+        function setReview($new_review){
+            $this->review = (string) $new_review;
         }
 
-        function setReviewDate(){
-            $this->review_date = (string) $review_date;
+        function setReviewDate($new_review_date){
+            $this->review_date = (string) $new_review_date;
         }
 
         //Getters for all variables.
@@ -65,7 +65,6 @@
             $returned_reviews = $GLOBALS['DB']->query("SELECT * FROM reviews;");
             $reviews = array();
             foreach ($returned_reviews as $review) {
-                var_dump("foreach", $review);
                 $beer_id = $review['beer_id'];
                 $user_id = $review['user_id'];
                 $text = $review['review'];
@@ -104,10 +103,10 @@
         }
 
         //Searching for reviews where a user_id and beer_id intersect.
-        static function findBookList($id1, $id2) {
+        static function findReview($id1, $id2) {
             $search_reviews = $GLOBALS['DB']->query("SELECT * FROM reviews WHERE beer_id = {$id1} AND user_id = {$id2}");
             $found_reviews = array();
-            $found_review = $search_book_list->fetchAll(PDO::FETCH_ASSOC);
+            $found_review = $search_reviews->fetchAll(PDO::FETCH_ASSOC);
             foreach ($found_review as $review){
                 $beer_id = $review['beer_id'];
                 $user_id = $review['user_id'];
