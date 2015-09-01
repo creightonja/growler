@@ -21,7 +21,6 @@
     use Symfony\Component\HttpFoundation\Request;
     Request::enableHttpMethodParameterOverride();
 
-<<<<<<< HEAD
     //index page
     $app->get("/", function() use ($app) {
         return $app['twig']->render('index.html.twig');
