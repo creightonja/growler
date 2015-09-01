@@ -1,23 +1,45 @@
 <html>
-  <head>
-    <title>Welcome to Growlr!</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-  </head>
+    <head>
+        <title>Your Profile</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
 
-  <body>
+    <body>
 
-    <div class="container">
+        <div class="container">
 
-        <h2>{{ user.getUserName }}</h2>
-        <h4>{{ user.getRegion }}</h4>
-        <h4>{{ user.getPreferredStyle }}</h4>
+            <h2>{{ user.getUserName }}</h2>
+            <h5>Region: {{ user.getRegion }}</h5>
+            <h5>Preferred Style: {{ user.getPreferredStyle }}</h5>
+            <br>
 
-        <form action="/edit_profile/{{ user.getId }}" method="get">
-            <button type="submit">Edit Profile</button>
-        </form>
+            <h4>My beer list:</h4>
+            {% if user.getBeers is not empty %}
+            <ul>
+                {% for beer in user.getBeers %}
+                    <li>beer.getBeer_Name</li>
+                {% endfor %}
+            {% else %}
+                No beers added yet!
+            {% endif %}
+            <br><br>
 
-        
+            <form action="/beers" method="get">
+                <button type="submit">View Beer List</button>
+            </form>
 
-    </div>
+            <form action="/stores" method="get">
+                <button type="submit">View Stores</button>
+            </form>
+
+            <form action="/edit_profile/{{ user.getId }}" method="get">
+                <button type="submit">Edit Profile</button>
+            </form>
+
+            <form action="/" method="get">
+                <button type="submit">Logout</button>
+            </form>
+
+        </div>
   </body>
 </html>
