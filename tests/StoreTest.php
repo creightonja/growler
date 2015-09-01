@@ -277,8 +277,6 @@
             $this->assertEquals($test_store2, $result);
         }
 
-<<<<<<< HEAD
-=======
         function testAddBeer()
         {
             //Arrange
@@ -352,7 +350,7 @@
         }
 
 
-//testDelete will not work untill Beer.php has getStores() added.
+        //testDelete will not work untill Beer.php has getStores() added.
         // function testDelete()
         // {
         //     //Arrange
@@ -383,7 +381,6 @@
         //     $this->assertEquals([], $test_beer->getStores());
         //
         // }
->>>>>>> upstream/master
     }
 
 ?>
