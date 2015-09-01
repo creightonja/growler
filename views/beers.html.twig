@@ -21,10 +21,8 @@
                     <option value = "{{ element.getId() }}"> {{ element.getStyle() }} </option>
                 {% endfor %}
 
-
           <label>Enter your Brewery's name</label>
           <input id="brewery" name="brewery" type="text">
-
 
           <label>Enter your ABV (Alcohol by Volume).</label>
           <input id="abv" name="abv" type="number">
@@ -37,11 +35,20 @@
                 {% for element in all_beers %}
                     <option value = "{{ element.getId() }}"> {{ element.getContainer() }} </option>
                 {% endfor %}
-
-
             </select>
 
-          <button type="submit">Submit Information</button>
-        </form>
+            <button type="submit">Submit Information</button>
+          </form>
+
+            {% if beers is not empty %}
+                <h3>Here are all the beers!<h3>
+                    <ul>
+                        {% for beer in beers %}
+                            <li>{{ beer.getBeer_Name }}</li>
+                        {% endfor %}
+                    </ul>
+            {% endif %}
+
+
     </body>
 </html>

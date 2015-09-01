@@ -26,7 +26,7 @@
     //beers routes
 
     //all beers
-    $app->get("/stores", function() use ($app) {
+    $app->get("/beers", function() use ($app) {
     return $app['twig']->render('beers.html.twig', array('beers' => Beer::getAll()));
     });
 
@@ -46,11 +46,12 @@
     //view beer
     $app->get("/beers/{id}", function($id) use ($app) {
     $beer = Beer::find($id);
-    return $app['twig']->render('beer.html.twig', array('beer' => $beer, 'beers' => Beer::getAll(), 'users' => $beer->getUsers(), 'all_users' => User::getAll()));
+    return $app['twig']->render('beers.html.twig', array('beer' => $beer, 'beers' => Beer::getAll(), 'users' => $beer->getUsers(), 'all_users' => User::getAll()));
     });
+
+    //
+
+
 
     return $app;
 ?>
-
-
-
