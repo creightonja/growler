@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <title>{{ beer.getBeer_Name }}</title>
+    </head>
+    <body>
+        <h1>{{ beer.getBeer_Name }}</h1>
+
+        <ul>
+        <h3>Style: {{ beer.getStyle }}</h3>
+        <h3>ABV (%): {{ beer.getAbv }}</h3>
+        <h3>IBU: {{ beer.getIbu }}</h3>
+        <h3>Container Type: {{ beer.getContainer }}</h3>
+        <h3>Brewery Name: {{ beer.getbrewery }}</h3>
+        </ul>
+
+        <form action="/beers">
+            <button type="submit">Back</button>
+        </form>
+
+        <form action="/beer/{{ beer.getId }}/edit">
+            <button type="submit">Edit Beer</button>
+        </form>
+
+        {% if stores is not empty %}
+            <h3>{{ beer.getBeer_Name }} is available at the following locations:</h3>
+            <ul>
+                {% for store in stores %}
+                    <li>{{ store.getStore_Name }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+    </body>
+</html>

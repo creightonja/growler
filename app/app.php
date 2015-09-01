@@ -74,19 +74,44 @@
         $brewery = $_POST['brewery'];
         $beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery);
         $beer->save();
-        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => User::find($user_Id)));
+        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => User::find("id", $user_Id)));
     });
 
     //from profile
     //show all beers
     $app->get("/{user_id}/beers", function($user_id) use ($app) {
-        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => User::find($user_id)));
+        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => User::find("id", $user_id)));
     });
+
+    //from beers
+    //display single beer
+    //shows beer
+    $app->get("/beer/{id}", function($id) use ($app) {
+        $beer = Beer::find($id);
+        $stores = $beer->getStores();
+        return $app['twig']->render('beer.html.twig', array('beer' => $beer, 'beers' => Beer::getAll(), 'users' => $beer->getUsers(), 'all_users' => User::getAll(), 'stores'=> $stores));
+    });
+
+    //from beer/{id}
+    //edit beer name and style etc.
+    //shows beer_edit
+    $app->get("/beer/{id}/edit", function($id) use($app) {
+        $beer = Beer::find($id);
+        return $app['twig']->render('beer_edit.html.twig', array('beer' => $beer));
+    });
+
+    //from beer/{id}/edit
+    //update beer name style etc.
+    //shows beer/{id}
+    $app->patch("/beer/{id}", function($id) use ($app) {
+        $beer = Beer::find($id);
+        $beer->update($_POST['beer_name'], $_POST['style'], $_POST['abv'], $_POST['ibu'], $_POST['container'], $_POST['brewery']);
+        return $app['twig']->render('beer_edit.html.twig', array('beer' => $beer));
 
     //from profile
     //show all stores
     $app->get("/{user_id}/stores", function($user_id) use ($app) {
-        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll(), 'user' => User::find($user_id)));
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll(), 'user' => User::find("id", $user_id)));
     });
 
     //from stores
