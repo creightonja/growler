@@ -241,11 +241,15 @@
             $test_user2->save();
 
             //Act
-            $result = User::find($test_user2->getId());
+            $user_id = $test_user2->getId();
+            $column_id = "id";
+            $result = User::find($column_id, $user_id);
+            var_dump($result);
 
             //Assert
-            $this->assertEquals($test_user2, $result);
+            $this->assertEquals([$test_user2], $result);
         }
+
 
         function testAddBeer()
         {

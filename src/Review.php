@@ -77,7 +77,7 @@
         }
 
 
-        //Searching book_list database with column_id as a variable
+        //Searching review table with column_id as a variable
         static function find($column_id, $search_id) {
             //$column_id is what column to search, example user_id etc
             //if $search_id is an ID or review_date, it will be a string, else it will be an int
