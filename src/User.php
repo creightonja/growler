@@ -94,7 +94,6 @@
                 $search_users = $GLOBALS['DB']->query("SELECT * FROM users WHERE {$column_id} = {$search_id}");
             }
             $returned_users = $search_users->fetchAll(PDO::FETCH_ASSOC);
-            var_dump($returned_users);
             $users = array();
             foreach($returned_users as $user) {
                 $user_name = $user['user_name'];

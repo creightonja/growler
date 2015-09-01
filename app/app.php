@@ -30,8 +30,8 @@
     //find user (login)
     //show profile
     $app->get("/profile", function() use ($app) {
-        $user = User::findName($_GET['user_name']);
-        return $app['twig']->render('profile.html.twig', array('user' => $user));
+        $user = User::find("user_name", $_GET['user_name']);
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
     });
 
     //from index
@@ -65,7 +65,7 @@
     //from beers
     //add and save new beer
     //show all beers
-    $app->post("{user_id}/beers", function($user_id) use ($app) {
+    $app->post("/{user_id}/beers", function($user_id) use ($app) {
         $beer_name = $_POST['beer_name'];
         $style = $_POST['style'];
         $abv = $_POST['abv'];
@@ -107,6 +107,7 @@
         $beer = Beer::find($id);
         $beer->update($_POST['beer_name'], $_POST['style'], $_POST['abv'], $_POST['ibu'], $_POST['container'], $_POST['brewery']);
         return $app['twig']->render('beer_edit.html.twig', array('beer' => $beer));
+    });
 
     //from profile
     //show all stores
@@ -140,5 +141,6 @@
         return $app['twig']->render('store.html.twig', array('store' => Store::find($store_id), 'user' => User::find($user_id), 'beers' => Store::find($store_id)->getBeers(), 'all_beers' => Beer::getAll()));
     });
 
-    return $app; //End of app, do not code below here
+    return $app;
+    //End of app, do not code below here
 ?>
