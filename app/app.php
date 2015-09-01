@@ -115,5 +115,5 @@
         return $app['twig']->render('store.html.twig', array('store' => Store::find($store_id), 'user' => User::find($user_id), 'beers' => Store::find($store_id)->getBeers(), 'all_beers' => Beer::getAll()));
     });
 
-    return $app;
+    return $app; //End of app, do not code below here
 ?>
