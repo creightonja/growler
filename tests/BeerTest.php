@@ -135,8 +135,6 @@
 
 
         // function testUpdate()
-<<<<<<< HEAD
-=======
         // {
         //     //Arrange
         //     $beer_name = "Your mom";
@@ -170,7 +168,6 @@
 
 
         // function testAddUser()
->>>>>>> upstream/master
         // {
         //     //Arrange
         //     $beer_name = "Your mom";

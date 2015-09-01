@@ -1,4 +1,4 @@
-git checkout master<?php
+<?php
     class User {
 
         private $user_name;
