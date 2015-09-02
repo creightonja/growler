@@ -56,7 +56,7 @@
         //Updating review and review_date
         function update($new_review, $new_review_date) {
             $GLOBALS['DB']->exec("UPDATE reviews SET review = '{$new_review}',
-                        review_date = {$new_review_date} WHERE id = {$this->getId()};");
+                        review_date = '{$new_review_date}' WHERE id = {$this->getId()};");
             $this->setReview($new_review);
             $this->setReviewDate($new_review_date);
         }

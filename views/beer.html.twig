@@ -5,32 +5,51 @@
         <title>{{ beer.getBeerName }}</title>
     </head>
     <body>
-        <h1>{{ beer.getBeerName }}</h1>
+        <div class="container">
+            <h2>{{ beer.getBeerName }}</h2>
 
-        <ul>
-        <h3>Style: {{ beer.getStyle }}</h3>
-        <h3>ABV (%): {{ beer.getAbv }}</h3>
-        <h3>IBU: {{ beer.getIbu }}</h3>
-        <h3>Container Type: {{ beer.getContainer }}</h3>
-        <h3>Brewery Name: {{ beer.getbrewery }}</h3>
-        </ul>
+            Style: {{ beer.getStyle }}<br>
+            ABV (%): {{ beer.getAbv }}<br>
+            IBU: {{ beer.getIbu }}<br>
+            Container Type: {{ beer.getContainer }}<br>
+            Brewery Name: {{ beer.getbrewery }}<br><br>
 
-        <form action="/beers">
-            <button type="submit">Back</button>
-        </form>
+            <form action="/{{ user.getId }}/drank_beer/{{ beer.getId }}" method="post">
+                <button type="submit">Drank It!</button>
+            </form>
+            <form action="/{{ user.getId }}/beers">
+                <button type="submit">Back</button>
+            </form>
 
-        <form action="/beer/{{ beer.getId }}/edit">
-            <button type="submit">Edit Beer</button>
-        </form>
 
-        {% if stores is not empty %}
-            <h3>{{ beer.getBeerName }} is available at the following locations:</h3>
-            <ul>
-                {% for store in stores %}
-                    <li>{{ store.getStoreName }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+
+            {% if stores is not empty %}
+                <h3>{{ beer.getBeerName }} is available at the following locations:</h3>
+                <ul>
+                    {% for store in stores %}
+                        <li>{{ store.getStoreName }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if user.getUserName == "Admin" %}
+                <form action="/beer/{{ beer.getId }}/edit">
+                    <button type="submit">Edit Beer</button>
+                </form>
+
+                <form action="/{{ user.getId }}/beer/{{ beer.getId }}" method="post">
+
+                    <label for="store">Store Name</label>
+                    <select id = "store_id" name = "store_id" type = "text">
+                        {% for store in all_stores %}
+                            <option value = "{{ store.getId() }}"> {{ store.getStoreName() }} </option>
+                        {% endfor %}
+                    </select><br>
+
+                    <button type="submit">Submit</button>
+                </form>
+            {% endif %}
+        </div>
 
     </body>
 </html>
