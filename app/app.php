@@ -34,7 +34,8 @@
     //show profile
     $app->get("/profile", function() use ($app) {
         $user = User::find("user_name", $_GET['user_name']);
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
+        $reviews = Review::find("user_id", $user[0]->getId());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
     });
 
     //from index
@@ -43,7 +44,8 @@
     $app->post("/create_user", function() use ($app) {
         $user = new User($_POST['user_name'], $_POST['preferred_style'], $_POST['region']);
         $user[0]->save();
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
+        $reviews = Review::find("user_id", $user[0]->getId());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
     });
 
     //from profile
@@ -62,7 +64,8 @@
         $user->updateUserName($_POST['user_name']);
         $user->updatePreferredStyle($_POST['preferred_style']);
         $user->updateRegion($_POST['region']);
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
+        $reviews = Review::find("user_id", $user[0]->getId());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
     });
 
 
