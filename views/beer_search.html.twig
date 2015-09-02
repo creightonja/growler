@@ -1,18 +1,44 @@
 {% extends 'base.html.twig' %}
     {% block main %}
+    <div class="container">
 
-    {% for beer in search_beer %}
-    <div>
-        <ul>
-            {{beer.getBeerName}}
-            {{beer.getStyle}}
-            {{beer.getBrewery}}
-            {{beer.getAbv}}
-            {{beer.getIbu}}
-            {{beer.getContainer}}
-        </ul>
+        <h3>Beer Search</h3>
+
+        <form action="/{{ user.getId }}/search_beer" method="post" class="form-inline">
+            <div class="form-group">
+                <label for="search_field">Search Field</label>
+
+                <select id = "search_field" name = "search_field" type = "text">
+                    <option value = "beer_name">Beer Name</option>
+                    <option value = "style"> Style </option>
+                    <option value = "abv"> ABV </option>
+                    <option value = "ibu"> IBU </option>
+                    <option value = "container"> Container </option>
+                    <option value = "brewery"> Brewery </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input id="search_term" name="search_term" type="text" placeholder="Search">
+
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+
+
+        <h3>Beer Search Results</h3>
+        {% for beer in search_beer %}
+        <div>
+            <ul>
+                <h4>{{beer.getBeerName}}</h4>
+                Brewery: {{beer.getBrewery}}<br>
+                Style: {{beer.getStyle}}<br>
+                ABV: {{beer.getAbv}}<br>
+                IBU: {{beer.getIbu}}<br>
+                Container: {{beer.getContainer}}
+            </ul>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 
 
     {% endblock %}
