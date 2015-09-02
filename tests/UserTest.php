@@ -352,5 +352,44 @@
             //Assert
             $this->assertEquals([], $result);
         }
+
+        function testfindBeerStyle(){
+            $user_name = "Barack Obama";
+            $preferred_style = "Belgian";
+            $region =  "Northwest";
+            $id = 1;
+            $test_user = new User($user_name, $preferred_style, $region, $id);
+            $test_user->save();
+
+            $id = 1;
+            $beer_name = "Fat Tire";
+            $style = "Belgian";
+            $abv = 6.12;
+            $ibu = 40;
+            $container = "Bottle";
+            $brewery = "New Belgium";
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer->save();
+            $test_beer_id = $test_beer->getId();
+
+            $id = 2;
+            $beer_name = "Golden Shower";
+            $style = "Belgian";
+            $abv = 6.5;
+            $ibu = 10;
+            $container = "Bottle";
+            $brewery = "New Belgium";
+            $test_beer2 = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer2->save();
+
+            //Act
+            $test_user->addBeer($test_beer_id);
+            $preferred_style = $test_user->getPreferredStyle();
+            $user_id = $test_user->getId();
+            $result = User::findBeerStyle($user_id, $preferred_style);
+
+            //Assert
+            $this->assertEquals([$test_beer2], $result);
+        }
     }
 ?>
