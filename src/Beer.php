@@ -130,7 +130,7 @@
     //       return $found_beer;
     //   }
 
-      //Searching book_list database with column_id as a variable example: Beer::find("abv", $search_id);
+      //Searching for beers in database with column_id as a variable example: Beer::find("abv", $search_id);
       static function find($column_id, $search_id) {
           //$column_id is what column to search, example user_id etc
           //if $search_id is an ID or review_date, it will be a string, else it will be an int
@@ -154,6 +154,18 @@
               array_push($beers, $new_beer);
           }
           return $beers;
+      }
+
+      //Searching unique stores table with column_id as a variable
+      static function findDistinct($column_id) {
+          $search_beers = $GLOBALS['DB']->query("SELECT DISTINCT {$column_id} FROM beers");
+          $returned_beers = $search_beers->fetchAll(PDO::FETCH_ASSOC);
+          $unique_column_ids = array();
+          foreach($returned_beers as $beer) {
+              $unique_column = $beer[$column_id];
+              array_push($unique_column_ids, $unique_column);
+          }
+          return $unique_column_ids;
       }
 
       //Begin add and find user functions
