@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+    {% block main %}
+    <div class="container">
+
+        <h3>Store Search</h3>
+
+        <form action="/{{ user.getId }}/search_store" method="get" class="form-inline">
+            <div class="form-group">
+                <label for="search_field">Store Search</label>
+
+                <select id = "search_field" name = "search_field" type = "text">
+                    <option value = "store_name">Store Name</option>
+                    <option value = "category"> Category </option>
+                    <option value = "region"> Region </option>
+                    <option value = "address"> Address </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input id="search_term" name="search_term" type="text" placeholder="Search">
+
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+
+        <h3>Store Search Results</h3>
+        {% for store in search_store %}
+        <div>
+            <ul>
+                <li><a href="/{{ user.getId }}/store/{{ store.getId }}">{{store.getStoreName}}</a><br>
+                {{store.getAddress}}<br>
+                {{store.getRegion}}<br>
+                {{store.getCategory}}</li>
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    {% endblock %}
