@@ -1,11 +1,6 @@
-<html>
-    <head>
-        <title>Growlr - {{ user.getUserName }}</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    </head>
+{% extends 'base.html.twig' %}
 
-    <body>
-
+        {% block main %}
         <div class="container">
 
             <h2>{{ user.getUserName }}</h2>
@@ -44,5 +39,4 @@
             </form>
 
         </div>
-  </body>
-</html>
+        {% endblock %}
