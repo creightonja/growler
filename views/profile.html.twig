@@ -12,7 +12,10 @@
             {% if user.getBeers is not empty %}
             <ul>
                 {% for beer in user.getBeers %}
-                    <li>beer.getBeer_Name</li>
+                    <li>
+                        {{ beer.getBeerName }}
+                        <a href="/{{ user.getId }}/review/{{ beer.getId }}">Review</a>
+                    </li>
                 {% endfor %}
             {% else %}
                 No beers added yet!

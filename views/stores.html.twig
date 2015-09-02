@@ -21,7 +21,6 @@
         {% else %}
             <p>No stores have been added yet.</p>
         {% endif %}
-
         <br>
 
         <h3>Add a New Store</h3>
@@ -52,6 +51,59 @@
 
             <button type="submit">Submit</button>
         </form>
+        <h3>Store Search</h3>
+
+        <form action="/{{ user.getId }}/search_store" method="get" class="form-inline">
+            <div class="form-group">
+                <label for="search_field">Search Field</label>
+
+                <select id = "search_field" name = "search_field" type = "text">
+                    <option value = "store_name">Store Name</option>
+                    <option value = "category"> Category </option>
+                    <option value = "region"> Region </option>
+                    <option value = "address"> Address </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input id="search_term" name="search_term" type="text" placeholder="Search">
+
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+
+        {% if user.getUserName == "Admin" %}
+
+            <h3>Add a New Store</h3>
+
+            <form action="/{{ user.getId }}/stores" method="post">
+
+                <input id="store_name" name="store_name" type="text" placeholder="Business Name"><br>
+
+                <input id="address" name="address" type="text" placeholder = "Address"><br>
+
+                <label for="region">Region</label>
+                <select id = "region" name = "region" type = "text">
+                    <option value = "North">North</option>
+                    <option value = "Northeast"> Northeast </option>
+                    <option value = "Northwest"> Northeast </option>
+                    <option value = "Southwest"> Southeast </option>
+                    <option value = "Southwest"> Southwest </option>
+                </select><br>
+
+                <label for="region">Business Type</label>
+                <select id = "category" name = "category" type = "text">
+                    <option value = "Bar">Bar</option>
+                    <option value = "Bottle Shop">Bottle Shop</option>
+                    <option value = "Brewery">Brewery</option>
+                    <option value = "Grocery Store">Grocery Store</option>
+                    <option value = "Growler Fill">Growler Fill</option>
+                </select><br>
+
+                <button type="submit">Submit</button>
+            </form>
+
+        {% endif %}
+
 
         <form action="/profile" method="get">
             <input name="user_name" type="hidden" value="{{ user.getUserName }}">

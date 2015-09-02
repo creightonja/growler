@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
     {% block main %}
@@ -30,3 +31,58 @@
         {% endif %}
     </div>
 
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <title>{{ beer.getBeerName }}</title>
+    </head>
+    <body>
+        <div class="container">
+            <h2>{{ beer.getBeerName }}</h2>
+
+            Style: {{ beer.getStyle }}<br>
+            ABV (%): {{ beer.getAbv }}<br>
+            IBU: {{ beer.getIbu }}<br>
+            Container Type: {{ beer.getContainer }}<br>
+            Brewery Name: {{ beer.getbrewery }}<br><br>
+
+            <form action="/{{ user.getId }}/drank_beer/{{ beer.getId }}" method="post">
+                <button type="submit">Drank It!</button>
+            </form>
+            <form action="/{{ user.getId }}/beers">
+                <button type="submit">Back</button>
+            </form>
+
+
+
+            {% if stores is not empty %}
+                <h3>{{ beer.getBeerName }} is available at the following locations:</h3>
+                <ul>
+                    {% for store in stores %}
+                        <li>{{ store.getStoreName }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if user.getUserName == "Admin" %}
+                <form action="/beer/{{ beer.getId }}/edit">
+                    <button type="submit">Edit Beer</button>
+                </form>
+
+                <form action="/{{ user.getId }}/beer/{{ beer.getId }}" method="post">
+
+                    <label for="store">Store Name</label>
+                    <select id = "store_id" name = "store_id" type = "text">
+                        {% for store in all_stores %}
+                            <option value = "{{ store.getId() }}"> {{ store.getStoreName() }} </option>
+                        {% endfor %}
+                    </select><br>
+
+                    <button type="submit">Submit</button>
+                </form>
+            {% endif %}
+        </div>
+
+    </body>
+</html>
