@@ -1,10 +1,7 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+{% extends 'base.html.twig' %}
 
-        <title>{{ beer.getBeerName }}</title>
-    </head>
-    <body>
+    {% block main %}
+    <div class="container">
         <h1>{{ beer.getBeerName }}</h1>
 
         <ul>
@@ -31,6 +28,5 @@
                 {% endfor %}
             </ul>
         {% endif %}
+    </div>
 
-    </body>
-</html>

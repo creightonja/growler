@@ -72,7 +72,7 @@
     //add and save new beer
     //show all beers
     $app->post("/{user_id}/beers", function($user_id) use ($app) {
-        $beer = new Beer($_POST['beer_name'], $_POST['style'], _POST['abv'], $_POST['ibu'], $_POST['container'], $_POST['brewery']);
+        $beer = new Beer($_POST['beer_name'], $_POST['style'], $_POST['abv'], $_POST['ibu'], $_POST['container'], $_POST['brewery']);
         $beer->save();
         $user = User::find("id", $user_Id);
         return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => $user[0]));
