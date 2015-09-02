@@ -1,24 +1,153 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-  <div class="container">
-    <h2>Growlr</h2>
-      <h4>User Login</h4>
-      <form action="/profile" method="get">
-          <input id="user_name" name="user_name" type="text" placeholder="Username">
-          <button type="submit">Submit</button>
-      </form>
+<body id="page-top" class="index">
+  <header>
+    <div class="container">
+      <section id="contact">
+        <div class="container">
+          <div class="row">
+              <div class="col-lg-12 text-center">
+                  <h3 class="section-heading">Welcome to Growlr</h3>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <form action="/profile" method="get">
+                          <div class="form-group">
+                              <input type="text" class="form-control" placeholder="username" id="user_name" name="user_name">
+                          </div>
+                          <div class="clearfix"></div>
+                            <div class="col-lg-6 text-center">
+                                <div id="success"></div>
+                                <button type="submit" class="btn btn-xl">Sign in</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <form action="/create_user" method="post">
+                          <div class="form-group">
+                              <input type="text" class="form-control" placeholder="username" id="user_name" name="user_name">
+                          </div>
+                          <div class="form-group">
+                              <input type="text" class="form-control" placeholder="preferred style" id="preferred_style" name="preferred_style">
+                              <p class="help-block text-danger"></p>
+                          </div>
+                          <div class="form-group">
+                              <input type="text" class="form-control" placeholder="region" id="region" name=
+                            "region">
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="col-lg-6 text-center">
+                              <div id="success"></div>
+                              <button type="submit" class="btn btn-xl">Sign Up</button>
+                          </div>
+                        </form>
+                          </div>
 
-      <h4>Create New User</h4>
+                      </div>
+                  </form>
+              </div>
+          </div>
+        </div>
+    </section>
 
-      <form action="/create_user" method="post">
-          <input id="user_name" name="user_name" type="text" placeholder="Username">
-          <br>
-          <input id="preferred_style" name="preferred_style" type="text" placeholder="Preferred style of beer">
-          <br>
-          <input id="region" name="region" type="text" placeholder="Region">
-          <br>
-          <button type="submit">Submit Information</button>
-      </form>
-  </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Features</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Reviews</h4>
+                    <p class="text-muted">You can review beer you've tasted and other's reviews</p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Multiples search</h4>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Select by region</h4>
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy;Growlr 2015</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li><a href="#">Privacy Policy</a>
+                        </li>
+                        <li><a href="#">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/agency.js"></script>
 {% endblock %}
+
+
+
+
+
+
+
+
