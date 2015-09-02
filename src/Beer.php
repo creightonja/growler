@@ -171,7 +171,9 @@
       //Begin add and find user functions
       function addUser($user_id)
       {
-          $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user_id});");
+          if(Review::findReview($this->getId(), $user_id) == false) {
+              $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user_id});");
+          }
       }
 
 

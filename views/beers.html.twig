@@ -55,7 +55,7 @@
 
           <h3>Beer Search</h3>
 
-          <form action="/{{ user.getId }}/search_beer" method="get" class="form-inline">
+          <form action="/{{ user.getId }}/search_beer" method="post" class="form-inline">
               <div class="form-group">
                   <label for="search_field">Search Field</label>
 
@@ -84,4 +84,3 @@
                     </ul>
             {% endif %}
             {% endblock %}
-

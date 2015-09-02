@@ -47,5 +47,18 @@
                     <button type="submit">Submit</button>
                 </form>
             {% endif %}
+
+            <h3>Reviews</h3>
+                {% if reviews is not empty %}
+                    {% for review in reviews %}
+                        {% if review.getReview != null %}
+                            Review
+                        <ul>
+                            <li>{{ review.getReview }}</li>
+                            <li>{{ review.getReviewDate }}</li>
+                        </ul>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
         </div>
     {% endblock %}
