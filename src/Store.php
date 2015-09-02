@@ -114,6 +114,18 @@
             return $stores;
         }
 
+        //Searching unique stores table with column_id as a variable
+        static function findDistinct($column_id) {
+            $search_stores = $GLOBALS['DB']->query("SELECT DISTINCT {$column_id} FROM stores");
+            $returned_stores = $search_stores->fetchAll(PDO::FETCH_ASSOC);
+            $unique_column_ids = array();
+            foreach($returned_stores as $store) {
+                $unique_column = $store[$column_id];
+                array_push($unique_column_ids, $unique_column);
+            }
+            return $unique_column_ids;
+        }
+
         function addBeer($beer)
         {
             $GLOBALS['DB']->exec("INSERT INTO beers_stores (beer_id, store_id) VALUES ({$beer}, {$this->getId()});");
