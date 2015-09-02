@@ -90,8 +90,8 @@
     //shows beer
     $app->get("/beer/{id}", function($id) use ($app) {
         $beer = Beer::find("id", $id);
-        $stores = $beer->getStores();
-        return $app['twig']->render('beer.html.twig', array('beer' => $beer[0], 'beers' => Beer::getAll(), 'users' => $beer->getUsers(), 'all_users' => User::getAll(), 'stores'=> $stores));
+        $stores = $beer[0]->getStores();
+        return $app['twig']->render('beer.html.twig', array('beer' => $beer[0], 'beers' => Beer::getAll(), 'users' => $beer[0]->getUsers(), 'all_users' => User::getAll(), 'stores'=> $stores));
     });
 
     //from beer/{id}
@@ -135,8 +135,8 @@
     //show store
     $app->get("/{user_id}/store/{store_id}", function ($user_id, $store_id) use ($app) {
         $user = User::find("id", $user_id);
-        $store = Store::find("store", $store_id);
-        return $app['twig']->render('store.html.twig', array('store' => Store::find($store_id), 'user' => $user[0], 'beers' => $store[0]->getBeers(), 'all_beers' => Beer::getAll()));
+        $store = Store::find("id", $store_id);
+        return $app['twig']->render('store.html.twig', array('store' => $store[0], 'user' => $user[0], 'beers' => $store[0]->getBeers(), 'all_beers' => Beer::getAll()));
     });
 
     //from store

@@ -60,7 +60,7 @@
                 <h3>Here are all the beers!<h3>
                     <ul>
                         {% for beer in all_beers %}
-                            <li><a href="/beer/{{beer.getId}}">{{ beer.getBeer_Name }}</a></li>
+                            <li><a href="/beer/{{beer.getId}}">{{ beer.getBeerName }}</a></li>
                         {% endfor %}
                     </ul>
             {% endif %}
