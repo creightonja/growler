@@ -113,8 +113,10 @@
 
         function addBeer($beer)
         {
-            $userid = $this->getId();
-            $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer}, {$this->getId()});");
+            $user_id = $this->getId();
+            if (Review::findReview($beer, $user_id) == false ) {
+                $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer}, {$this->getId()});");
+            }
         }
 
         function getBeers()

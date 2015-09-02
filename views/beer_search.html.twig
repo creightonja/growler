@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+    {% block main %}
+
+    {% for beer in search_beer %}
+    <div>
+        <ul>
+            {{beer.getBeerName}}
+            {{beer.getStyle}}
+            {{beer.getBrewery}}
+            {{beer.getAbv}}
+            {{beer.getIbu}}
+            {{beer.getContainer}}
+        </ul>
+    </div>
+    {% endfor %}
+
+
+    {% endblock %}
