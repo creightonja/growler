@@ -267,7 +267,8 @@
             $ibu = 40;
             $container = "Bottle";
             $brewery = "New Belgium";
-            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $image = "../img/test.jpg";
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $image);
             $test_beer->save();
             $beer_id = $test_beer->getId();
 
@@ -299,7 +300,8 @@
             $ibu = 40;
             $container = "Bottle";
             $brewery = "New Belgium";
-            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $image = "../img/test.jpg";
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $image);
             $test_beer->save();
             $test_beer_id = $test_beer->getId();
 
@@ -310,7 +312,8 @@
             $ibu2 = 75;
             $container2 = "Growler";
             $brewery2 = "Dogfish Head";
-            $test_beer2 = new Beer($beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2, $id2);
+            $image2 = "../img/test2.jpg";
+            $test_beer2 = new Beer($beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2, $image2);
             $test_beer2->save();
             $test_beer_id2 = $test_beer2->getId();
 
@@ -379,7 +382,8 @@
             $ibu = 10;
             $container = "Bottle";
             $brewery = "New Belgium";
-            $test_beer2 = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $image = "../img/test.jpg";
+            $test_beer2 = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $image);
             $test_beer2->save();
 
             //Act
