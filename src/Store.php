@@ -90,22 +90,45 @@
             $this->setAddress($new_address);
         }
 
-        static function find($search_id)
-        {
-            $found_store = null;
-            $stores = Store::getAll();
-            foreach($stores as $store) {
-                $store_id = $store->getId();
-                if ($store_id == $search_id) {
-                    $found_store = $store;
-                }
+        //Searching stores table with column_id as a variable
+        static function find($column_id, $search_id) {
+            //$column_id is what column to search, example user_id etc
+            //if $search_id is an ID or review_date, it will be a string, else it will be an int
+            if (is_string($search_id)) {
+                $search_stores = $GLOBALS['DB']->query("SELECT * FROM stores WHERE {$column_id} = '{$search_id}'");
             }
-            return $found_store;
+            else {
+                $search_stores = $GLOBALS['DB']->query("SELECT * FROM stores WHERE {$column_id} = {$search_id}");
+            }
+            $returned_stores = $search_stores->fetchAll(PDO::FETCH_ASSOC);
+            $stores = array();
+            foreach($returned_stores as $store) {
+                $store_name = $store['store_name'];
+                $id = $store['id'];
+                $category = $store['category'];
+                $region = $store['region'];
+                $address = $store['address'];
+                $new_store = new Store($store_name, $category, $region, $address, $id);
+                array_push($stores, $new_store);
+            }
+            return $stores;
+        }
+
+        //Searching unique stores table with column_id as a variable
+        static function findDistinct($column_id) {
+            $search_stores = $GLOBALS['DB']->query("SELECT DISTINCT {$column_id} FROM stores");
+            $returned_stores = $search_stores->fetchAll(PDO::FETCH_ASSOC);
+            $unique_column_ids = array();
+            foreach($returned_stores as $store) {
+                $unique_column = $store[$column_id];
+                array_push($unique_column_ids, $unique_column);
+            }
+            return $unique_column_ids;
         }
 
         function addBeer($beer)
         {
-            $GLOBALS['DB']->exec("INSERT INTO beers_stores (beer_id, store_id) VALUES ({$beer->getId()}, {$this->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO beers_stores (beer_id, store_id) VALUES ({$beer}, {$this->getId()});");
         }
 
         function getBeers()

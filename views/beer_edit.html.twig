@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <title>Edit {{ beer.getBeer_Name }}</title>
+    </head>
+    <body>
+        <h1>Edit {{ beer.getBeer_Name }}</h1>
+
+
+        <form action="/beer/{{ beer.getId }}" method="post">
+                <input name="_method" type="hidden" value="patch">
+                <label for="beer_name">Enter new Name:</label>
+                <input name="beer_name" type="text" value="{{ beer.getBeer_Name }}">
+                <br>
+
+                <label for 'style'>Select a new beer style.</label>
+                  <select id = "style" name = "style" type = "text">
+                          <option value = "IPA"> IPA</option>
+                          <option value = "Pale Ale"> Pale Ale</option>
+                          <option value = "Stout"> Stout</option>
+                          <option value = "Porter"> Porter</option>
+                          <option value = "Amber"> Amber</option>
+                          <option value = "Lager"> Lager</option>
+                          <option value = "Belgian"> Belgian</option>
+                          <option value = "Blonde Ale"> Blonde Ale</option>
+                          <option value = "Brown Ale"> Brown Ale</option>
+                          <option value = "Pilsner Ale"> Pilsner Ale</option>
+                  </select>
+                  <br>
+
+                <label>Enter your Brewery's name</label>
+                <input id="brewery" name="brewery" type="text" value="{{ beer.getBrewery }}">
+                <br>
+
+                <label>Enter your ABV (Alcohol by Volume).</label>
+                <input id="abv" name="abv" type="number" value="{{ beer.getAbv }}">
+                <br>
+
+                <label>Enter your IBU (Internation Bitterness Units).</label>
+                <input id="ibu" name="ibu" type="number" value="{{ beer.getIbu }}">
+                <br>
+
+                <label for 'container'>Select a container type to add it to the beer.</label>
+                  <select id = "container" name = "container" type = "text">
+
+                          <option value = "Growler"> Growler </option>
+                          <option value = "Bottle"> Bottle </option>
+                          <option value = "Can"> Can </option>
+
+                  </select>
+                  <br>
+
+                  <button type="submit">Submit Information</button>
+            </form>
+
+
+        <form action="/beer/{{ beer.getId }}">
+            <button type="submit">Back</button>
+        </form>
+
+    </body>
+</html>

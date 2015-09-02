@@ -26,82 +26,133 @@
         return $app['twig']->render('index.html.twig');
     });
 
-    // ------------------------ Begin User Functionality ----------------------------
 
-    //route from user login on index page.  find the user by name and
-    //show that user's profile page.
+//---------------------------- Begin User Functionality -------------------------------------
+
+    //from index
+    //find user (login)
+    //show profile
     $app->get("/profile", function() use ($app) {
-        $user = User::findName($_GET['user_name']);
-        return $app['twig']->render('profile.html.twig', array('user' => $user));
+        $user = User::find("user_name", $_GET['user_name']);
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
     });
 
-    //route from create user on index page.  create a new user, save, and show
-    //that user's profile page.
+    //from index
+    //create and save new user
+    //show profile
     $app->post("/create_user", function() use ($app) {
         $user = new User($_POST['user_name'], $_POST['preferred_style'], $_POST['region']);
         $user->save();
         return $app['twig']->render('profile.html.twig', array('user' => $user));
     });
 
-    //route from user profile page.  go to profile edit page.
-    //Finds user by ID
-    $app->get("/edit_profile/{id}", function($id) use ($app) {
-        $user = User::find($id);
-        return $app['twig']->render('profile_edit.html.twig', array('user' => $user));
+    //from profile
+    //find user
+    //show profile_edit
+    $app->get("/{user_id}/edit_profile", function($user_id) use ($app) {
+        $user = User::find("id", $user_id);
+        return $app['twig']->render('profile_edit.html.twig', array('user' => $user[0]));
     });
 
-    //Comes from profile_edit.html
-    //Renders to profile.html
-    //Updates user information
-    $app->patch("/user/{id}", function ($id) use ($app) {
-        $user = User::find($id);
+    //from profile_edit
+    //update profile fields
+    //show profile
+    $app->patch("/{user_id}/user", function ($user_id) use ($app) {
+        $user = User::find("id", $user_id);
         $user->updateUserName($_POST['user_name']);
         $user->updatePreferredStyle($_POST['preferred_style']);
         $user->updateRegion($_POST['region']);
-        return $app['twig']->render('profile.html.twig', array('user' => $user));
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
     });
 
 
-    // ------------------------ Begin Beer Functionality ----------------------------
+//------------------------------- Begin Beer Functionality -----------------------------------
 
-
-    //Comes from profile page.
-    //Renders to beers.html
-    //Gathers all beers from the database
-    $app->get("/beers", function() use ($app) {
-        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll()));
-    });
-
-    //Comes from beers.html
-    //Posts back to beers.html
-    //Adds a beer to database
-    $app->post("/beers", function() use ($app) {
-        $beer_name = $_POST['beer_name'];
-        $style = $_POST['style'];
-        $abv = $_POST['abv'];
-        $ibu = $_POST['ibu'];
-        $container = $_POST['container'];
-        $brewery = $_POST['brewery'];
-        $beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery);
+    //from beers
+    //add and save new beer
+    //show all beers
+    $app->post("/{user_id}/beers", function($user_id) use ($app) {
+        $beer = new Beer($_POST['beer_name'], $_POST['style'], _POST['abv'], $_POST['ibu'], $_POST['container'], $_POST['brewery']);
         $beer->save();
-        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll()));
+        $user = User::find("id", $user_Id);
+        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => $user[0]));
     });
 
-    //Comes from not yet defined.
-    //Renders to beers.html??
-    //View one beer from the database
-    $app->get("/beers/{id}", function($id) use ($app) {
-        $beer = Beer::find($id);
-        return $app['twig']->render('beers.html.twig', array('beer' => $beer, 'beers' => Beer::getAll(), 'users' => $beer->getUsers(), 'all_users' => User::getAll()));
+    //from profile
+    //show all beers
+    $app->get("/{user_id}/beers", function($user_id) use ($app) {
+        $user = User::find("id", $user_id);
+        return $app['twig']->render('beers.html.twig', array('all_beers' => Beer::getAll(), 'user' => $user[0]));
+    });
+
+    //from beers
+    //display single beer
+    //shows beer
+    $app->get("/beer/{id}", function($id) use ($app) {
+        $beer = Beer::find("id", $id);
+        $stores = $beer[0]->getStores();
+        return $app['twig']->render('beer.html.twig', array('beer' => $beer[0], 'beers' => Beer::getAll(), 'users' => $beer[0]->getUsers(), 'all_users' => User::getAll(), 'stores'=> $stores));
+    });
+
+    //from beer/{id}
+    //edit beer name and style etc.
+    //shows beer_edit
+    $app->get("/beer/{id}/edit", function($id) use($app) {
+        $beer = Beer::find("id", $id);
+        return $app['twig']->render('beer_edit.html.twig', array('beer' => $beer[0]));
+    });
+
+    //from beer/{id}/edit
+    //update beer name style etc.
+    //shows beer/{id}
+    $app->patch("/beer/{id}", function($id) use ($app) {
+        $beer = Beer::find("id", $id);
+        $beer->update($_POST['beer_name'], $_POST['style'], $_POST['abv'], $_POST['ibu'], $_POST['container'], $_POST['brewery']);
+        return $app['twig']->render('beer_edit.html.twig', array('beer' => $beer[0]));
+    });
+
+//--------------------------------------------- Begin Store Functionality ----------------------------------------
+
+    //from profile
+    //show all stores
+    $app->get("/{user_id}/stores", function($user_id) use ($app) {
+        $user = User::find("id", $user_id);
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll(), 'user' => $user[0]));
+    });
+
+    //from stores
+    //add and save new store
+    //show all stores
+    $app->post("/{user_id}/stores", function($user_id) use ($app) {
+        $store = new Store($_POST['store_name'], $_POST['category'], $_POST['region'], $_POST['address']);
+        $store->save();
+        $user = User::find("id", $user_id);
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll(), 'user' => $user[0]));
+    });
+
+    //from stores
+    //find store
+    //show store
+    $app->get("/{user_id}/store/{store_id}", function ($user_id, $store_id) use ($app) {
+        $user = User::find("id", $user_id);
+        $store = Store::find("id", $store_id);
+        return $app['twig']->render('store.html.twig', array('store' => $store[0], 'user' => $user[0], 'beers' => $store[0]->getBeers(), 'all_beers' => Beer::getAll()));
+    });
+
+    //from store
+    //add beer to store
+    //show store
+    $app->post("/{user_id}/store/{store_id}", function ($user_id, $store_id) use ($app) {
+        $store = Store::find($store_id);
+        $beer = Beer::find($_POST['beer_id']);
+        $store->addBeer($beer);
+        $user = User::find("id", $user_id);
+        $store = Store::find("store", $store_id);
+        return $app['twig']->render('store.html.twig', array('store' => Store::find($store_id), 'user' => $user[0], 'beers' => $store[0]->getBeers()->getBeers(), 'all_beers' => Beer::getAll()));
     });
 
 
 
-    // ------------------------ Begin Store Functionality ----------------------------
 
-
-
-
-
-    return $app; //End of app, do not code below here
+    return $app;  //End of app, do not code below here
 ?>
