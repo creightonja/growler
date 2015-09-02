@@ -1,33 +1,24 @@
-<html>
-  <head>
-    <title>Welcome to Growlr!</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-  </head>
+{% extends 'base.html.twig' %}
 
-  <body>
+{% block main %}
+  <div class="container">
+    <h2>Growlr</h2>
+      <h4>User Login</h4>
+      <form action="/profile" method="get">
+          <input id="user_name" name="user_name" type="text" placeholder="Username">
+          <button type="submit">Submit</button>
+      </form>
 
-    <div class="container">
+      <h4>Create New User</h4>
 
-        <h2>Growlr</h2>
-
-        <h4>User Login</h4>
-
-        <form action="/profile" method="get">
-            <input id="user_name" name="user_name" type="text" placeholder="Username">
-            <button type="submit">Submit</button>
-        </form>
-
-        <h4>Create New User</h4>
-
-        <form action="/create_user" method="post">
-            <input id="user_name" name="user_name" type="text" placeholder="Username">
-            <br>
-            <input id="preferred_style" name="preferred_style" type="text" placeholder="Preferred style of beer">
-            <br>
-            <input id="region" name="region" type="text" placeholder="Region">
-            <br>
-            <button type="submit">Submit Information</button>
-        </form>
-    </div>
-  </body>
-</html>
+      <form action="/create_user" method="post">
+          <input id="user_name" name="user_name" type="text" placeholder="Username">
+          <br>
+          <input id="preferred_style" name="preferred_style" type="text" placeholder="Preferred style of beer">
+          <br>
+          <input id="region" name="region" type="text" placeholder="Region">
+          <br>
+          <button type="submit">Submit Information</button>
+      </form>
+  </div>
+{% endblock %}
