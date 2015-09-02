@@ -148,7 +148,8 @@
                 $ibu = $beer['ibu'];
                 $container = $beer['container'];
                 $brewery = $beer['brewery'];
-                $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+                $image = $beer['image'];
+                $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $image, $id);
                 array_push($beers_array, $new_beer);
             }
             return $beers_array;

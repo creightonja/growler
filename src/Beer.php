@@ -8,9 +8,10 @@
         private $ibu;
         private $container;
         private $brewery;
+        private $image;
         private $id;
 
-      function __construct($beer_name, $style, $abv, $ibu, $container, $brewery, $id=null)
+      function __construct($beer_name, $style, $abv, $ibu, $container, $brewery, $image, $id=null)
       {
           $this->beer_name = $beer_name;
           $this->style = $style;
@@ -18,6 +19,7 @@
           $this->ibu = $ibu;
           $this->container= $container;
           $this->brewery = $brewery;
+          $this->image = $image;
           $this->id = $id;
       }
 
@@ -46,11 +48,6 @@
           $this->abv = (string) $new_abv;
       }
 
-      function setBrewery($new_brewery)
-      {
-          $this->brewery = (string) $new_brewery;
-      }
-
       function getAbv()
       {
           return $this->abv;
@@ -76,9 +73,24 @@
           return $this->container;
       }
 
+      function setBrewery($new_brewery)
+      {
+          $this->brewery = (string) $new_brewery;
+      }
+
       function getBrewery()
       {
           return $this->brewery;
+      }
+
+      function setImage($new_image)
+      {
+          $this->image = $new_image;
+      }
+
+      function getImage()
+      {
+          return $this->image;
       }
 
       function getId()
@@ -89,7 +101,7 @@
 
       function save()
       {
-          $GLOBALS['DB']->exec("INSERT INTO beers (beer_name, style, abv, ibu, container, brewery) VALUES ('{$this->getBeerName()}', '{$this->getStyle()}', {$this->getAbv()}, {$this->getIbu()}, '{$this->getContainer()}', '{$this->getBrewery()}');");
+          $GLOBALS['DB']->exec("INSERT INTO beers (beer_name, style, abv, ibu, container, brewery, image) VALUES ('{$this->getBeerName()}', '{$this->getStyle()}', {$this->getAbv()}, {$this->getIbu()}, '{$this->getContainer()}', '{$this->getBrewery()}', '{$this->getImage()}');");
            $this->id = $GLOBALS['DB']->lastInsertId();
       }
 
@@ -105,8 +117,9 @@
               $ibu = $beer['ibu'];
               $container = $beer['container'];
               $brewery = $beer['brewery'];
+              $image = $beer['image'];
               $id = $beer['id'];
-              $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+              $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $image, $id);
               array_push($beers, $new_beer);
           }
           return $beers;
@@ -149,8 +162,9 @@
               $ibu = $beer['ibu'];
               $container = $beer['container'];
               $brewery = $beer['brewery'];
+              $image = $beer['image'];
               $id = $beer['id'];
-              $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+              $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $image, $id);
               array_push($beers, $new_beer);
           }
           return $beers;
@@ -171,7 +185,9 @@
       //Begin add and find user functions
       function addUser($user_id)
       {
-          $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user_id});");
+          if(Review::findReview($this->getId(), $user_id) == false) {
+              $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$this->getId()}, {$user_id});");
+          }
       }
 
 
@@ -228,15 +244,16 @@
       }
 
       function update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container,
-                     $new_brewery)
+                     $new_brewery, $new_image)
        {
-           $GLOBALS['DB']->exec("UPDATE beers SET beer_name = '{$new_beer_name}', style = '{$new_style}', abv = '{$new_abv}', ibu = '{$new_ibu}', container = '{$new_container}', brewery = '{$new_brewery}' WHERE id = {$this->getId()};");
+           $GLOBALS['DB']->exec("UPDATE beers SET beer_name = '{$new_beer_name}', style = '{$new_style}', abv = '{$new_abv}', ibu = '{$new_ibu}', container = '{$new_container}', brewery = '{$new_brewery}', image = '{$new_image}' WHERE id = {$this->getId()};");
            $this->setBeerName($new_beer_name);
            $this->setStyle($new_style);
            $this->setAbv($new_abv);
            $this->setIbu($new_ibu);
            $this->setContainer($new_container);
            $this->setBrewery($new_brewery);
+           $this->setImage($new_image);
        }
     }
 ?>

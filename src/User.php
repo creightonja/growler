@@ -113,8 +113,10 @@
 
         function addBeer($beer)
         {
-            $userid = $this->getId();
-            $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer}, {$this->getId()});");
+            $user_id = $this->getId();
+            if (Review::findReview($beer, $user_id) == false ) {
+                $GLOBALS['DB']->exec("INSERT INTO reviews (beer_id, user_id) VALUES ({$beer}, {$this->getId()});");
+            }
         }
 
         function getBeers()
@@ -133,7 +135,28 @@
                 $ibu = $beer['ibu'];
                 $container = $beer['container'];
                 $brewery = $beer['brewery'];
-                $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+                $image = $beer['image'];
+                $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $image, $id);
+                array_push($beers_array, $new_beer);
+            }
+            return $beers_array;
+        }
+
+        static function findBeerStyle($user_id, $preferred_style){
+            $query = $GLOBALS['DB']->query("SELECT * FROM beers WHERE style = '{$preferred_style}' AND
+                                beers.id NOT IN (SELECT beer_id FROM reviews WHERE user_id = {$user_id});");
+            $beers = $query->fetchAll(PDO::FETCH_ASSOC);
+            $beers_array = array();
+            foreach($beers as $beer) {
+                $id = $beer['id'];
+                $beer_name = $beer['beer_name'];
+                $style = $beer['style'];
+                $abv = $beer['abv'];
+                $ibu = $beer['ibu'];
+                $container = $beer['container'];
+                $brewery = $beer['brewery'];
+                $image = $beer['image'];
+                $new_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $image, $id);
                 array_push($beers_array, $new_beer);
             }
             return $beers_array;

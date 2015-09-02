@@ -34,7 +34,8 @@
     //show profile
     $app->get("/profile", function() use ($app) {
         $user = User::find("user_name", $_GET['user_name']);
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
+        $reviews = Review::find("user_id", $user[0]->getId());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
     });
 
     //from index
@@ -42,8 +43,9 @@
     //show profile
     $app->post("/create_user", function() use ($app) {
         $user = new User($_POST['user_name'], $_POST['preferred_style'], $_POST['region']);
-        $user[0]->save();
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
+        $user->save();
+        $reviews = Review::find("user_id", $user->getId());
+        return $app['twig']->render('profile.html.twig', array('user' => $user, 'reviews' => $reviews));
     });
 
     //from profile
@@ -62,7 +64,8 @@
         $user->updateUserName($_POST['user_name']);
         $user->updatePreferredStyle($_POST['preferred_style']);
         $user->updateRegion($_POST['region']);
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
+        $reviews = Review::find("user_id", $user[0]->getId());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
     });
 
 
@@ -91,7 +94,8 @@
     $app->post("/{user_id}/beer/{beer_id}", function($user_id, $beer_id) use ($app) {
         $beer = Beer::find("id", $beer_id);
         $beer[0]->addStore($_POST['store_id']);
-        return $app['twig']->render('beer.html.twig', array('beer' => $beer[0], 'beers' => Beer::getAll(), 'users' => $beer[0]->getUsers(), 'all_users' => User::getAll(), 'stores'=> $beer[0]->getStores(), 'user'=> User::find("id", $user_id)[0], 'all_stores' => Store::getAll()));
+        $reviews = Review::find("beer_id",$beer[0]->getId());
+        return $app['twig']->render('beer.html.twig', array('beer' => $beer[0], 'beers' => Beer::getAll(), 'users' => $beer[0]->getUsers(), 'all_users' => User::getAll(), 'stores'=> $beer[0]->getStores(), 'user'=> User::find("id", $user_id)[0], 'all_stores' => Store::getAll(), 'reviews' => $reviews));
     });
 
     //from beer
@@ -100,8 +104,8 @@
     $app->post("/{user_id}/drank_beer/{beer_id}", function ($user_id, $beer_id) use ($app) {
         $user = User::find("id", $user_id);
         $user[0]->addBeer($beer_id);
-        $review = Review::find("id",$GLOBALS['DB']->lastInsertId());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
+        $reviews = Review::find("user_id", $user[0]->getId());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
     });
 
     //from beers
@@ -110,7 +114,8 @@
     $app->get("/{user_id}/beer/{beer_id}", function($user_id, $beer_id) use ($app) {
         $beer = Beer::find("id", $beer_id);
         $stores = $beer[0]->getStores();
-        return $app['twig']->render('beer.html.twig', array('beer' => $beer[0], 'beers' => Beer::getAll(), 'users' => $beer[0]->getUsers(), 'all_users' => User::getAll(), 'stores'=> $stores, 'user'=> User::find("id", $user_id)[0], 'all_stores' => Store::getAll()));
+        $reviews = Review::find("beer_id",$beer[0]->getId());
+        return $app['twig']->render('beer.html.twig', array('beer' => $beer[0], 'beers' => Beer::getAll(), 'users' => $beer[0]->getUsers(), 'all_users' => User::getAll(), 'stores'=> $beer[0]->getStores(), 'user'=> User::find("id", $user_id)[0], 'all_stores' => Store::getAll(), 'reviews' => $reviews));
     });
 
     //from beer/{id}
@@ -128,6 +133,14 @@
         $beer = Beer::find("id", $id);
         $beer->update($_POST['beer_name'], $_POST['style'], $_POST['abv'], $_POST['ibu'], $_POST['container'], $_POST['brewery']);
         return $app['twig']->render('beer_edit.html.twig', array('beer' => $beer[0]));
+    });
+
+    //From /{userId}/beers
+    //Beer search function
+    //Finds matching search beers
+    $app->post("/{user_id}/search_beer", function($user_id) use ($app) {
+        $search_beer = Beer::find($_POST['search_field'], $_POST['search_term']);
+        return $app['twig']->render('beer_search.html.twig', array('search_beer' => $search_beer));
     });
 
 //--------------------------------------------- Begin Store Functionality ----------------------------------------
@@ -183,8 +196,8 @@
         $user = User::find("id", $user_id);
         $review = Review::findReview($beer_id, $user_id);
         $review[0]->update($_POST['beer_review'], $_POST['review_date']);
-        var_dump($review[0]);
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0]));
+        $reviews = Review::find("user_id", $user[0]->getId());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
     });
 
 
