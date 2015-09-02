@@ -277,6 +277,41 @@
             $this->assertEquals([$test_store2], $result);
         }
 
+        function testFindDistinct()
+        {
+            //Arrange
+            $store_name = "Chill N Fill";
+            $id = 1;
+            $category = "bar";
+            $region = "North Portland";
+            $address = "5215 N Lombard Portland, OR 97203";
+            $test_store = new Store($store_name, $category, $region, $address, $id);
+            $test_store->save();
+
+            $store_name3 = "Chill N Fill";
+            $id3 = 1;
+            $category3 = "bar";
+            $region3 = "North Portland";
+            $address3 = "5215 N Lombard Portland, OR 97203";
+            $test_store2 = new Store($store_name3, $category3, $region3, $address3, $id3);
+            $test_store2->save();
+
+            $store_name2 = "Growler Guys";
+            $id2 = 1;
+            $category2 = "bottle shop";
+            $region2 = "NE Portland";
+            $address2 = "5553 N Lombard Portland, OR 97444";
+            $test_store3 = new Store($store_name2, $category2, $region2, $address2, $id2);
+            $test_store3->save();
+
+            //Act
+            $column_id = "category";
+            $result = Store::findDistinct($column_id);
+
+            //Assert
+            $this->assertEquals([$category, $category2], $result);
+        }
+
         function testAddBeer()
         {
             //Arrange

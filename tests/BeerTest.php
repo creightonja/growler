@@ -134,6 +134,39 @@
             $this->assertEquals([$test_beer], $result);
         }
 
+        function test_findDistinct()
+        {
+            //Arrange
+            $beer_name = "Your mom";
+            $style = "IPA";
+            $abv = 4;
+            $ibu = 6;
+            $container = "bottle";
+            $brewery = "daddy";
+            $id = 1;
+            $test_beer = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer->save();
+            $test_beer2 = new Beer($beer_name, $style, $abv, $ibu, $container, $brewery, $id);
+            $test_beer2->save();
+
+            $beer_name2 = "Your mom2";
+            $style2 = "IPA2";
+            $abv2 = 12;
+            $ibu2 = 7;
+            $container2 = "bottle2";
+            $brewery2 = "daddy2";
+            $id2 = 2;
+            $test_beer3 = new Beer($beer_name2, $style2, $abv2, $ibu2, $container2, $brewery2, $id2);
+            $test_beer3->save();
+
+            //Act
+            $column_id = 'abv';
+            $result = Beer::findDistinct($column_id);
+
+            //Assert
+            $this->assertEquals([$abv, $abv2], $result);
+        }
+
 
         function testUpdate()
         {
