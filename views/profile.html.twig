@@ -13,10 +13,22 @@
             <ul>
                 {% for beer in user.getBeers %}
                     <li>
-                        {{ beer.getBeerName }}
-                        <a href="/{{ user.getId }}/review/{{ beer.getId }}">Review</a>
+                        {{ beer.getBeerName }}<br>
+                        {% for review in reviews %}
+                            {% if review.getBeerId == beer.getId %}
+                                {{ review.getReview }}<br>
+                                {{ review.getReviewDate }}<br>
+                            {% else %}
+                                {% if review.getReview != null %}
+                                    <a href="/{{ user.getId }}/review/{{ beer.getId }}">Review</a>
+                                {% else %}
+                                    <a href="/{{ user.getId }}/edit_review/{{ review.getId }}">Edit</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
                     </li>
                 {% endfor %}
+            </ul>
             {% else %}
                 No beers added yet!
             {% endif %}
