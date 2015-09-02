@@ -15,9 +15,6 @@
             <form action="/{{ user.getId }}/drank_beer/{{ beer.getId }}" method="post">
                 <button type="submit">Drank It!</button>
             </form>
-            <form action="/{{ user.getId }}/beers">
-                <button type="submit">Back</button>
-            </form>
 
 
 
@@ -25,7 +22,7 @@
                 <h3>{{ beer.getBeerName }} is available at the following locations:</h3>
                 <ul>
                     {% for store in stores %}
-                        <li>{{ store.getStoreName }}</li>
+                        <li><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a></li>
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -48,10 +45,13 @@
                 </form>
             {% endif %}
 
-            <h3>Reviews</h3>
+
                 {% if reviews is not empty %}
+
                     {% for review in reviews %}
+
                         {% if review.getReview != null %}
+
                             Review
                         <ul>
                             <li>{{ review.getReview }}</li>
@@ -60,5 +60,10 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
+
+                <form action="/{{ user.getId }}/beers">
+                    <button type="submit">Back</button>
+                </form>
+
         </div>
     {% endblock %}

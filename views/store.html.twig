@@ -27,19 +27,22 @@
             <p>No beers have been added to this store.</p>
         {% endif %}
 
-        <h3>Add a beer to this store</h3>
+        {% if user.getUserName == "Admin" %}
 
-        <form action="/{{ user.getId }}/store/{{ store.getId }}" method="post">
+            <h3>Add a beer to this store</h3>
 
-            <label for="beer">Beer Name</label>
-            <select id = "beer_id" name = "beer_id" type = "text">
-                {% for beer in all_beers %}
-                    <option value = "{{ beer.getId() }}"> {{ beer.getBeerName() }} </option>
-                {% endfor %}
-            </select><br>
+            <form action="/{{ user.getId }}/store/{{ store.getId }}" method="post">
 
-            <button type="submit">Submit</button>
-        </form>
+                <label for="beer">Beer Name</label>
+                <select id = "beer_id" name = "beer_id" type = "text">
+                    {% for beer in all_beers %}
+                        <option value = "{{ beer.getId() }}"> {{ beer.getBeerName() }} </option>
+                    {% endfor %}
+                </select><br>
+
+                <button type="submit">Submit</button>
+            </form>
+        {% endif %}
 
         <form action="/profile" method="get">
             <input name="user_name" type="hidden" value="{{ user.getUserName }}">

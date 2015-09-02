@@ -140,7 +140,8 @@
     //Finds matching search beers
     $app->post("/{user_id}/search_beer", function($user_id) use ($app) {
         $search_beer = Beer::find($_POST['search_field'], $_POST['search_term']);
-        return $app['twig']->render('beer_search.html.twig', array('search_beer' => $search_beer));
+        $user = User::find("id", $user_id);
+        return $app['twig']->render('beer_search.html.twig', array('search_beer' => $search_beer, 'user' => $user[0]));
     });
 
 //--------------------------------------------- Begin Store Functionality ----------------------------------------
@@ -150,6 +151,12 @@
     $app->get("/{user_id}/stores", function($user_id) use ($app) {
         $user = User::find("id", $user_id);
         return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll(), 'user' => $user[0]));
+    });
+
+    $app->get("/{user_id}/search_store", function($user_id) use ($app) {
+        $search_store = Store::find($_GET['search_field'], $_GET['search_term']);
+        $user = User::find("id", $user_id);
+        return $app['twig']->render('store_search.html.twig', array('search_store' => $search_store, 'user' => $user[0]));
     });
 
     //from stores
