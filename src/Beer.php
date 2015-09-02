@@ -21,12 +21,12 @@
           $this->id = $id;
       }
 
-      function setBeer_Name($new_beer_name)
+      function setBeerName($new_beer_name)
       {
           $this->beer_name = (string) $new_beer_name;
       }
 
-      function getBeer_Name()
+      function getBeerName()
       {
           return $this->beer_name;
       }
@@ -89,7 +89,7 @@
 
       function save()
       {
-          $GLOBALS['DB']->exec("INSERT INTO beers (beer_name, style, abv, ibu, container, brewery) VALUES ('{$this->getBeer_Name()}', '{$this->getStyle()}', {$this->getAbv()}, {$this->getIbu()}, '{$this->getContainer()}', '{$this->getBrewery()}');");
+          $GLOBALS['DB']->exec("INSERT INTO beers (beer_name, style, abv, ibu, container, brewery) VALUES ('{$this->getBeerName()}', '{$this->getStyle()}', {$this->getAbv()}, {$this->getIbu()}, '{$this->getContainer()}', '{$this->getBrewery()}');");
            $this->id = $GLOBALS['DB']->lastInsertId();
       }
 
@@ -219,7 +219,7 @@
                      $new_brewery)
        {
            $GLOBALS['DB']->exec("UPDATE beers SET beer_name = '{$new_beer_name}', style = '{$new_style}', abv = '{$new_abv}', ibu = '{$new_ibu}', container = '{$new_container}', brewery = '{$new_brewery}' WHERE id = {$this->getId()};");
-           $this->setBeer_Name($new_beer_name);
+           $this->setBeerName($new_beer_name);
            $this->setStyle($new_style);
            $this->setAbv($new_abv);
            $this->setIbu($new_ibu);

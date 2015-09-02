@@ -159,7 +159,7 @@
             $test_beer->update($new_beer_name, $new_style, $new_abv, $new_ibu, $new_container, $new_brewery);
 
             //Assert
-            $this->assertEquals("Lame", $test_beer->getBeer_Name());
+            $this->assertEquals("Lame", $test_beer->getBeerName());
             $this->assertEquals("IPO", $test_beer->getStyle());
             $this->assertEquals(5, $test_beer->getAbv());
             $this->assertEquals(7, $test_beer->getIbu());

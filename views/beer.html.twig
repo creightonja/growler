@@ -2,10 +2,10 @@
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
-        <title>{{ beer.getBeer_Name }}</title>
+        <title>{{ beer.getBeerName }}</title>
     </head>
     <body>
-        <h1>{{ beer.getBeer_Name }}</h1>
+        <h1>{{ beer.getBeerName }}</h1>
 
         <ul>
         <h3>Style: {{ beer.getStyle }}</h3>
@@ -24,13 +24,13 @@
         </form>
 
         {% if stores is not empty %}
-            <h3>{{ beer.getBeer_Name }} is available at the following locations:</h3>
+            <h3>{{ beer.getBeerName }} is available at the following locations:</h3>
             <ul>
                 {% for store in stores %}
-                    <li>{{ store.getStore_Name }}</li>
+                    <li>{{ store.getStoreName }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
-        
+
     </body>
 </html>

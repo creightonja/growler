@@ -20,7 +20,7 @@
         {% if beers is not empty %}
             <ul>
                 {% for beer in beers %}
-                    <li><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeer_name }}</a></li>
+                    <li><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}
@@ -34,7 +34,7 @@
             <label for="beer">Beer Name</label>
             <select id = "beer_id" name = "beer_id" type = "text">
                 {% for beer in all_beers %}
-                    <option value = "{{ beer.getId() }}"> {{ beer.getBeer_Name() }} </option>
+                    <option value = "{{ beer.getId() }}"> {{ beer.getBeerName() }} </option>
                 {% endfor %}
             </select><br>
 
