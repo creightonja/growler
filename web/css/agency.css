@@ -9,6 +9,10 @@ body {
     font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+.button {
+    color: yellow;
+}
+
 .text-muted {
     color: #777;
 }

@@ -37,7 +37,7 @@
             <ul class="nav navbar-nav navbar-right">
               <form class="navbar-form navbar-left" role="search">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
+                <input class="form-control" type="text" class="form-control" placeholder="Search">
               </div>
               <button type="submit" class="btn btn-warning ">Submit</button>
             </form>
@@ -49,14 +49,19 @@
 
     <div class="container">
         <div class="row">
-            <div class=col-md-12>
+            <div class="col-md-12">
+
             <center>
+                <h1>Stores</h1>
+            </center>
+            <br>
+            <br>
             <section id="services">
             <div class="container">
-                <div class="col-md-4">
+                <div class="col-md-6">
                 <form action="/{{ user.getId }}/search_store" method="get" class="form-inline">
                     <div class="form-group">
-                        <h1><label for="search_field">Store Search</label></h1>
+
                         <select id = "search_field" name = "search_field" type = "text">
                             <option value = "store_name">Store Name</option>
                             <option value = "category"> Category </option>
@@ -74,16 +79,43 @@
                 </form>
             </div>
 
-            <div class="col-md-4">
+
+
+                <div class="col-md-6">
+                    <h2>Store List</h2>
+                    {% if stores is not empty %}
+                        <ul>
+                            {% for store in stores %}
+                                <h3><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a></h3>
+                                    <h5>{{ store.getAddress }}</h5>
+                                    <h5>{{ store.getRegion }}</h5>
+                                    <h5>{{ store.getCategory }}</h5>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No stores have been added yet.</p>
+                    {% endif %}
+                    <br>
+                        <form action="/profile" method="get">
+                        <input name="user_name" type="hidden" value="{{ user.getUserName }}">
+                        <button type="submit" class="btn-warning btn-lg">Back</button>
+                    </br>
+                </form>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-6">
                 {% if user.getUserName == "Admin" %}
                     <h3>Add a New Store</h3>
 
                     <form action="/{{ user.getId }}/stores" method="post">
 
-                        <input class="input-lg" id="store_name" name="store_name" type="text" placeholder="Business Name"><br>
-
-                        <input id="address" name="address" type="text" placeholder = "Address"><br>
-
+                        <input class="input-lg" id="store_name" name="store_name" type="text" placeholder="Business Name">
+                        <br>
+                        <br>
+                        <input class="input-lg" id="address" name="address" type="text" placeholder = "Address"><br>
+                        <br>
                         <label for="region">Region</label>
                         <select id = "region" name = "region" type = "text">
                             <option value = "North">North</option>
@@ -92,7 +124,7 @@
                             <option value = "Southwest"> Southeast </option>
                             <option value = "Southwest"> Southwest </option>
                         </select><br>
-
+                        <br>
                         <label for="region">Business Type</label>
                         <select id = "category" name = "category" type = "text">
                             <option value = "Bar">Bar</option>
@@ -101,54 +133,11 @@
                             <option value = "Grocery Store">Grocery Store</option>
                             <option value = "Growler Fill">Growler Fill</option>
                         </select><br>
-
-                        <button type="submit" class="btn-warning">Submit</button>
+                        <br>
+                        <button type="submit" class="btn-warning btn-lg">Submit</button>
                     </form>
                 {% endif %}
             </div>
-
-                <div class="col-md-4">
-                <h2>Store List</h2>
-                {% if stores is not empty %}
-                    <ul>
-                        {% for store in stores %}
-                            <li><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a><br>
-                                {{ store.getAddress }}<br>
-                                {{ store.getRegion }}<br>
-                                {{ store.getCategory }}<br>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No stores have been added yet.</p>
-                {% endif %}
-            </div>
-                <br>
-
-
-
-                <form action="/profile" method="get">
-                    <input name="user_name" type="hidden" value="{{ user.getUserName }}">
-                    <button type="submit" class="btn-warning btn-lg">Back</button>
-                </form>
-            </div>
-
-            <!-- jQuery -->
-            <script src="js/jquery.js"></script>
-
-            <!-- Bootstrap Core JavaScript -->
-            <script src="js/bootstrap.min.js"></script>
-
-            <!-- Plugin JavaScript -->
-            <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-            <script src="js/classie.js"></script>
-            <script src="js/cbpAnimatedHeader.js"></script>
-
-            <!-- Contact Form JavaScript -->
-            <script src="js/jqBootstrapValidation.js"></script>
-            <script src="js/contact_me.js"></script>
-
-            <!-- Custom Theme JavaScript -->
-            <script src="js/agency.js"></script>
         </section>
     </body>
 </html>
