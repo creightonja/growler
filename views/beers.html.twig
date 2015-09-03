@@ -1,62 +1,82 @@
 <html>
     <head>
-        <title>Growlr - Edit {{ user.getUserName }}</title>
+        <title>Growlr - Beers</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/agency.css" rel="stylesheet">
+        <link href="../../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     </head>
 
     <body>
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
 
-            <a class="navbar-brand" href="/">Growlr</a>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <center>
-            <h2>Beer Search</h2>
-
-            <form action="/{{ user.getId }}/search_beer" method="post" class="form-inline">
-                <div class="form-group">
-
-                    <select id ="search_field" name = "search_field" type = "text">
-                        <option value = "beer_name">Beer Name</option>
-                        <option value = "style"> Style </option>
-                        <option value = "abv">ABV</option>
-                        <option value = "ibu">IBU</option>
-                        <option value = "container"> Container </option>
-                        <option value = "brewery"> Brewery </option>
-                    </select>
+                    <a class="navbar-brand" href="/">Growlr</a>
                 </div>
-                <br>
-                <br>
-                <div class="form-group">
-                    <input class="input-lg" id="search_term" name="search_term" type="text" placeholder="Search">
 
-                    <button type="submit" class="btn-warning btn-lg">Submit</button>
-                </div>
-            </form>
-            {% if all_beers is not empty %}
-                <h3>Here are all the beers!</h3>
-                    <ul>
-                        {% for beer in all_beers %}
-                            <li><a href="/{{ user.getId }}/beer/{{beer.getId}}">{{ beer.getBeerName }}</a></li>
-                        {% endfor %}
+              <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
                     </ul>
-            {% endif %}
-            </center>
-          </div>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container beer">
 
+            <div class="row">
+                <center>
+                    <h1>Beers</h1>
+                </center>
+                <section id="services">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="container">
+
+                            <form action="/{{ user.getId }}/search_beer" method="post" class="form-inline">
+                                <div class="form-group">
+                                    <select id ="search_field" name = "search_field" type = "text">
+                                        <option value = "beer_name">Beer Name</option>
+                                        <option value = "style"> Style </option>
+                                        <option value = "abv">ABV</option>
+                                        <option value = "ibu">IBU</option>
+                                        <option value = "container"> Container </option>
+                                        <option value = "brewery"> Brewery </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="input-lg" id="search_term" name="search_term" type="text" placeholder="Search">
+                                    <button type="submit" class="btn-warning btn-lg">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 text-center">
+
+                        {% if all_beers is not empty %}
+                            <h2>beer list</h2>
+                                    {% for beer in all_beers %}
+                                        <h5><a href="/{{ user.getId }}/beer/{{beer.getId}}">{{ beer.getBeerName }}</a></h5>
+                                    {% endfor %}
+                                </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="col-md-3">
         {% if user.getUserName == "Admin" %}
@@ -117,9 +137,4 @@
                 </div>
               </form>
           {% endif %}
-      </div>
-      </div>
-    </div>
   </body>
-
-
