@@ -46,8 +46,8 @@
         $user = new User($_POST['user_name'], $_POST['preferred_style'], $_POST['region']);
         $user->save();
         $reviews = Review::find("user_id", $user->getId());
-        $new_beers = User::findBeerStyle($user[0]->getId(), $user[0]->getPreferredStyle());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
+        $new_beers = User::findBeerStyle($user->getId(), $user->getPreferredStyle());
+        return $app['twig']->render('profile.html.twig', array('user' => $user, 'reviews' => $reviews, 'new_beers' => $new_beers));
     });
 
     //from profile
@@ -63,9 +63,9 @@
     //show profile
     $app->patch("/{user_id}/user", function ($user_id) use ($app) {
         $user = User::find("id", $user_id);
-        $user->updateUserName($_POST['user_name']);
-        $user->updatePreferredStyle($_POST['preferred_style']);
-        $user->updateRegion($_POST['region']);
+        $user[0]->updateUserName($_POST['user_name']);
+        $user[0]->updatePreferredStyle($_POST['preferred_style']);
+        $user[0]->updateRegion($_POST['region']);
         $reviews = Review::find("user_id", $user[0]->getId());
         $new_beers = User::findBeerStyle($user[0]->getId(), $user[0]->getPreferredStyle());
         return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
