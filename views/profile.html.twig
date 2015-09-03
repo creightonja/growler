@@ -1,37 +1,58 @@
 {% extends 'base.html.twig' %}
 
-        {% block main %}
-        <div class="container">
-
-            <h2>{{ user.getUserName }}</h2>
-            <h5>Region: {{ user.getRegion }}</h5>
-            <h5>Preferred Style: {{ user.getPreferredStyle }}</h5>
-            <br>
-
+    {% block main %}
+    <header>
+        <section id="contact">
+            <div class="container">
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                <h2>{{ user.getUserName }}</h2>
+                <h5>Region: {{ user.getRegion }}</h5>
+                <h5>Preferred Style: {{ user.getPreferredStyle }}</h5>
+                <form action="/{{ user.getId }}/edit_profile" method="get">
+                    <button type="submit" class="btn btn-xl">Edit Profile</button>
+                </form>
+                <br>
+                <form action="/" method="get">
+                    <button type="submit" class="btn btn-xl">Logout</button>
+                </form>
+            </div>
             <h4>My Beer List:</h4>
-            {% if user.getBeers is not empty %}
-            <ul>
-                {% for beer in user.getBeers %}
-                    <li>
-                        <a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a><br>
-                        {% for review in reviews %}
-                            {% if review.getBeerId == beer.getId %}
-                                {% if review.getReview != null %}
-                                    {{ review.getReview }}<br>
-                                    {{ review.getReviewDate }}<br>
-                                    <a href="/{{ user.getId }}/review/{{ beer.getId }}">Edit</a>
-                                {% else %}
-                                    <a href="/{{ user.getId }}/review/{{ beer.getId }}">Review</a>
+                {% if user.getBeers is not empty %}
+                <ul>
+                    {% for beer in user.getBeers %}
+                        <li>
+                            <a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a><br>
+                            {% for review in reviews %}
+                                {% if review.getBeerId == beer.getId %}
+                                    {% if review.getReview != null %}
+                                        {{ review.getReview }}<br>
+                                        {{ review.getReviewDate }}<br>
+                                        <a href="/{{ user.getId }}/review/{{ beer.getId }}">Edit</a>
+                                    {% else %}
+                                        <a href="/{{ user.getId }}/review/{{ beer.getId }}">Review</a>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-                No beers added yet!
-            {% endif %}
-            <br><br><br>
+                            {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    No beers added yet!
+                {% endif %}
+                <br><br><br>
+
+                <form action="/{{ user.getId }}/beers" method="get">
+                    <button type="submit">View Beer List</button>
+                </form>
+
+                <form action="/{{ user.getId }}/stores" method="get">
+                    <button type="submit">View Stores</button>
+                </form>
+
+
             {% if new_beers is not empty %}
                 <h4>Try new beers in your preferred style!</h4>
                 {% for beer in new_beers %}
@@ -44,23 +65,6 @@
                 </div>
                 {% endfor %}
             {% endif %}
-            <br><br><br>
-
-            <form action="/{{ user.getId }}/beers" method="get">
-                <button type="submit">View Beer List</button>
-            </form>
-
-            <form action="/{{ user.getId }}/stores" method="get">
-                <button type="submit">View Stores</button>
-            </form>
-
-            <form action="/{{ user.getId }}/edit_profile" method="get">
-                <button type="submit">Edit Profile</button>
-            </form>
-
-            <form action="/" method="get">
-                <button type="submit">Logout</button>
-            </form>
 
         </div>
         {% endblock %}
