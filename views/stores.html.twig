@@ -53,7 +53,7 @@
             <center>
             <section id="services">
             <div class="container">
-                <div class="col-md-6">
+                <div class="col-md-4">
                 <form action="/{{ user.getId }}/search_store" method="get" class="form-inline">
                     <div class="form-group">
                         <h1><label for="search_field">Store Search</label></h1>
@@ -74,6 +74,40 @@
                 </form>
             </div>
 
+            <div class="col-md-4">
+                {% if user.getUserName == "Admin" %}
+                    <h3>Add a New Store</h3>
+
+                    <form action="/{{ user.getId }}/stores" method="post">
+
+                        <input class="input-lg" id="store_name" name="store_name" type="text" placeholder="Business Name"><br>
+
+                        <input id="address" name="address" type="text" placeholder = "Address"><br>
+
+                        <label for="region">Region</label>
+                        <select id = "region" name = "region" type = "text">
+                            <option value = "North">North</option>
+                            <option value = "Northeast"> Northeast </option>
+                            <option value = "Northwest"> Northeast </option>
+                            <option value = "Southwest"> Southeast </option>
+                            <option value = "Southwest"> Southwest </option>
+                        </select><br>
+
+                        <label for="region">Business Type</label>
+                        <select id = "category" name = "category" type = "text">
+                            <option value = "Bar">Bar</option>
+                            <option value = "Bottle Shop">Bottle Shop</option>
+                            <option value = "Brewery">Brewery</option>
+                            <option value = "Grocery Store">Grocery Store</option>
+                            <option value = "Growler Fill">Growler Fill</option>
+                        </select><br>
+
+                        <button type="submit" class="btn-warning">Submit</button>
+                    </form>
+                {% endif %}
+            </div>
+
+                <div class="col-md-4">
                 <h2>Store List</h2>
                 {% if stores is not empty %}
                     <ul>
@@ -87,72 +121,9 @@
                 {% else %}
                     <p>No stores have been added yet.</p>
                 {% endif %}
+            </div>
                 <br>
 
-                {% if user.getUserName == "Admin" %}
-                    <h3>Add a New Store</h3>
-
-                    <form action="/{{ user.getId }}/stores" method="post">
-
-                        <input id="store_name" name="store_name" type="text" placeholder="Business Name"><br>
-
-                        <input id="address" name="address" type="text" placeholder = "Address"><br>
-
-                        <label for="region">Region</label>
-                        <select id = "region" name = "region" type = "text">
-                            <option value = "North">North</option>
-                            <option value = "Northeast"> Northeast </option>
-                            <option value = "Northwest"> Northeast </option>
-                            <option value = "Southwest"> Southeast </option>
-                            <option value = "Southwest"> Southwest </option>
-                        </select><br>
-
-                        <label for="region">Business Type</label>
-                        <select id = "category" name = "category" type = "text">
-                            <option value = "Bar">Bar</option>
-                            <option value = "Bottle Shop">Bottle Shop</option>
-                            <option value = "Brewery">Brewery</option>
-                            <option value = "Grocery Store">Grocery Store</option>
-                            <option value = "Growler Fill">Growler Fill</option>
-                        </select><br>
-
-                        <button type="submit" class="btn-warning">Submit</button>
-                    </form>
-                {% endif %}
-
-
-                {% if user.getUserName == "Admin" %}
-
-                    <h3>Add a New Store</h3>
-
-                    <form action="/{{ user.getId }}/stores" method="post">
-
-                        <input id="store_name" name="store_name" type="text" placeholder="Business Name"><br>
-
-                        <input id="address" name="address" type="text" placeholder = "Address"><br>
-
-                        <label for="region">Region</label>
-                        <select id = "region" name = "region" type = "text">
-                            <option value = "North">North</option>
-                            <option value = "Northeast"> Northeast </option>
-                            <option value = "Northwest"> Northeast </option>
-                            <option value = "Southwest"> Southeast </option>
-                            <option value = "Southwest"> Southwest </option>
-                        </select><br>
-
-                        <label for="region">Business Type</label>
-                        <select id = "category" name = "category" type = "text">
-                            <option value = "Bar">Bar</option>
-                            <option value = "Bottle Shop">Bottle Shop</option>
-                            <option value = "Brewery">Brewery</option>
-                            <option value = "Grocery Store">Grocery Store</option>
-                            <option value = "Growler Fill">Growler Fill</option>
-                        </select><br>
-
-                        <button type="submit" class="btn-warning">Submit</button>
-                    </form>
-
-                {% endif %}
 
 
                 <form action="/profile" method="get">
