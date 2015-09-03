@@ -35,7 +35,8 @@
     $app->get("/profile", function() use ($app) {
         $user = User::find("user_name", $_GET['user_name']);
         $reviews = Review::find("user_id", $user[0]->getId());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
+        $new_beers = User::findBeerStyle($user[0]->getId(), $user[0]->getPreferredStyle());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
     });
 
     //from index
@@ -45,7 +46,8 @@
         $user = new User($_POST['user_name'], $_POST['preferred_style'], $_POST['region']);
         $user->save();
         $reviews = Review::find("user_id", $user->getId());
-        return $app['twig']->render('profile.html.twig', array('user' => $user, 'reviews' => $reviews));
+        $new_beers = User::findBeerStyle($user->getId(), $user->getPreferredStyle);
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
     });
 
     //from profile
@@ -65,7 +67,8 @@
         $user->updatePreferredStyle($_POST['preferred_style']);
         $user->updateRegion($_POST['region']);
         $reviews = Review::find("user_id", $user[0]->getId());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
+        $new_beers = User::findBeerStyle($user->getId(), $user->getPreferredStyle);
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
     });
 
 
@@ -105,7 +108,8 @@
         $user = User::find("id", $user_id);
         $user[0]->addBeer($beer_id);
         $reviews = Review::find("user_id", $user[0]->getId());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
+        $new_beers = User::findBeerStyle($user->getId(), $user->getPreferredStyle);
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
     });
 
     //from beers
@@ -204,7 +208,8 @@
         $review = Review::findReview($beer_id, $user_id);
         $review[0]->update($_POST['beer_review'], $_POST['review_date']);
         $reviews = Review::find("user_id", $user[0]->getId());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews));
+        $new_beers = User::findBeerStyle($user->getId(), $user->getPreferredStyle);
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
     });
 
 

@@ -32,6 +32,19 @@
                 No beers added yet!
             {% endif %}
             <br><br><br>
+            {% if new_beers is not empty %}
+                <h4>Try new beers in your preferred style!</h4>
+                {% for beer in new_beers %}
+                <div class="beer">
+                    <ul><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a>
+                        <li>{{ beer.getBrewery }}</li>
+                        <li>ABV : {{ beer.getAbv }}</li>
+                        <li>IBU : {{ beer.getIbu }}</li>
+                    <ul>
+                </div>
+                {% endfor %}
+            {% endif %}
+            <br><br><br>
 
             <form action="/{{ user.getId }}/beers" method="get">
                 <button type="submit">View Beer List</button>
