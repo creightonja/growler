@@ -20,8 +20,46 @@
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
-      <div class="col-md-1"></div>
-      <div class="col-md-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <center>
+            <h2>Beer Search</h2>
+
+            <form action="/{{ user.getId }}/search_beer" method="post" class="form-inline">
+                <div class="form-group">
+
+                    <select id ="search_field" name = "search_field" type = "text">
+                        <option value = "beer_name">Beer Name</option>
+                        <option value = "style"> Style </option>
+                        <option value = "abv">ABV</option>
+                        <option value = "ibu">IBU</option>
+                        <option value = "container"> Container </option>
+                        <option value = "brewery"> Brewery </option>
+                    </select>
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <input class="input-lg" id="search_term" name="search_term" type="text" placeholder="Search">
+
+                    <button type="submit" class="btn-warning btn-lg">Submit</button>
+                </div>
+            </form>
+            </center>
+          </div>
+          <div class="col-md-6">
+            {% if all_beers is not empty %}
+                <h3>Here are all the beers!</h3>
+                    <ul>
+                        {% for beer in all_beers %}
+                            <li><a href="/{{ user.getId }}/beer/{{beer.getId}}">{{ beer.getBeerName }}</a></li>
+                        {% endfor %}
+                    </ul>
+            {% endif %}
+            </div>
+
+        <div class="col-md-3">
         {% if user.getUserName == "Admin" %}
             <h3>Add Beer</h3>
             <form action="/{{ user.getId }}/beers" method="post">
@@ -81,47 +119,7 @@
               </form>
           {% endif %}
         </div>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8">
-            <center>
-            <h2>Beer Search</h2>
-
-            <form action="/{{ user.getId }}/search_beer" method="post" class="form-inline">
-                <div class="form-group">
-
-                    <select id ="search_field" name = "search_field" type = "text">
-                        <option value = "beer_name">Beer Name</option>
-                        <option value = "style"> Style </option>
-                        <option value = "abv">ABV</option>
-                        <option value = "ibu">IBU</option>
-                        <option value = "container"> Container </option>
-                        <option value = "brewery"> Brewery </option>
-                    </select>
-                </div>
-                <br>
-                <br>
-                <div class="form-group">
-                    <input class="input-lg" id="search_term" name="search_term" type="text" placeholder="Search">
-
-                    <button type="submit" class="btn-warning btn-lg">Submit</button>
-                </div>
-            </form>
-          </center>
-        </div>
-
-            <div class="col-md-6">
-            {% if all_beers is not empty %}
-                <h3>Here are all the beers!</h3>
-                    <ul>
-                        {% for beer in all_beers %}
-                            <li><a href="/{{ user.getId }}/beer/{{beer.getId}}">{{ beer.getBeerName }}</a></li>
-                        {% endfor %}
-                    </ul>
-            {% endif %}
-            </div>
-        </div>
+      </div>
     </div>
   </body>
 
