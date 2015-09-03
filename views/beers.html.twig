@@ -1,93 +1,122 @@
-{% extends 'base.html.twig' %}
+<html>
+    <head>
+        <title>Growlr - Edit {{ user.getUserName }}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
 
-  {% block main %}
-   <header>
-    <section id="contact">
-        <div class="container">
+    <body>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
 
-        <h3>Beer Search</h3>
+            <a class="navbar-brand" href="/">Growlr</a>
+          </div>
 
-        <form action="/{{ user.getId }}/search_beer" method="post" class="form-inline">
-            <div class="form-group">
-                <label for="search_field">Search Field</label>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
 
-                <select id = "search_field" name = "search_field" type = "text">
-                    <option value = "beer_name">Beer Name</option>
-                    <option value = "style"> Style </option>
-                    <option value = "abv"> ABV </option>
-                    <option value = "ibu"> IBU </option>
-                    <option value = "container"> Container </option>
-                    <option value = "brewery"> Brewery </option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input id="search_term" name="search_term" type="text" placeholder="Search">
+        <div class="container" background-image="url(../img/beer.jpg)";>
+          <div class="row">
+            <div class="col-md-12">
+              <center>
+              <h2>Beer Search</h2>
 
-                <button type="submit">Submit</button>
-            </div>
-        </form>
+              <form action="/{{ user.getId }}/search_beer" method="post" class="form-inline">
+                  <div class="form-group">
 
-        {% if user.getUserName == "Admin" %}
-            <h3>Add Beer</h3>
-            <form action="/{{ user.getId }}/beers" method="post">
+                      <select id ="search_field" name = "search_field" type = "text">
+                          <option value = "beer_name">Beer Name</option>
+                          <option value = "style"> Style </option>
+                          <option value = "abv">ABV</option>
+                          <option value = "ibu">IBU</option>
+                          <option value = "container"> Container </option>
+                          <option value = "brewery"> Brewery </option>
+                      </select>
+                  </div>
+                  <br>
+                  <br>
+                  <div class="form-group">
+                      <input class="input-lg" id="search_term" name="search_term" type="text" placeholder="Search">
 
-              <label>Enter your Beer's name</label>
-              <input id="beer_name" name="beer_name" type="text">
-              <br>
+                      <button type="submit" class="btn-warning btn-lg">Submit</button>
+                  </div>
+              </form>
 
-              <label for 'style'>Select a beer style.</label>
-                <select id = "style" name = "style" type = "text">
+              {% if user.getUserName == "Admin" %}
+                  <h3>Add Beer</h3>
+                  <form action="/{{ user.getId }}/beers" method="post">
 
-                        <option value = "IPA"> IPA</option>
-                        <option value = "Pale Ale"> Pale Ale</option>
-                        <option value = "Stout"> Stout</option>
-                        <option value = "Porter"> Porter</option>
-                        <option value = "Amber"> Amber</option>
-                        <option value = "Lager"> Lager</option>
-                        <option value = "Belgian"> Belgian</option>
-                        <option value = "Blonde Ale"> Blonde Ale</option>
-                        <option value = "Brown Ale"> Brown Ale</option>
-                        <option value = "Pilsner Ale"> Pilsner Ale</option>
-
-
-                </select>
+                    <label>Enter your Beer's name</label>
+                    <input id="beer_name" name="beer_name" type="text">
                     <br>
 
-              <label>Enter your Brewery's name</label>
-              <input id="brewery" name="brewery" type="text">
-              <br>
+                    <label for 'style'>Select a beer style.</label>
+                      <select id = "style" name = "style" type = "text">
 
-              <label>Enter your ABV (Alcohol by Volume).</label>
-              <input id="abv" name="abv" type="number">
-              <br>
-
-              <label>Enter your IBU (Internation Bitterness Units).</label>
-              <input id="ibu" name="ibu" type="number">
-              <br>
-
-              <label for 'container'>Select a container type to add it to the beer.</label>
-                <select id = "container" name = "container" type = "text">
-
-                        <option value = "Growler"> Growler </option>
-                        <option value = "Bottle"> Bottle </option>
-                        <option value = "Can"> Can </option>
-
-                </select>
-                <br>
-
-                <button type="submit">Submit Information</button>
-              </form>
-          {% endif %}
+                              <option value = "IPA"> IPA</option>
+                              <option value = "Pale Ale"> Pale Ale</option>
+                              <option value = "Stout"> Stout</option>
+                              <option value = "Porter"> Porter</option>
+                              <option value = "Amber"> Amber</option>
+                              <option value = "Lager"> Lager</option>
+                              <option value = "Belgian"> Belgian</option>
+                              <option value = "Blonde Ale"> Blonde Ale</option>
+                              <option value = "Brown Ale"> Brown Ale</option>
+                              <option value = "Pilsner Ale"> Pilsner Ale</option>
 
 
-        {% if all_beers is not empty %}
-            <h3>Here are all the beers!</h3>
-                <ul>
-                    {% for beer in all_beers %}
-                        <li><a href="/{{ user.getId }}/beer/{{beer.getId}}">{{ beer.getBeerName }}</a></li>
-                    {% endfor %}
-                </ul>
-        {% endif %}
-        </section>
-      </header>
-        {% endblock %}
+                      </select>
+                          <br>
+
+                    <label>Enter your Brewery's name</label>
+                    <input id="brewery" name="brewery" type="text">
+                    <br>
+
+                    <label>Enter your ABV (Alcohol by Volume).</label>
+                    <input id="abv" name="abv" type="number">
+                    <br>
+
+                    <label>Enter your IBU (Internation Bitterness Units).</label>
+                    <input id="ibu" name="ibu" type="number">
+                    <br>
+
+                    <label for 'container'>Select a container type to add it to the beer.</label>
+                      <select id = "container" name = "container" type = "text">
+
+                              <option value = "Growler"> Growler </option>
+                              <option value = "Bottle"> Bottle </option>
+                              <option value = "Can"> Can </option>
+
+                          </select>
+                          <br>
+                          <label>Enter an Image path.</label>
+                          <input id="image" name="image" type="text">
+                          <br>
+                      </select>
+                      <br>
+
+                      <button type="submit">Submit Information</button>
+                    </form>
+                {% endif %}
+
+
+              {% if all_beers is not empty %}
+                  <h3>Here are all the beers!</h3>
+                      <ul>
+                          {% for beer in all_beers %}
+                              <li><a href="/{{ user.getId }}/beer/{{beer.getId}}">{{ beer.getBeerName }}</a></li>
+                          {% endfor %}
+                      </ul>
+              {% endif %}
+            </div>
+          </div>
+      </section>
+    </body>
+</html>
+

@@ -7,6 +7,7 @@
 body {
     overflow-x: hidden;
     font-family: "Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif;
+
 }
 
 .text-muted {
@@ -385,8 +386,8 @@ section#contact .form-group {
 
 section#contact .form-group input,
 section#contact .form-group textarea {
-    background-color: transparent;
-    padding: 15px;
+
+    padding: 5px;
 }
 
 section#contact .form-group input.form-control {
@@ -394,7 +395,7 @@ section#contact .form-group input.form-control {
 }
 
 section#contact .form-group textarea.form-control {
-    height: 236px;
+    height: 150px;
 }
 
 section#contact .form-control:focus {
