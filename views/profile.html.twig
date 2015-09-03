@@ -86,10 +86,6 @@
                 </div>
                 <div class="row" style="margin-top:50px;">
                     <div class="col-md-6 text-center">
-                        <span class="fa-stack fa-4x">
-                            <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
                         <h3>Beers I have Tried:</h3>
                         {% if user.getBeers is not empty %}
 
@@ -114,10 +110,6 @@
                         {% endif %}
                     </div>
                     <div class="col-md-6 text-center">
-                        <span class="fa-stack fa-4x">
-                            <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
                         {% if new_beers is not empty %}
                                <h3>Try new beers in your preferred style!</h3>
                                {% for beer in new_beers %}
