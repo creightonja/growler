@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Growlr - Edit {{ user.getUserName }}</title>
+        <title>Growlr - {{ user.getUserName }}</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,14 +48,20 @@
       </nav>
 
     <div class="container">
-
-        <h2>{{ store.getStoreName }}</h2>
-        {{ store.getAddress }}<br>
-        {{ store.getRegion }}<br>
-        {{ store.getCategory }}<br>
-
+      <div class="row">
+      <div class="col-md-6">
+        <center>
+        <h1>{{ store.getStoreName }}</h1>
         <br>
-
+        <h4>Address : {{ store.getAddress }}</h4><br>
+        <h4>Region : {{ store.getRegion }}</h4><br>
+        <h4>Category : {{ store.getCategory }}</h4><br>
+        </ul>
+         </center>
+      </div>
+        <br>
+      <div class="col-md-6">
+        <center>
         <h3>Beer List</h3>
 
         {% if beers is not empty %}
@@ -67,29 +73,42 @@
         {% else %}
             <p>No beers have been added to this store.</p>
         {% endif %}
+      </center>
+      </div>
+      <br>
+    </div>
+    <br>
+      <div class="row">
+        <div class="col-md-6">
+          <center>
+          {% if user.getUserName == "Admin" %}
 
-        {% if user.getUserName == "Admin" %}
+              <h3>Add a beer to this store</h3>
 
-            <h3>Add a beer to this store</h3>
+              <form action="/{{ user.getId }}/store/{{ store.getId }}" method="post">
 
-            <form action="/{{ user.getId }}/store/{{ store.getId }}" method="post">
+                  <label for="beer">Beer Name</label>
+                  <select id = "beer_id" name = "beer_id" type = "text">
+                      {% for beer in all_beers %}
+                          <option value = "{{ beer.getId() }}"> {{ beer.getBeerName() }} </option>
+                      {% endfor %}
+                  </select><br>
 
-                <label for="beer">Beer Name</label>
-                <select id = "beer_id" name = "beer_id" type = "text">
-                    {% for beer in all_beers %}
-                        <option value = "{{ beer.getId() }}"> {{ beer.getBeerName() }} </option>
-                    {% endfor %}
-                </select><br>
-
-                <button type="submit">Submit</button>
-            </form>
-        {% endif %}
-
-        <form action="/profile" method="get">
-            <input name="user_name" type="hidden" value="{{ user.getUserName }}">
-            <button type="submit">Back</button>
-        </form>
-
+                  <button type="submit" class="btn-warning btn-lg">Submit</button>
+              </form>
+          {% endif %}
+        </center>
+        </div>
+        <br>
+        <div class="col-md-6">
+          <center>
+          <form action="/profile" method="get">
+              <input  name="user_name" type="hidden" value="{{ user.getUserName }}">
+              <button type="submit" class="btn-warning btn-lg">Back</button>
+          </form>
+          </center>
+        </div>
+      </div>
     </div>
 
   </body>
