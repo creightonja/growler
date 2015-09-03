@@ -11,23 +11,18 @@ _This app allows users to add bottled beer and the stores that sell bottled beer
 ## Setup
 
 
-- Download [composer](https://getcomposer.org/) to automatically load the following dependancies:
- - Silex - a microframework for organizing our project.
- - Twig - a templating engine to automate HTML work
- - PHPUnit - a testing framework to verify our functions are working properly.
+ - Run composer update in the main directory.
  - Start apache server
  - Ensure that the mysql port is set correctly in the app file and start mysql.
  - Import the growler.sql database and set a clone to growler_test if testing.
  - Run a php server from the /web directory
-
-In the project folder, use the command `composer install` in the terminal to run composer.
-
+ - Access the website from you php server's port in your web browser.
 
 If you wish to run the test functions, create a copy of the database named shoes_test and enter `./vendor/bin/phpunit tests` in the terminal from the project folder.
 
 ## Technologies Used
 
-PHP, Silex, Twig, PHPUnit, mysql
+PHP, Silex, Twig, PHPUnit, MySql, Apache, HTML/CSS, Javascript, Bootstrap
 
 ### Legal
 
