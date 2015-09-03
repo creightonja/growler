@@ -86,37 +86,11 @@
                     <input id="ibu" name="ibu" type="number">
                     <br>
 
-                    <label for 'container'>Select a container type to add it to the beer.</label>
-                      <select id = "container" name = "container" type = "text">
-
-                              <option value = "Growler"> Growler </option>
-                              <option value = "Bottle"> Bottle </option>
-                              <option value = "Can"> Can </option>
-
-                          </select>
-                          <br>
-                          <label>Enter an Image path.</label>
-                          <input id="image" name="image" type="text">
-                          <br>
-                      </select>
-                      <br>
-
-                      <button type="submit">Submit Information</button>
-                    </form>
-                {% endif %}
-
-
-              {% if all_beers is not empty %}
-                  <h3>Here are all the beers!</h3>
-                      <ul>
-                          {% for beer in all_beers %}
-                              <li><a href="/{{ user.getId }}/beer/{{beer.getId}}">{{ beer.getBeerName }}</a></li>
-                          {% endfor %}
-                      </ul>
-              {% endif %}
-            </div>
-          </div>
-      </section>
-    </body>
-</html>
+                    </select>
+                    <br>
+                    <label>Enter an Image path.</label>
+                    <input id="image" name="image" type="text">
+                    <br>
+                </select>
+                <br>
 

@@ -2,36 +2,49 @@
     <head>
         <title>Growlr - Edit {{ user.getUserName }}</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <style>
+            .formc{
+                border-color: #ddd;
+                border-width: 1px;
+                border-radius: 4px 4px 0 0;
+            }
+        </style>
     </head>
 
-    <body>
+    <body style="background:'../../../img/beer.jpg;'">
 
         <div class="container">
 
             <h2>Edit Profile</h2>
-
-            <form action="/{{ user.getId }}/user" method="post">
-
-                <input name="_method" type="hidden" value="patch">
-                <input id="user_name" name="user_name" type="text" value="{{ user.getUserName }}">
-                <br>
-                <input name="_method" type="hidden" value="patch">
-                <input id="preferred_style" name="preferred_style" type="text" value="{{ user.getPreferredStyle }}">
-                <br>
-                <input name="_method" type="hidden" value="patch">
-                <input id="region" name="region" type="text" value="{{ user.getRegion }}">
-                <br>
-                <button type="submit">Submit</button>
+            <div class="formc">
+                <form action="/{{ user.getId }}/user" method="post">
+                    <div class="form-group">
+                        <label for="user_name">Update your user name:</label>
+                        <input name="_method" type="hidden" value="patch">
+                        <input type="text" class="form-control" name="user_name" value="{{user.getUserName}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="preferred_style">Update your preferred style</label>
+                        <input name="_method" type="hidden" value="patch">
+                        <input type="text" class="form-control" name="preferred_style" value="{{user.getPreferredStyle}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="region">Update the region you live in</label>
+                        <input name="_method" type="hidden" value="patch">
+                        <input type="text" class="form-control" name="region" value="{{user.getRegion}}">
+                    </div>
+                    <p class="help-block">Update your user details.</p>
+                    <button type="submit" class="btn btn-default">Submit Changes</button>
+                </form>
+            </div>
+            <form action="/profile" method="get">
+                <input name="user_name" type="hidden" value="{{ user.getUserName }}">
+                <button type="submit" class="btn btn-default">   Back   </button>
             </form>
 
             <form action="/user/{{ user.getId }}" method="post">
                 <input name="_method" type="hidden" value="delete">
                 <button type="submit" class="btn btn-danger">Delete Profile</button>
-            </form>
-
-            <form action="/profile" method="get">
-                <input name="user_name" type="hidden" value="{{ user.getUserName }}">
-                <button type="submit">Back</button>
             </form>
         </div>
     </body>
