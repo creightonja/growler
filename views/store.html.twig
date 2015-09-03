@@ -51,11 +51,10 @@
       <div class="row">
       <div class="col-md-6">
         <center>
-        <h1>{{ store.getStoreName }}</h1>
-        <br>
-        <h4>Address : {{ store.getAddress }}</h4><br>
-        <h4>Region : {{ store.getRegion }}</h4><br>
-        <h4>Category : {{ store.getCategory }}</h4><br>
+        <ul class="list-group" style="padding-top:20px;"><h3>{{ store.getStoreName }}</h3>
+        <li class="list-group-item">Address : {{ store.getAddress }}</li>
+        <li class="list-group-item">Region : {{ store.getRegion }}</li>
+        <li class="list-group-item">Category : {{ store.getCategory }}</li>
         </ul>
          </center>
       </div>
@@ -65,9 +64,9 @@
         <h3>Beer List</h3>
 
         {% if beers is not empty %}
-            <ul>
+            <ul class="list-group">
                 {% for beer in beers %}
-                    <li><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a>:  {{ beer.getContainer }}</li>
+                    <li class="list-group-item"><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a>  :  {{ beer.getContainer }}</li>
                 {% endfor %}
             </ul>
         {% else %}
@@ -88,11 +87,11 @@
               <form action="/{{ user.getId }}/store/{{ store.getId }}" method="post">
 
                   <label for="beer">Beer Name</label>
-                  <select id = "beer_id" name = "beer_id" type = "text">
+                  <select id = "beer_id" name = "beer_id" type="text" style="padding-right:30px;">
                       {% for beer in all_beers %}
-                          <option value = "{{ beer.getId() }}"> {{ beer.getBeerName() }} </option>
+                          <option value = "{{ beer.getId() }}" > {{ beer.getBeerName() }}   </option>
                       {% endfor %}
-                  </select><br>
+                  </select>
 
                   <button type="submit" class="btn-warning btn-lg">Submit</button>
               </form>
