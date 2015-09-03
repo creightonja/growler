@@ -1,63 +1,55 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<body id="page-top" class="index">
   <header>
-    <div class="container">
-      <section id="contact">
+    <section id="contact">
         <div class="container">
           <div class="row">
               <div class="col-lg-12 text-center">
-                  <h3 class="section-heading">Welcome to Growlr</h3>
+                  <h3 class="section-heading">Keep Calm and Drink Beer</h3>
               </div>
           </div>
-          <div class="row">
-              <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-3">
-                        <form action="/profile" method="get">
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="username" id="user_name" name="user_name">
-                          </div>
-                          <div class="clearfix"></div>
-                            <div class="col-lg-6 text-center">
-                                <div id="success"></div>
-                                <button type="submit" class="btn btn-xl">Sign in</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-3"></div>
-                    <div class="col-md-3"></div>
-                    <div class="col-md-3">
-                        <form action="/create_user" method="post">
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="username" id="user_name" name="user_name">
-                          </div>
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="preferred style" id="preferred_style" name="preferred_style">
-                              <p class="help-block text-danger"></p>
-                          </div>
-                          <div class="form-group">
-                              <input type="text" class="form-control" placeholder="region" id="region" name=
-                            "region">
-                          </div>
-                          <div class="clearfix"></div>
-                          <div class="col-lg-6 text-center">
-                              <div id="success"></div>
-                              <button type="submit" class="btn btn-xl">Sign Up</button>
-                          </div>
-                        </form>
-                          </div>
-
+          <br>
+          <br>
+          <br>
+              <form action="/profile" method="get">
+                <div class="col-md-3">
+                  <div class="form-group">
+                      <input type="text" class="form-control" placeholder="username" id="user_name" name="user_name">
+                  </div>
+                  <div class="col-lg-6 text-center">
+                      <button type="submit" class="btn btn-xl">Sign in</button>
+                  </div>
+                </div>
+              </form>
+                <br>
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3">
+                    <form action="/create_user" method="post">
+                      <div class="form-group">
+                          <input type="text" class="form-control" placeholder="username" id="user_name" name="user_name">
                       </div>
-                  </form>
-              </div>
+                      <div class="form-group">
+                          <input type="text" class="form-control" placeholder="preferred style" id="preferred_style" name="preferred_style">
+                          <p class="help-block text-danger"></p>
+                      </div>
+                      <div class="form-group">
+                          <input type="text" class="form-control" placeholder="region" id="region" name=
+                        "region">
+                      </div>
+                      <div class="col-lg-6 text-center">
+                          <div id="success"></div>
+                          <button type="submit" class="btn btn-xl">Sign Up</button>
+                      </div>
+                    </form>
+                  </div>
+                </form>
+            </div>
           </div>
         </div>
     </section>
-
-        </div>
-    </header>
+  </header>
 
     <!-- Services Section -->
     <section id="services">
@@ -65,7 +57,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Features</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 class="section-subheading text-muted">See what makes us unique</h3>
                 </div>
             </div>
             <div class="row text-center">
@@ -75,15 +67,15 @@
                         <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Reviews</h4>
-                    <p class="text-muted">You can review beer you've tasted and other's reviews</p>
+                    <p class="text-muted">You can review beer you've tasted and see other's reviews</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Multiples search</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="service-heading">Multiples search on form</h4>
+                    <p class="text-muted">No needs to submit to separate forms for different results anymore </p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -91,7 +83,7 @@
                         <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Select by region</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <p class="text-muted">Different regions no problems</p>
                 </div>
             </div>
         </div>
@@ -143,4 +135,6 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
 {% endblock %}
+
+
 
