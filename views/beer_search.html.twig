@@ -73,7 +73,7 @@
         {% for beer in search_beer %}
         <div>
             <ul>
-                <h4>{{beer.getBeerName}}</h4>
+                <h4><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{beer.getBeerName}}</a></h4>
                 Brewery: {{beer.getBrewery}}<br>
                 Style: {{beer.getStyle}}<br>
                 ABV: {{beer.getAbv}}<br>

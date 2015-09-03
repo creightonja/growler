@@ -85,12 +85,12 @@
                     </div>
                 </div>
                 <div class="row" style="margin-top:50px;">
-                    <div class="col-md-6 text-center">
-                        <h3>Beers I have Tried:</h3>
+                    <div class="col-md-4 text-center">
+                        <h3 style="padding-bottom:25px">Beers I have Tried:</h3>
                         {% if user.getBeers is not empty %}
 
                             {% for beer in user.getBeers %}
-                                <ul class="list-group"><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a><br>
+                                <ul class="list-group"><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a> : {{ beer.getContainer }}<br>
                                     {% for review in reviews %}
                                         {% if review.getBeerId == beer.getId %}
                                             {% if review.getReview != null %}
@@ -109,7 +109,7 @@
                             No beers added yet!
                         {% endif %}
                     </div>
-                    <div class="col-md-6 text-center">
+                    <div class="col-md-4 text-center">
                         {% if new_beers is not empty %}
                                <h3>Try new beers in your preferred style!</h3>
                                {% for beer in new_beers %}
@@ -123,7 +123,22 @@
                                {% endfor %}
                            {% endif %}
                        </div>
-                   </div>
+
+                    <div class="col-md-4">
+                     {% if local_stores is not empty %}
+                          <h3 style="padding-bottom:20px;">Local stores in your area!</h3>
+                          {% for store in local_stores %}
+                          <div class="beer">
+                              <ul class="list-group">
+                                  <li class="list-group-item"><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a> : {{ store.getAddress }}</li>
+
+                              <ul>
+                          </div>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    </div>
+                </div>
             </div>
 
         </section>

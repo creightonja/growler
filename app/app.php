@@ -36,7 +36,8 @@
         $user = User::find("user_name", $_GET['user_name']);
         $reviews = Review::find("user_id", $user[0]->getId());
         $new_beers = User::findBeerStyle($user[0]->getId(), $user[0]->getPreferredStyle());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
+        $local_stores = Store::find("region",$user[0]->getRegion());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers, 'local_stores' => $local_stores));
     });
 
     //from index
@@ -47,7 +48,8 @@
         $user->save();
         $reviews = Review::find("user_id", $user->getId());
         $new_beers = User::findBeerStyle($user->getId(), $user->getPreferredStyle());
-        return $app['twig']->render('profile.html.twig', array('user' => $user, 'reviews' => $reviews, 'new_beers' => $new_beers));
+        $local_stores = Store::find("region",$user->getRegion());
+        return $app['twig']->render('profile.html.twig', array('user' => $user, 'reviews' => $reviews, 'new_beers' => $new_beers, 'local_stores' => $local_stores));
     });
 
     //from profile
@@ -68,7 +70,8 @@
         $user[0]->updateRegion($_POST['region']);
         $reviews = Review::find("user_id", $user[0]->getId());
         $new_beers = User::findBeerStyle($user[0]->getId(), $user[0]->getPreferredStyle());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
+        $local_stores = Store::find("region",$user[0]->getRegion());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers, 'local_stores' => $local_stores));
     });
 
 
@@ -110,8 +113,9 @@
         $user[0]->addBeer($beer_id);
         $reviews = Review::find("user_id", $user[0]->getId());
         $new_beers = User::findBeerStyle($user[0]->getId(), $user[0]->getPreferredStyle());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
-    });
+        $local_stores = Store::find("region",$user[0]->getRegion());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers, 'local_stores' => $local_stores));
+      });
 
     //from beers
     //display single beer
@@ -121,7 +125,7 @@
         $user = User::find("id", $user_id);
         $stores = $beer[0]->getStores();
         $reviews = Review::find("beer_id",$beer[0]->getId());
-        return $app['twig']->render('beer.html.twig', array('beer' => $beer[0], 'beers' => Beer::getAll(), 'users' => $beer[0]->getUsers(), 'all_users' => User::getAll(), 'stores'=> $beer[0]->getStores(), 'user'=> User::find("id", $user_id)[0], 'all_stores' => Store::getAll(), 'reviews' => $reviews));
+        return $app['twig']->render('beer.html.twig', array('beer' => $beer[0], 'beers' => Beer::getAll(), 'users' => $beer[0]->getUsers(), 'all_users' => User::getAll(), 'stores'=> $beer[0]->getStores(), 'user'=> $user[0], 'all_stores' => Store::getAll(), 'reviews' => $reviews));
     });
 
     //from beer/{id}
@@ -213,8 +217,9 @@
         $review[0]->update($_POST['beer_review'], $_POST['review_date']);
         $reviews = Review::find("user_id", $user[0]->getId());
         $new_beers = User::findBeerStyle($user[0]->getId(), $user[0]->getPreferredStyle());
-        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers));
-    });
+        $local_stores = Store::find("region",$user[0]->getRegion());
+        return $app['twig']->render('profile.html.twig', array('user' => $user[0], 'reviews' => $reviews, 'new_beers' => $new_beers, 'local_stores' => $local_stores));
+      });
 
 
     return $app;  //End of app, do not code below here
