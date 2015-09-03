@@ -10,29 +10,18 @@ _This app allows users to add bottled beer and the stores that sell bottled beer
 
 ## Setup
 
-- Run a php server from the /web directory
+
 - Download [composer](https://getcomposer.org/) to automatically load the following dependancies:
  - Silex - a microframework for organizing our project.
  - Twig - a templating engine to automate HTML work
  - PHPUnit - a testing framework to verify our functions are working properly.
+ - Start apache server
+ - Ensure that the mysql port is set correctly in the app file and start mysql.
+ - Import the growler.sql database and set a clone to growler_test if testing.
+ - Run a php server from the /web directory
 
 In the project folder, use the command `composer install` in the terminal to run composer.
 
-These instructions assume you are using mysql for your database.
-To set up a new database, run the following commands from terminal:
-```
-mysql.server start
-mysql -uroot -proot
-CREATE DATABASE shoes;
-USE shoes;
-CREATE TABLE brands (name VARCHAR (255), id serial PRIMARY KEY);
-CREATE TABLE stores (name VARCHAR (255), id serial PRIMARY KEY);
-CREATE TABLE brands_stores (brand_id INT, store_id INT, id serial PRIMARY KEY);
-```
-Access your database at localhost:8080/phpMyAdmin or whatever directory you have setup.
-
-If you'd like to use a sample database, select import in phpMyAdmin and choose
-the included database 'shoes.sql.zip'.
 
 If you wish to run the test functions, create a copy of the database named shoes_test and enter `./vendor/bin/phpunit tests` in the terminal from the project folder.
 
@@ -42,7 +31,7 @@ PHP, Silex, Twig, PHPUnit, mysql
 
 ### Legal
 
-Copyright (c) 2015 **_Steve Smietana_**
+Copyright (c) 2015 **_By Adam Won, Brian Borealis, Jason Creighton, Marvin Nikijuluw, and Steve Smietana_**
 
 This software is licensed under the MIT license.
 
