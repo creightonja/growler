@@ -67,7 +67,7 @@
         {% if beers is not empty %}
             <ul>
                 {% for beer in beers %}
-                    <li><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a></li>
+                    <li><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a>:  {{ beer.getContainer }}</li>
                 {% endfor %}
             </ul>
         {% else %}

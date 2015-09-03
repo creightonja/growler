@@ -46,9 +46,6 @@
                     <button type="submit" class="btn-warning btn-lg">Submit</button>
                 </div>
             </form>
-            </center>
-          </div>
-          <div class="col-md-6">
             {% if all_beers is not empty %}
                 <h3>Here are all the beers!</h3>
                     <ul>
@@ -57,7 +54,9 @@
                         {% endfor %}
                     </ul>
             {% endif %}
-            </div>
+            </center>
+          </div>
+
 
         <div class="col-md-3">
         {% if user.getUserName == "Admin" %}
@@ -118,8 +117,9 @@
                 </div>
               </form>
           {% endif %}
-        </div>
+      </div>
       </div>
     </div>
   </body>
+
 
