@@ -1,118 +1,154 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <title>Growlr - Store List</title>
-  </head>
+    <head>
+        <title>Growlr - Edit {{ user.getUserName }}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/agency.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    </head>
 
-  <body>
+    <body>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Growlr</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-warning ">Submit</button>
+            </form>
+
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
 
     <div class="container">
+        <div class="row">
+            <div class=col-md-12>
+            <center>
+            <section id="services">
+            <div class="container">
+                <div class="col-md-4">
+                <form action="/{{ user.getId }}/search_store" method="get" class="form-inline">
+                    <div class="form-group">
+                        <h1><label for="search_field">Store Search</label></h1>
+                        <select id = "search_field" name = "search_field" type = "text">
+                            <option value = "store_name">Store Name</option>
+                            <option value = "category"> Category </option>
+                            <option value = "region"> Region </option>
+                            <option value = "address"> Address </option>
+                        </select>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <input class="input-lg" id="search_term" name="search_term" type="text" placeholder="Search">
 
-        <form action="/{{ user.getId }}/search_store" method="get" class="form-inline">
-            <div class="form-group">
-                <label for="search_field">Store Search</label>
-
-                <select id = "search_field" name = "search_field" type = "text">
-                    <option value = "store_name">Store Name</option>
-                    <option value = "category"> Category </option>
-                    <option value = "region"> Region </option>
-                    <option value = "address"> Address </option>
-                </select>
+                        <button type="submit" class="btn-warning btn-lg">Submit</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <input id="search_term" name="search_term" type="text" placeholder="Search">
 
-                <button type="submit">Submit</button>
+            <div class="col-md-4">
+                {% if user.getUserName == "Admin" %}
+                    <h3>Add a New Store</h3>
+
+                    <form action="/{{ user.getId }}/stores" method="post">
+
+                        <input class="input-lg" id="store_name" name="store_name" type="text" placeholder="Business Name"><br>
+
+                        <input id="address" name="address" type="text" placeholder = "Address"><br>
+
+                        <label for="region">Region</label>
+                        <select id = "region" name = "region" type = "text">
+                            <option value = "North">North</option>
+                            <option value = "Northeast"> Northeast </option>
+                            <option value = "Northwest"> Northeast </option>
+                            <option value = "Southwest"> Southeast </option>
+                            <option value = "Southwest"> Southwest </option>
+                        </select><br>
+
+                        <label for="region">Business Type</label>
+                        <select id = "category" name = "category" type = "text">
+                            <option value = "Bar">Bar</option>
+                            <option value = "Bottle Shop">Bottle Shop</option>
+                            <option value = "Brewery">Brewery</option>
+                            <option value = "Grocery Store">Grocery Store</option>
+                            <option value = "Growler Fill">Growler Fill</option>
+                        </select><br>
+
+                        <button type="submit" class="btn-warning">Submit</button>
+                    </form>
+                {% endif %}
             </div>
-        </form>
 
-        <h2>Store List</h2>
-        {% if stores is not empty %}
-            <ul>
-                {% for store in stores %}
-                    <li><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a><br>
-                        {{ store.getAddress }}<br>
-                        {{ store.getRegion }}<br>
-                        {{ store.getCategory }}<br>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No stores have been added yet.</p>
-        {% endif %}
-        <br>
-
-        {% if user.getUserName == "Admin" %}
-            <h3>Add a New Store</h3>
-
-            <form action="/{{ user.getId }}/stores" method="post">
-
-                <input id="store_name" name="store_name" type="text" placeholder="Business Name"><br>
-
-                <input id="address" name="address" type="text" placeholder = "Address"><br>
-
-                <label for="region">Region</label>
-                <select id = "region" name = "region" type = "text">
-                    <option value = "North">North</option>
-                    <option value = "Northeast"> Northeast </option>
-                    <option value = "Northwest"> Northeast </option>
-                    <option value = "Southwest"> Southeast </option>
-                    <option value = "Southwest"> Southwest </option>
-                </select><br>
-
-                <label for="region">Business Type</label>
-                <select id = "category" name = "category" type = "text">
-                    <option value = "Bar">Bar</option>
-                    <option value = "Bottle Shop">Bottle Shop</option>
-                    <option value = "Brewery">Brewery</option>
-                    <option value = "Grocery Store">Grocery Store</option>
-                    <option value = "Growler Fill">Growler Fill</option>
-                </select><br>
-
-                <button type="submit">Submit</button>
-            </form>
-        {% endif %}
+                <div class="col-md-4">
+                <h2>Store List</h2>
+                {% if stores is not empty %}
+                    <ul>
+                        {% for store in stores %}
+                            <li><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a><br>
+                                {{ store.getAddress }}<br>
+                                {{ store.getRegion }}<br>
+                                {{ store.getCategory }}<br>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No stores have been added yet.</p>
+                {% endif %}
+            </div>
+                <br>
 
 
-        {% if user.getUserName == "Admin" %}
 
-            <h3>Add a New Store</h3>
+                <form action="/profile" method="get">
+                    <input name="user_name" type="hidden" value="{{ user.getUserName }}">
+                    <button type="submit" class="btn-warning btn-lg">Back</button>
+                </form>
+            </div>
 
-            <form action="/{{ user.getId }}/stores" method="post">
+            <!-- jQuery -->
+            <script src="js/jquery.js"></script>
 
-                <input id="store_name" name="store_name" type="text" placeholder="Business Name"><br>
+            <!-- Bootstrap Core JavaScript -->
+            <script src="js/bootstrap.min.js"></script>
 
-                <input id="address" name="address" type="text" placeholder = "Address"><br>
+            <!-- Plugin JavaScript -->
+            <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+            <script src="js/classie.js"></script>
+            <script src="js/cbpAnimatedHeader.js"></script>
 
-                <label for="region">Region</label>
-                <select id = "region" name = "region" type = "text">
-                    <option value = "North">North</option>
-                    <option value = "Northeast"> Northeast </option>
-                    <option value = "Northwest"> Northeast </option>
-                    <option value = "Southwest"> Southeast </option>
-                    <option value = "Southwest"> Southwest </option>
-                </select><br>
+            <!-- Contact Form JavaScript -->
+            <script src="js/jqBootstrapValidation.js"></script>
+            <script src="js/contact_me.js"></script>
 
-                <label for="region">Business Type</label>
-                <select id = "category" name = "category" type = "text">
-                    <option value = "Bar">Bar</option>
-                    <option value = "Bottle Shop">Bottle Shop</option>
-                    <option value = "Brewery">Brewery</option>
-                    <option value = "Grocery Store">Grocery Store</option>
-                    <option value = "Growler Fill">Growler Fill</option>
-                </select><br>
-
-                <button type="submit">Submit</button>
-            </form>
-
-        {% endif %}
-
-
-        <form action="/profile" method="get">
-            <input name="user_name" type="hidden" value="{{ user.getUserName }}">
-            <button type="submit">Back</button>
-        </form>
-
-    </div>
-
-  </body>
+            <!-- Custom Theme JavaScript -->
+            <script src="js/agency.js"></script>
+        </section>
+    </body>
 </html>
