@@ -83,7 +83,7 @@
                         <ul>
                             {% for beer in user.getBeers %}
                                 <li>
-                                    <a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a><br>
+                                    <a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a>: {{ beer.getContainer }}<br>
                                     {% for review in reviews %}
                                         {% if review.getBeerId == beer.getId %}
                                             {% if review.getReview != null %}
@@ -117,6 +117,7 @@
                     </div>
                 </div>
             </div>
+
          {% if new_beers is not empty %}
                 <h4>Try new beers in your preferred style!</h4>
                 {% for beer in new_beers %}
@@ -129,6 +130,18 @@
                 </div>
                 {% endfor %}
             {% endif %}
+
+            {% if local_stores is not empty %}
+                   <h4>Local stores in your area!</h4>
+                   {% for store in local_stores %}
+                   <div class="beer">
+                       <ul><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a>
+                           <li>{{ store.getAddress }}</li>
+
+                       <ul>
+                   </div>
+                   {% endfor %}
+               {% endif %}
         </section>
         <!-- jQuery -->
     <script src="js/jquery.js"></script>
