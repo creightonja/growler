@@ -19,11 +19,7 @@
                     <button type="submit" class="btn btn-xl">Logout</button>
                 </form>
             </div>
-
-
-
-
-                <h4>My Beer List:</h4>
+            <h4>My Beer List:</h4>
                 {% if user.getBeers is not empty %}
                 <ul>
                     {% for beer in user.getBeers %}
@@ -56,7 +52,19 @@
                     <button type="submit">View Stores</button>
                 </form>
 
-            </div>
-        </section>
-    </header>
-    {% endblock %}
+
+            {% if new_beers is not empty %}
+                <h4>Try new beers in your preferred style!</h4>
+                {% for beer in new_beers %}
+                <div class="beer">
+                    <ul><a href="/{{ user.getId }}/beer/{{ beer.getId }}">{{ beer.getBeerName }}</a>
+                        <li>{{ beer.getBrewery }}</li>
+                        <li>ABV : {{ beer.getAbv }}</li>
+                        <li>IBU : {{ beer.getIbu }}</li>
+                    <ul>
+                </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+        {% endblock %}
