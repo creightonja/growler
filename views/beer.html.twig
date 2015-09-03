@@ -28,7 +28,7 @@
             {% endif %}
 
             {% if user.getUserName == "Admin" %}
-                <form action="/beer/{{ beer.getId }}/edit">
+                <form action="/{{ user.getId }}/beer/{{ beer.getId }}/edit">
                     <button type="submit">Edit Beer</button>
                 </form>
 
