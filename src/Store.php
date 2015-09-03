@@ -126,9 +126,9 @@
             return $unique_column_ids;
         }
 
-        function addBeer($beer)
+        function addBeer($beer_id)
         {
-            $GLOBALS['DB']->exec("INSERT INTO beers_stores (beer_id, store_id) VALUES ({$beer}, {$this->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO beers_stores (beer_id, store_id) VALUES ({$beer_id}, {$this->getId()});");
         }
 
         function getBeers()
