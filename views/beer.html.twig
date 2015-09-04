@@ -7,9 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/agency.css" rel="stylesheet">
-        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/agency.css" rel="stylesheet">
+        <link href="../../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
         <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -49,44 +49,49 @@
       </nav>
 
         <div class="container">
-            <h2>{{ beer.getBeerName }}</h2>
-
-            <img src="/../{{ beer.getImage }}" alt="Beer"><br>
-
-            Style: {{ beer.getStyle }}<br>
-            ABV (%): {{ beer.getAbv }}<br>
-            IBU: {{ beer.getIbu }}<br>
-            Container Type: {{ beer.getContainer }}<br>
-            Brewery Name: {{ beer.getbrewery }}<br><br>
-
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>{{ beer.getBeerName }}</h2>
+                    <img src="/../{{ beer.getImage }}" alt="Beer">
+                </div>
+                <div class="col-md-6" style="margin-top:280px">
+                    <ul class="list-group" style="margin-bottom:30px;">
+                        <li class="list-group-item">Style: {{ beer.getStyle }}</li>
+                        <li class="list-group-item">ABV (%): {{ beer.getAbv }}</li>
+                        <li class="list-group-item">IBU: {{ beer.getIbu }}</li>
+                        <li class="list-group-item">Container Type: {{ beer.getContainer }}</li>
+                        <li class="list-group-item">Brewery Name: {{ beer.getbrewery }}</li>
+                    <ul>
+                </div>
+            </div>
             <form action="/{{ user.getId }}/drank_beer/{{ beer.getId }}" method="post">
-                <button type="submit">Drank It!</button>
+                <button type="submit" class="btn btn-warning">Drank It!</button>
             </form>
 
             {% if stores is not empty %}
                 <h3>{{ beer.getBeerName }} is available at the following locations:</h3>
-                <ul>
+                <ul class="list-group">
                     {% for store in stores %}
-                        <li><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a></li>
+                        <li class="list-group-item"><a href="/{{ user.getId }}/store/{{ store.getId }}">{{ store.getStoreName }}</a></li>
                     {% endfor %}
                 </ul>
             {% endif %}
 
             {% if user.getUserName == "Admin" %}
                 <form action="/{{ user.getId }}/beer/{{ beer.getId }}/edit">
-                    <button type="submit">Edit Beer</button>
+                    <button type="submit" class="btn btn-warning">Edit Beer</button>
                 </form>
 
                 <form action="/{{ user.getId }}/beer/{{ beer.getId }}" method="post">
 
                     <label for="store">Store Name</label>
-                    <select id = "store_id" name = "store_id" type = "text">
+                    <select id = "store_id" name = "store_id" type = "text" style="margin-right:20px;">
                         {% for store in all_stores %}
                             <option value = "{{ store.getId() }}"> {{ store.getStoreName() }} </option>
                         {% endfor %}
-                    </select><br>
+                    </select>
 
-                    <button type="submit">Submit</button>
+                    <button type="submit" class="btn btn-warning">Submit</button>
                 </form>
             {% endif %}
                 {% if reviews is not empty %}
@@ -105,10 +110,9 @@
                 {% endif %}
 
                 <form action="/{{ user.getId }}/beers">
-                    <button type="submit">Back</button>
+                    <button type="submit" class="btn btn-warning">Back</button>
                 </form>
 
         </div>
         </body
         </html>
-
